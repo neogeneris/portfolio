@@ -1211,26 +1211,57 @@
       background: var(--bg-primary);
     }
     
-    .location-grid {
+    .location-header {
+      text-align: center;
+      max-width: 700px;
+      margin: 0 auto 60px;
+    }
+    
+    .location-header h2 {
+      color: var(--text-primary);
+    }
+    
+    .location-header p {
+      font-size: 1.1rem;
+    }
+    
+    .location-item {
       display: grid;
       grid-template-columns: 1fr 1.5fr;
       gap: 60px;
       align-items: stretch;
+      margin-bottom: 80px;
     }
     
-    .location-info h2 {
+    .location-item:last-child {
+      margin-bottom: 0;
+    }
+    
+    .location-item-info h3 {
       color: var(--text-primary);
+      font-size: 1.8rem;
+      margin-bottom: 8px;
     }
     
-    .location-info > p {
-      margin-bottom: 32px;
+    .location-item-subtitle {
+      font-family: var(--font-heading);
+      font-size: 0.85rem;
+      font-weight: 600;
+      color: var(--racing-red);
+      text-transform: uppercase;
+      letter-spacing: 0.15em;
+      margin-bottom: 20px;
+      display: block;
+    }
+    
+    .location-item-info > p {
+      margin-bottom: 24px;
     }
     
     .location-card {
       background: var(--card-bg);
       border: 1px solid var(--border-color);
-      padding: 32px;
-      margin-bottom: 24px;
+      padding: 24px;
       box-shadow: var(--card-shadow);
       transition: all var(--transition-speed) ease;
     }
@@ -1242,50 +1273,51 @@
     .location-card-header {
       display: flex;
       align-items: center;
-      gap: 16px;
-      margin-bottom: 20px;
-      padding-bottom: 16px;
+      gap: 12px;
+      margin-bottom: 16px;
+      padding-bottom: 12px;
       border-bottom: 1px solid var(--border-color);
       transition: border-color var(--transition-speed) ease;
     }
     
     .location-card-icon {
-      width: 48px;
-      height: 48px;
+      width: 40px;
+      height: 40px;
       background: linear-gradient(135deg, var(--racing-red), var(--racing-red-dark));
       display: flex;
       align-items: center;
       justify-content: center;
       color: #ffffff;
-      font-size: 1.3rem;
+      font-size: 1.1rem;
+      flex-shrink: 0;
     }
     
-    .location-card-header h3 {
+    .location-card-header h4 {
       font-family: var(--font-heading);
-      font-size: 1.2rem;
+      font-size: 1.1rem;
       margin: 0;
     }
     
     .location-details {
       display: flex;
       flex-direction: column;
-      gap: 12px;
+      gap: 10px;
     }
     
     .location-detail {
       display: flex;
       align-items: flex-start;
-      gap: 12px;
+      gap: 10px;
     }
     
     .location-detail-icon {
       color: var(--racing-red);
-      font-size: 1rem;
+      font-size: 0.9rem;
       margin-top: 2px;
     }
     
     .location-detail-text {
-      font-size: 1rem;
+      font-size: 0.95rem;
       color: var(--text-secondary);
     }
     
@@ -1297,8 +1329,8 @@
     .location-actions {
       display: flex;
       flex-direction: column;
-      gap: 12px;
-      margin-top: 24px;
+      gap: 10px;
+      margin-top: 20px;
     }
     
     .location-btn {
@@ -1306,9 +1338,9 @@
       align-items: center;
       justify-content: center;
       gap: 8px;
-      padding: 14px 24px;
+      padding: 12px 20px;
       font-family: var(--font-heading);
-      font-size: 0.9rem;
+      font-size: 0.85rem;
       font-weight: 600;
       text-transform: uppercase;
       letter-spacing: 0.1em;
@@ -1339,7 +1371,7 @@
     
     .map-wrapper {
       height: 100%;
-      min-height: 500px;
+      min-height: 400px;
       border: 1px solid var(--border-color);
       overflow: hidden;
       box-shadow: var(--card-shadow);
@@ -1795,8 +1827,18 @@
         grid-template-columns: 1fr;
       }
 
+      .location-item {
+        grid-template-columns: 1fr;
+        gap: 30px;
+        margin-bottom: 60px;
+      }
+
+      .location-item:last-child {
+        margin-bottom: 0;
+      }
+
       .map-wrapper {
-        min-height: 350px;
+        min-height: 300px;
         order: -1;
       }
     }
@@ -2210,21 +2252,71 @@
   <!-- Location Section -->
   <section class="location" id="location">
     <div class="container">
-      <div class="location-grid">
-        <div class="location-info fade-in">
-          <span class="section-label">Find Us</span>
-          <h2>Our Track Location</h2>
-          <p>Train with VEON MotorSports at MSR Houston, one of the premier motorsport facilities in Texas. Our state-of-the-art track provides the perfect environment for driver development at all levels.</p>
+      <div class="location-header fade-in">
+        <span class="section-label">Find Us</span>
+        <h2>Our Track Locations</h2>
+        <p>Train with VEON MotorSports at premier motorsport facilities in Texas. Multiple locations to serve your driver development needs.</p>
+      </div>
+      
+      <!-- Speedsportz Racing Park (First) -->
+      <div class="location-item fade-in">
+        <div class="location-item-info">
+          <span class="location-item-subtitle">Primary Location</span>
+          <h3>Speedsportz Racing Park</h3>
+          <p>Our main training facility featuring a world-class karting track and professional amenities for driver development.</p>
           
           <div class="location-card">
             <div class="location-card-header">
               <div class="location-card-icon">📍</div>
-              <h3>MSR Houston</h3>
+              <h4>Address</h4>
             </div>
             <div class="location-details">
               <div class="location-detail">
                 <span class="location-detail-icon">●</span>
-                <span class="location-detail-text"><strong>Address:</strong> 1 Performance Drive, Angleton, TX 77515</span>
+                <span class="location-detail-text"><strong>Location:</strong> 23050 Speed St, New Caney, TX 77357</span>
+              </div>
+              <div class="location-detail">
+                <span class="location-detail-icon">●</span>
+                <span class="location-detail-text"><strong>Website:</strong> <a href="http://www.speedsportzracingpark.com/" target="_blank" rel="noopener noreferrer">speedsportzracingpark.com</a></span>
+              </div>
+            </div>
+            <div class="location-actions">
+              <a href="https://www.google.com/maps/dir//23050+Speed+St,+New+Caney,+TX+77357" target="_blank" rel="noopener noreferrer" class="location-btn location-btn-primary">
+                <span>📍</span> Get Directions
+              </a>
+              <a href="http://www.speedsportzracingpark.com/" target="_blank" rel="noopener noreferrer" class="location-btn location-btn-secondary">
+                <span>🌐</span> Visit Website
+              </a>
+            </div>
+          </div>
+        </div>
+        <div class="map-wrapper">
+          <iframe 
+            src="https://maps.google.com/maps?q=23050%20Speed%20St%2C%20New%20Caney%2C%20TX%2077357&t=h&z=15&output=embed&iwloc=near"
+            allowfullscreen=""
+            loading="lazy"
+            referrerpolicy="no-referrer-when-downgrade"
+            title="VEON MotorSports Location - Speedsportz Racing Park">
+          </iframe>
+        </div>
+      </div>
+      
+      <!-- MSR Houston (Second) -->
+      <div class="location-item fade-in">
+        <div class="location-item-info">
+          <span class="location-item-subtitle">Secondary Location</span>
+          <h3>MSR Houston</h3>
+          <p>An excellent alternative facility for additional track time and specialized training sessions.</p>
+          
+          <div class="location-card">
+            <div class="location-card-header">
+              <div class="location-card-icon">📍</div>
+              <h4>Address</h4>
+            </div>
+            <div class="location-details">
+              <div class="location-detail">
+                <span class="location-detail-icon">●</span>
+                <span class="location-detail-text"><strong>Location:</strong> 1 Performance Drive, Angleton, TX 77515</span>
               </div>
               <div class="location-detail">
                 <span class="location-detail-icon">●</span>
@@ -2238,7 +2330,7 @@
             </div>
           </div>
         </div>
-        <div class="map-wrapper fade-in">
+        <div class="map-wrapper">
           <iframe 
             src="https://maps.google.com/maps?q=1%20Performance%20Drive%2C%20Angleton%2C%20TX%2077515&t=h&z=15&output=embed&iwloc=near"
             allowfullscreen=""
@@ -2264,7 +2356,7 @@
               <div class="contact-item-icon">✉</div>
               <div class="contact-item-content">
                 <h4>Email</h4>
-                <p><a href="/cdn-cgi/l/email-protection#c5acaba3aa85b3a0aaaba8aab1aab7b6b5aab7b1eba6aaa8"><span class="__cf_email__" data-cfemail="c9a0a7afa689bfaca6a7a4a6bda6bbbab9a6bbbde7aaa6a4">[email&#160;protected]</span></a></p>
+                <p><a href="/cdn-cgi/l/email-protection#a2cbccc4cde2d4c7cdcccfcdd6cdd0d1d2cdd0d68cc1cdcf"><span class="__cf_email__" data-cfemail="0a63646c654a7c6f656467657e6578797a65787e24696567">[email&#160;protected]</span></a></p>
               </div>
             </div>
             <div class="contact-item">
@@ -2343,6 +2435,7 @@
         <h4>Company</h4>
         <ul>
           <li><a href="#about">About Us</a></li>
+          <li><a href="#location">Locations</a></li>
           <li><a href="#philosophy">Philosophy</a></li>
           <li><a href="#contact">Contact</a></li>
         </ul>
