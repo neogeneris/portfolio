@@ -14,26 +14,27 @@
        WITH LIGHT/DARK THEME TOGGLE
        ======================================== */
     :root {
-      /* Color Palette - Light Theme (Default) */
-      --bg-primary: #ffffff;
-      --bg-secondary: #f8f9fa;
-      --surface-gray: #f3f4f6;
-      --card-bg: #ffffff;
-      --text-primary: #111827;
-      --text-secondary: #4b5563;
-      --text-muted: #9ca3af;
+      /* Color Palette - Light Theme (Default) with Ice Blue Background */
+      --bg-primary: #E3F2FD;
+      --bg-secondary: #F0F8FF;
+      --surface-gray: #BBDEFB;
+      --card-bg: #FFFFFF;
+      --text-primary: #0D47A1;
+      --text-secondary: #1565C0;
+      --text-muted: #42A5F5;
       
       /* Chromatic Elements */
-      --chrome-start: #e5e7eb;
-      --chrome-end: #9ca3af;
+      --chrome-start: #E3F2FD;
+      --chrome-end: #64B5F6;
       
-      /* Racing Orange Accent */
-      --racing-red: #FF4500;
-      --racing-red-dark: #E03E00;
+      /* Racing Neon Accents */
+      --racing-red: #FF5F00;
+      --racing-red-dark: #E04E00;
+      --neon-yellow: #EAFF00;
       
       /* Borders & Dividers */
-      --border-color: #e5e7eb;
-      --border-hover: rgba(255, 69, 0, 0.3);
+      --border-color: #90CAF9;
+      --border-hover: rgba(255, 95, 0, 0.3);
       
       /* Typography */
       --font-heading: 'Chakra Petch', sans-serif;
@@ -45,29 +46,31 @@
       
       /* Effects */
       --skew-angle: -12deg;
-      --glow-red: 0 0 20px rgba(255, 69, 0, 0.4);
-      --card-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+      --glow-red: 0 0 20px rgba(255, 95, 0, 0.4);
+      --glow-yellow: 0 0 15px rgba(234, 255, 0, 0.5);
+      --card-shadow: 0 4px 6px -1px rgba(13, 71, 161, 0.15);
       --transition-speed: 0.3s;
     }
 
-    /* Dark Theme Override */
+    /* Dark Theme Override with Dark Blue-Gray Tones */
     [data-theme="dark"] {
-      --bg-primary: #0a0a0a;
-      --bg-secondary: #121212;
-      --surface-gray: #1a1a1a;
-      --card-bg: #1a1a1a;
-      --text-primary: #e5e5e5;
-      --text-secondary: #9ca3af;
-      --text-muted: #6b7280;
+      --bg-primary: #050A10;
+      --bg-secondary: #0A1420;
+      --surface-gray: #15202B;
+      --card-bg: #0D1B2A;
+      --text-primary: #E3F2FD;
+      --text-secondary: #90CAF9;
+      --text-muted: #64B5F6;
       
-      --chrome-start: #e8e8e8;
-      --chrome-end: #a9a9a9;
+      --chrome-start: #E3F2FD;
+      --chrome-end: #4FC3F7;
       
-      --racing-red: #FF3800;
-      --racing-red-dark: #CC2E00;
+      --racing-red: #FF5F00;
+      --racing-red-dark: #E04E00;
+      --neon-yellow: #EAFF00;
       
-      --border-color: rgba(169, 169, 169, 0.1);
-      --border-hover: rgba(255, 56, 0, 0.3);
+      --border-color: rgba(144, 202, 249, 0.15);
+      --border-hover: rgba(255, 95, 0, 0.3);
       
       --card-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.5);
     }
@@ -178,7 +181,7 @@
     }
 
     [data-theme="dark"] .navbar {
-      background: rgba(10, 10, 10, 0.95);
+      background: rgba(5, 10, 16, 0.95);
     }
 
     .navbar.scrolled {
@@ -359,14 +362,14 @@
       position: relative;
       background: 
         linear-gradient(135deg, var(--bg-primary) 0%, var(--bg-secondary) 100%),
-        url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><defs><pattern id="grid" width="10" height="10" patternUnits="userSpaceOnUse"><path d="M 10 0 L 0 0 0 10" fill="none" stroke="%23e5e7eb" stroke-width="0.5"/></pattern></defs><rect width="100" height="100" fill="url(%23grid)"/></svg>');
+        url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><defs><pattern id="grid" width="10" height="10" patternUnits="userSpaceOnUse"><path d="M 10 0 L 0 0 0 10" fill="none" stroke="%2390CAF9" stroke-width="0.5"/></pattern></defs><rect width="100" height="100" fill="url(%23grid)"/></svg>');
       overflow: hidden;
     }
 
     [data-theme="dark"] .hero {
       background: 
-        linear-gradient(135deg, rgba(10, 10, 10, 0.95) 0%, rgba(20, 20, 20, 0.8) 100%),
-        url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><defs><pattern id="grid" width="10" height="10" patternUnits="userSpaceOnUse"><path d="M 10 0 L 0 0 0 10" fill="none" stroke="%231a1a1a" stroke-width="0.5"/></pattern></defs><rect width="100" height="100" fill="url(%23grid)"/></svg>');
+        linear-gradient(135deg, rgba(5, 10, 16, 0.95) 0%, rgba(10, 20, 32, 0.85) 100%),
+        url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><defs><pattern id="grid" width="10" height="10" patternUnits="userSpaceOnUse"><path d="M 10 0 L 0 0 0 10" fill="none" stroke="%2315202B" stroke-width="0.5"/></pattern></defs><rect width="100" height="100" fill="url(%23grid)"/></svg>');
     }
 
     .hero::before {
@@ -377,8 +380,8 @@
       right: 0;
       bottom: 0;
       background: 
-        linear-gradient(45deg, transparent 40%, rgba(255, 56, 0, 0.03) 50%, transparent 60%),
-        linear-gradient(-45deg, transparent 40%, rgba(255, 56, 0, 0.03) 50%, transparent 60%);
+        linear-gradient(45deg, transparent 40%, rgba(255, 95, 0, 0.04) 50%, transparent 60%),
+        linear-gradient(-45deg, transparent 40%, rgba(255, 95, 0, 0.04) 50%, transparent 60%);
       pointer-events: none;
       transition: opacity var(--transition-speed) ease;
     }
@@ -509,9 +512,10 @@
     }
 
     .carousel-dot.active {
-      background: var(--racing-red);
-      border-color: var(--racing-red);
+      background: var(--neon-yellow);
+      border-color: var(--neon-yellow);
       transform: scale(1.2);
+      box-shadow: var(--glow-yellow);
     }
 
     @media (max-width: 768px) {
@@ -616,8 +620,8 @@
     .scroll-line {
       width: 2px;
       height: 40px;
-      background: linear-gradient(to bottom, var(--racing-red), transparent);
-      box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+      background: linear-gradient(to bottom, var(--neon-yellow), transparent);
+      box-shadow: 0 0 10px rgba(234, 255, 0, 0.3);
     }
 
     @keyframes bounce {
@@ -2260,7 +2264,7 @@
               <div class="contact-item-icon">✉</div>
               <div class="contact-item-content">
                 <h4>Email</h4>
-                <p><a href="/cdn-cgi/l/email-protection#167f78707956607379787b7962796465667964623875797b"><span class="__cf_email__" data-cfemail="d3babdb5bc93a5b6bcbdbebca7bca1a0a3bca1a7fdb0bcbe">[email&#160;protected]</span></a></p>
+                <p><a href="/cdn-cgi/l/email-protection#3b52555d547b4d5e545556544f5449484b54494f15585456"><span class="__cf_email__" data-cfemail="741d1a121b3402111b1a191b001b0607041b06005a171b19">[email&#160;protected]</span></a></p>
               </div>
             </div>
             <div class="contact-item">
