@@ -1,0 +1,2709 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>VEON MotorSports | Professional Driver Development</title>
+  <meta name="description" content="VEON MotorSports is a driver development program focused on shifter karting and the transition to open-wheel formula cars such as FE2 and F4." />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Chakra+Petch:ital,wght@0,400;0,600;0,700;1,400&family=Rajdhani:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    /* ========================================
+       VEON MOTORSPORTS - DESIGN SYSTEM
+       WITH LIGHT/DARK THEME TOGGLE
+       ======================================== */
+    :root {
+      /* Color Palette - Light Theme (Default) with Ice Blue Background */
+      --bg-primary: #E3F2FD;
+      --bg-secondary: #F0F8FF;
+      --surface-gray: #BBDEFB;
+      --card-bg: #FFFFFF;
+      --text-primary: #0D47A1;
+      --text-secondary: #1565C0;
+      --text-muted: #42A5F5;
+      
+      /* Chromatic Elements */
+      --chrome-start: #E3F2FD;
+      --chrome-end: #64B5F6;
+      
+      /* Racing Neon Accents */
+      --racing-red: #FF5F00;
+      --racing-red-dark: #E04E00;
+      --neon-yellow: #EAFF00;
+      
+      /* Borders & Dividers */
+      --border-color: #90CAF9;
+      --border-hover: rgba(255, 95, 0, 0.3);
+      
+      /* Typography */
+      --font-heading: 'Chakra Petch', sans-serif;
+      --font-body: 'Rajdhani', sans-serif;
+      
+      /* Spacing */
+      --section-padding: 100px 24px;
+      --container-max: 1200px;
+      
+      /* Effects */
+      --skew-angle: -12deg;
+      --glow-red: 0 0 20px rgba(255, 95, 0, 0.4);
+      --glow-yellow: 0 0 15px rgba(234, 255, 0, 0.5);
+      --card-shadow: 0 4px 6px -1px rgba(13, 71, 161, 0.15);
+      --transition-speed: 0.3s;
+    }
+
+    /* Dark Theme Override with Dark Blue-Gray Tones */
+    [data-theme="dark"] {
+      --bg-primary: #050A10;
+      --bg-secondary: #0A1420;
+      --surface-gray: #15202B;
+      --card-bg: #0D1B2A;
+      --text-primary: #E3F2FD;
+      --text-secondary: #90CAF9;
+      --text-muted: #64B5F6;
+      
+      --chrome-start: #E3F2FD;
+      --chrome-end: #4FC3F7;
+      
+      --racing-red: #FF5F00;
+      --racing-red-dark: #E04E00;
+      --neon-yellow: #EAFF00;
+      
+      --border-color: rgba(144, 202, 249, 0.15);
+      --border-hover: rgba(255, 95, 0, 0.3);
+      
+      --card-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.5);
+    }
+
+    /* Reset & Base */
+    *, *::before, *::after {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      font-family: var(--font-body);
+      background-color: var(--bg-primary);
+      color: var(--text-primary);
+      line-height: 1.7;
+      overflow-x: hidden;
+      transition: background-color var(--transition-speed) ease, color var(--transition-speed) ease;
+    }
+
+    /* ========================================
+       TYPOGRAPHY
+       ======================================== */
+    h1, h2, h3, h4, h5, h6 {
+      font-family: var(--font-heading);
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      transition: color var(--transition-speed) ease;
+    }
+
+    h1 {
+      font-size: clamp(2.5rem, 8vw, 5rem);
+      font-style: italic;
+      line-height: 1;
+    }
+
+    h2 {
+      font-size: clamp(1.8rem, 4vw, 2.8rem);
+      margin-bottom: 1.5rem;
+      position: relative;
+      display: inline-block;
+    }
+
+    h2::after {
+      content: '';
+      position: absolute;
+      bottom: -8px;
+      left: 0;
+      width: 60px;
+      height: 4px;
+      background: linear-gradient(90deg, var(--racing-red), transparent);
+      transition: background var(--transition-speed) ease;
+    }
+
+    h3 {
+      font-size: 1.4rem;
+      margin-bottom: 1rem;
+      color: var(--text-primary);
+      transition: color var(--transition-speed) ease;
+    }
+
+    p {
+      font-size: 1.1rem;
+      color: var(--text-secondary);
+      font-weight: 500;
+      transition: color var(--transition-speed) ease;
+    }
+
+    /* ========================================
+       UTILITIES
+       ======================================== */
+    .container {
+      max-width: var(--container-max);
+      margin: 0 auto;
+      padding: 0 24px;
+    }
+
+    .section-label {
+      font-family: var(--font-heading);
+      font-size: 0.85rem;
+      font-weight: 600;
+      color: var(--racing-red);
+      text-transform: uppercase;
+      letter-spacing: 0.2em;
+      margin-bottom: 0.5rem;
+      display: block;
+    }
+
+    /* ========================================
+       NAVIGATION
+       ======================================== */
+    .navbar {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      z-index: 1000;
+      background: rgba(255, 255, 255, 0.95);
+      backdrop-filter: blur(10px);
+      border-bottom: 1px solid var(--border-color);
+      padding: 16px 0;
+      transition: all var(--transition-speed) ease;
+    }
+
+    [data-theme="dark"] .navbar {
+      background: rgba(5, 10, 16, 0.95);
+    }
+
+    .navbar.scrolled {
+      padding: 12px 0;
+      box-shadow: var(--card-shadow);
+    }
+
+    .nav-container {
+      max-width: var(--container-max);
+      margin: 0 auto;
+      padding: 0 24px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .nav-left {
+      display: flex;
+      align-items: center;
+      gap: 40px;
+    }
+
+    .nav-logo {
+      font-family: var(--font-heading);
+      font-size: 1.5rem;
+      font-weight: 700;
+      font-style: italic;
+      color: var(--text-primary);
+      text-decoration: none;
+      background: linear-gradient(135deg, var(--text-primary), var(--text-secondary));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      transition: all var(--transition-speed) ease;
+    }
+
+    .nav-logo span {
+      color: var(--racing-red);
+      -webkit-text-fill-color: var(--racing-red);
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 32px;
+      list-style: none;
+    }
+
+    .nav-links a {
+      font-family: var(--font-heading);
+      font-size: 0.9rem;
+      font-weight: 600;
+      color: var(--text-secondary);
+      text-decoration: none;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      position: relative;
+      padding: 8px 0;
+      transition: color var(--transition-speed) ease;
+    }
+
+    .nav-links a::after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      width: 0;
+      height: 2px;
+      background: var(--racing-red);
+      transition: width var(--transition-speed) ease;
+    }
+
+    .nav-links a:hover {
+      color: var(--text-primary);
+    }
+
+    .nav-links a:hover::after {
+      width: 100%;
+    }
+
+    .nav-right {
+      display: flex;
+      align-items: center;
+      gap: 20px;
+    }
+
+    /* Theme Toggle Switch */
+    .theme-toggle {
+      position: relative;
+      width: 52px;
+      height: 28px;
+      background: var(--surface-gray);
+      border: 1px solid var(--border-color);
+      border-radius: 28px;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 3px;
+      transition: all var(--transition-speed) ease;
+    }
+
+    .theme-toggle:hover {
+      border-color: var(--racing-red);
+    }
+
+    .theme-toggle .icon {
+      width: 18px;
+      height: 18px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: all var(--transition-speed) ease;
+    }
+
+    .theme-toggle .sun-icon {
+      color: var(--racing-red);
+      opacity: 0;
+      transform: rotate(-90deg) scale(0.5);
+    }
+
+    .theme-toggle .moon-icon {
+      color: var(--text-secondary);
+      opacity: 1;
+      transform: rotate(0deg) scale(1);
+    }
+
+    [data-theme="dark"] .theme-toggle .sun-icon {
+      opacity: 1;
+      transform: rotate(0deg) scale(1);
+    }
+
+    [data-theme="dark"] .theme-toggle .moon-icon {
+      opacity: 0;
+      transform: rotate(90deg) scale(0.5);
+    }
+
+    .theme-toggle .toggle-thumb {
+      position: absolute;
+      left: 3px;
+      width: 20px;
+      height: 20px;
+      background: var(--text-primary);
+      border-radius: 50%;
+      transition: all var(--transition-speed) ease;
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+    }
+
+    [data-theme="dark"] .theme-toggle .toggle-thumb {
+      left: 27px;
+      background: var(--racing-red);
+    }
+
+    .mobile-menu-btn {
+      display: none;
+      flex-direction: column;
+      gap: 5px;
+      background: none;
+      border: none;
+      cursor: pointer;
+      padding: 5px;
+    }
+
+    .mobile-menu-btn span {
+      width: 25px;
+      height: 2px;
+      background: var(--text-primary);
+      transition: all var(--transition-speed) ease;
+    }
+
+    /* ========================================
+       HERO SECTION
+       ======================================== */
+    .hero {
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+      background: 
+        linear-gradient(135deg, var(--bg-primary) 0%, var(--bg-secondary) 100%),
+        url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><defs><pattern id="grid" width="10" height="10" patternUnits="userSpaceOnUse"><path d="M 10 0 L 0 0 0 10" fill="none" stroke="%2390CAF9" stroke-width="0.5"/></pattern></defs><rect width="100" height="100" fill="url(%23grid)"/></svg>');
+      overflow: hidden;
+    }
+
+    [data-theme="dark"] .hero {
+      background: 
+        linear-gradient(135deg, rgba(5, 10, 16, 0.95) 0%, rgba(10, 20, 32, 0.85) 100%),
+        url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><defs><pattern id="grid" width="10" height="10" patternUnits="userSpaceOnUse"><path d="M 10 0 L 0 0 0 10" fill="none" stroke="%2315202B" stroke-width="0.5"/></pattern></defs><rect width="100" height="100" fill="url(%23grid)"/></svg>');
+    }
+
+    .hero-video-bg {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      z-index: 0;
+    }
+
+    .hero-video-overlay {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0, 0, 0, 0.4);
+      z-index: 1;
+    }
+
+    .hero::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: 
+        linear-gradient(45deg, transparent 40%, rgba(255, 95, 0, 0.04) 50%, transparent 60%),
+        linear-gradient(-45deg, transparent 40%, rgba(255, 95, 0, 0.04) 50%, transparent 60%);
+      pointer-events: none;
+      transition: opacity var(--transition-speed) ease;
+      z-index: 2;
+    }
+
+    .hero-content {
+      text-align: center;
+      z-index: 10;
+      padding: 0 24px;
+    }
+
+    .hero h1 {
+      background: linear-gradient(135deg, #ffffff, #e0e0e0);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      margin-bottom: 1.5rem;
+      transition: background var(--transition-speed) ease;
+      /* Text stroke for contrast on photos */
+      filter: drop-shadow(2px 2px 4px rgba(0, 0, 0, 0.8)) drop-shadow(-1px -1px 2px rgba(0, 0, 0, 0.8));
+    }
+
+    .hero-subtitle {
+      font-family: var(--font-heading);
+      font-size: clamp(1rem, 2vw, 1.3rem);
+      font-weight: 400;
+      color: #ffffff;
+      max-width: 700px;
+      margin: 0 auto 2.5rem;
+      letter-spacing: 0.1em;
+      /* Text stroke for contrast on photos */
+      text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.7), -1px -1px 2px rgba(0, 0, 0, 0.7), 1px -1px 2px rgba(0, 0, 0, 0.7), -1px 1px 2px rgba(0, 0, 0, 0.7);
+    }
+
+    /* ========================================
+       HERO CAROUSEL
+       ======================================== */
+    .hero-carousel {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      overflow: hidden;
+      z-index: 1;
+    }
+
+    .hero-slide {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      opacity: 0;
+      transition: opacity 0.8s ease;
+      background-size: cover;
+      background-position: center;
+    }
+
+    .hero-slide.active {
+      opacity: 1;
+    }
+
+    .hero-slide::after {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0, 0, 0, 0.4);
+    }
+
+    .carousel-arrow {
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      width: 50px;
+      height: 50px;
+      background: rgba(255, 255, 255, 0.1);
+      border: 2px solid rgba(255, 255, 255, 0.3);
+      border-radius: 50%;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      z-index: 20;
+      transition: all 0.3s ease;
+      backdrop-filter: blur(4px);
+    }
+
+    .carousel-arrow:hover {
+      background: rgba(255, 56, 0, 0.8);
+      border-color: rgba(255, 56, 0, 0.8);
+    }
+
+    .carousel-arrow.prev {
+      left: 30px;
+    }
+
+    .carousel-arrow.next {
+      right: 30px;
+    }
+
+    .carousel-arrow svg {
+      width: 24px;
+      height: 24px;
+      color: #ffffff;
+    }
+
+    .carousel-dots {
+      position: absolute;
+      top: 30px;
+      left: 50%;
+      transform: translateX(-50%);
+      display: flex;
+      gap: 12px;
+      z-index: 20;
+    }
+
+    .carousel-dot {
+      width: 12px;
+      height: 12px;
+      background: rgba(255, 255, 255, 0.3);
+      border: 2px solid rgba(255, 255, 255, 0.6);
+      border-radius: 50%;
+      cursor: pointer;
+      transition: all 0.3s ease;
+    }
+
+    .carousel-dot.active {
+      background: var(--neon-yellow);
+      border-color: var(--neon-yellow);
+      transform: scale(1.2);
+      box-shadow: var(--glow-yellow);
+    }
+
+    @media (max-width: 768px) {
+      .carousel-arrow {
+        width: 40px;
+        height: 40px;
+      }
+
+      .carousel-arrow.prev {
+        left: 15px;
+      }
+
+      .carousel-arrow.next {
+        right: 15px;
+      }
+
+      .carousel-arrow svg {
+        width: 20px;
+        height: 20px;
+      }
+    }
+
+    .hero-cta {
+      display: flex;
+      gap: 20px;
+      justify-content: center;
+      flex-wrap: wrap;
+    }
+
+    .btn {
+      font-family: var(--font-heading);
+      font-size: 1rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      padding: 16px 36px;
+      border: none;
+      cursor: pointer;
+      position: relative;
+      transform: skewX(var(--skew-angle));
+      transition: all var(--transition-speed) ease;
+      text-decoration: none;
+      display: inline-block;
+    }
+
+    .btn-primary {
+      background: var(--racing-red);
+      color: #ffffff;
+    }
+
+    .btn-primary:hover {
+      background: var(--racing-red-dark);
+      box-shadow: var(--glow-red);
+    }
+
+    .btn-outline {
+      background: rgba(255, 255, 255, 0.2);
+      color: #ffffff;
+      border: 2px solid #ffffff;
+      backdrop-filter: blur(4px);
+    }
+
+    .btn-outline:hover {
+      background: rgba(255, 255, 255, 0.4);
+      border-color: #ffffff;
+      color: #ffffff;
+    }
+
+    .btn-text {
+      background: transparent;
+      color: var(--text-secondary);
+      padding: 16px 24px;
+    }
+
+    .btn-text:hover {
+      color: var(--racing-red);
+    }
+
+    /* Scroll Indicator */
+    .scroll-indicator {
+      position: absolute;
+      bottom: 40px;
+      left: 50%;
+      transform: translateX(-50%);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 8px;
+      animation: bounce 2s infinite;
+      z-index: 20;
+    }
+
+    .scroll-indicator span {
+      font-family: var(--font-heading);
+      font-size: 0.75rem;
+      text-transform: uppercase;
+      letter-spacing: 0.2em;
+      color: #ffffff;
+      text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.8);
+    }
+
+    .scroll-line {
+      width: 2px;
+      height: 40px;
+      background: linear-gradient(to bottom, var(--neon-yellow), transparent);
+      box-shadow: 0 0 10px rgba(234, 255, 0, 0.3);
+    }
+
+    @keyframes bounce {
+      0%, 100% { transform: translateX(-50%) translateY(0); }
+      50% { transform: translateX(-50%) translateY(10px); }
+    }
+
+    /* ========================================
+       CTA BANNER
+       ======================================== */
+    .cta-banner {
+      background: linear-gradient(135deg, var(--racing-red-dark) 0%, var(--racing-red) 50%, var(--racing-red-dark) 100%);
+      padding: 24px 24px;
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .cta-banner::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><defs><pattern id="diagonal" width="10" height="10" patternUnits="userSpaceOnUse"><path d="M-1,1 l2,-2 M0,10 l10,-10 M9,11 l2,-2" stroke="%23000000" stroke-width="0.3" opacity="0.15"/></pattern></defs><rect width="100" height="100" fill="url(%23diagonal)"/></svg>');
+      opacity: 0.5;
+    }
+
+    .cta-banner-link {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 16px;
+      padding: 18px 48px;
+      background: rgba(255, 255, 255, 0.15);
+      border: 2px solid rgba(255, 255, 255, 0.5);
+      border-radius: 8px;
+      text-decoration: none;
+      color: #ffffff;
+      font-family: var(--font-heading);
+      font-size: 1.3rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.15em;
+      position: relative;
+      transition: all 0.3s ease;
+      backdrop-filter: blur(4px);
+    }
+
+    .cta-banner-link:hover {
+      background: rgba(255, 255, 255, 0.25);
+      border-color: rgba(255, 255, 255, 0.8);
+      transform: scale(1.02);
+    }
+
+    .cta-banner-text {
+      padding-right: 16px;
+      border-right: 2px solid rgba(255, 255, 255, 0.5);
+    }
+
+    .cta-banner-text .highlight {
+      color: #EAFF00;
+    }
+
+    .cta-banner-phone {
+      font-weight: 800;
+      letter-spacing: 0.1em;
+    }
+
+    /* ========================================
+       SECTIONS COMMON
+       ======================================== */
+    section {
+      padding: var(--section-padding);
+      position: relative;
+      transition: background-color var(--transition-speed) ease;
+    }
+
+    section:nth-child(even) {
+      background: linear-gradient(180deg, var(--bg-primary) 0%, var(--surface-gray) 100%);
+    }
+
+    [data-theme="dark"] section:nth-child(even) {
+      background: linear-gradient(180deg, var(--bg-primary) 0%, var(--surface-gray) 100%);
+    }
+
+    /* ========================================
+       ABOUT SECTION
+       ======================================== */
+    .about {
+      background: var(--bg-primary);
+    }
+
+    .about-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 60px;
+      align-items: center;
+    }
+
+    .about-content h2 {
+      color: var(--text-primary);
+    }
+
+    .about-content p {
+      margin-bottom: 1.5rem;
+    }
+
+    .about-visual {
+      position: relative;
+    }
+
+    .about-image {
+      width: 100%;
+      height: 400px;
+      background: linear-gradient(135deg, var(--surface-gray) 0%, var(--card-bg) 100%);
+      border: 1px solid var(--border-color);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+      overflow: hidden;
+      box-shadow: var(--card-shadow);
+      transition: all var(--transition-speed) ease;
+    }
+
+    [data-theme="dark"] .about-image::before {
+      content: '';
+      position: absolute;
+      top: -50%;
+      left: -50%;
+      width: 200%;
+      height: 200%;
+      background: conic-gradient(from 0deg, transparent, var(--racing-red), transparent 30%);
+      animation: rotate 10s linear infinite;
+      opacity: 0.1;
+    }
+
+    @keyframes rotate {
+      100% { transform: rotate(360deg); }
+    }
+
+    .about-image-text {
+      font-family: var(--font-heading);
+      font-size: 1.2rem;
+      font-style: italic;
+      color: var(--text-secondary);
+      text-align: center;
+      z-index: 1;
+    }
+
+    /* ========================================
+       STATS BAR
+       ======================================== */
+    .stats-bar {
+      background: var(--surface-gray);
+      padding: 60px 24px;
+      border-top: 1px solid var(--border-color);
+      border-bottom: 1px solid var(--border-color);
+      transition: background-color var(--transition-speed) ease, border-color var(--transition-speed) ease;
+    }
+
+    .stats-grid {
+      max-width: var(--container-max);
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 40px;
+      text-align: center;
+    }
+
+    .stat-item {
+      padding: 20px;
+    }
+
+    .stat-number {
+      font-family: var(--font-heading);
+      font-size: 3rem;
+      font-weight: 700;
+      font-style: italic;
+      color: var(--racing-red);
+      line-height: 1;
+      margin-bottom: 8px;
+    }
+
+    .stat-label {
+      font-family: var(--font-heading);
+      font-size: 0.85rem;
+      text-transform: uppercase;
+      letter-spacing: 0.15em;
+      color: var(--text-secondary);
+    }
+
+    /* ========================================
+       PHILOSOPHY SECTION
+       ======================================== */
+    .philosophy {
+      background: var(--bg-primary);
+    }
+
+    .philosophy-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 30px;
+      margin-top: 50px;
+    }
+
+    .philosophy-card {
+      background: var(--card-bg);
+      border: 1px solid var(--border-color);
+      padding: 40px 30px;
+      position: relative;
+      transition: all var(--transition-speed) ease;
+      box-shadow: var(--card-shadow);
+    }
+
+    [data-theme="dark"] .philosophy-card {
+      clip-path: polygon(0 0, calc(100% - 20px) 0, 100% 20px, 100% 100%, 20px 100%, 0 calc(100% - 20px));
+    }
+
+    .philosophy-card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 4px;
+      height: 100%;
+      background: var(--racing-red);
+      opacity: 0;
+      transition: opacity var(--transition-speed) ease;
+    }
+
+    .philosophy-card:hover {
+      transform: translateY(-5px);
+      border-color: var(--border-hover);
+      box-shadow: 0 10px 40px rgba(255, 56, 0, 0.1);
+    }
+
+    .philosophy-card:hover::before {
+      opacity: 1;
+    }
+
+    .philosophy-icon {
+      width: 60px;
+      height: 60px;
+      background: linear-gradient(135deg, var(--racing-red), var(--racing-red-dark));
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 24px;
+      font-size: 1.5rem;
+      color: #ffffff;
+    }
+
+    .philosophy-card h3 {
+      font-family: var(--font-heading);
+      font-size: 1.3rem;
+      margin-bottom: 16px;
+    }
+
+    .philosophy-card p {
+      font-size: 1rem;
+    }
+
+    /* ========================================
+       KARTING SECTION
+       ======================================== */
+    .karting {
+      background: linear-gradient(180deg, var(--surface-gray) 0%, var(--bg-primary) 100%);
+      transition: background var(--transition-speed) ease;
+    }
+
+    [data-theme="dark"] .karting {
+      background: linear-gradient(180deg, var(--surface-gray) 0%, var(--bg-primary) 100%);
+    }
+
+    .karting-header {
+      text-align: center;
+      max-width: 800px;
+      margin: 0 auto 50px;
+    }
+
+    .karting-header p {
+      font-size: 1.2rem;
+    }
+
+    .karting-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 40px;
+    }
+
+    .karting-card {
+      background: var(--card-bg);
+      border: 1px solid var(--border-color);
+      padding: 40px;
+      position: relative;
+      overflow: hidden;
+      box-shadow: var(--card-shadow);
+      transition: all var(--transition-speed) ease;
+    }
+
+    .karting-card::after {
+      content: '';
+      position: absolute;
+      top: 0;
+      right: 0;
+      width: 100px;
+      height: 100px;
+      background: linear-gradient(135deg, transparent 50%, rgba(255, 56, 0, 0.05) 50%);
+      transition: opacity var(--transition-speed) ease;
+    }
+
+    .karting-card:hover {
+      border-color: var(--border-hover);
+    }
+
+    .karting-card h3 {
+      font-family: var(--font-heading);
+      font-size: 1.5rem;
+      margin-bottom: 24px;
+      padding-bottom: 16px;
+      border-bottom: 1px solid var(--border-color);
+      transition: border-color var(--transition-speed) ease;
+    }
+
+    .karting-card ul {
+      list-style: none;
+    }
+
+    .karting-card li {
+      padding: 12px 0;
+      border-bottom: 1px solid var(--border-color);
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      color: var(--text-secondary);
+      font-size: 1.05rem;
+      transition: border-color var(--transition-speed) ease;
+    }
+
+    [data-theme="dark"] .karting-card li:last-child {
+      border-bottom: none;
+    }
+
+    .karting-card li::before {
+      content: '';
+      width: 8px;
+      height: 8px;
+      background: var(--racing-red);
+      transform: rotate(45deg);
+      flex-shrink: 0;
+    }
+
+    /* ========================================
+       TRANSITION TIMELINE
+       ======================================== */
+    .transition {
+      background: var(--bg-primary);
+      overflow: hidden;
+    }
+
+    .transition-header {
+      text-align: center;
+      max-width: 700px;
+      margin: 0 auto 60px;
+    }
+
+    .timeline {
+      position: relative;
+      max-width: 1000px;
+      margin: 0 auto;
+    }
+
+    .timeline::before {
+      content: '';
+      position: absolute;
+      top: 50%;
+      left: 0;
+      right: 0;
+      height: 2px;
+      background: linear-gradient(90deg, transparent, var(--racing-red), var(--racing-red), transparent);
+      transform: translateY(-50%);
+      transition: background var(--transition-speed) ease;
+    }
+
+    .timeline-items {
+      display: flex;
+      justify-content: space-between;
+      position: relative;
+    }
+
+    .timeline-item {
+      flex: 1;
+      text-align: center;
+      padding: 0 20px;
+    }
+
+    .timeline-marker {
+      width: 60px;
+      height: 60px;
+      background: var(--bg-primary);
+      border: 3px solid var(--text-secondary);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: 0 auto 24px;
+      font-family: var(--font-heading);
+      font-weight: 700;
+      font-size: 1.2rem;
+      color: var(--text-primary);
+      position: relative;
+      z-index: 1;
+      transition: all var(--transition-speed) ease;
+    }
+
+    .timeline-item:nth-child(3) .timeline-marker {
+      background: var(--racing-red);
+      border-color: var(--racing-red);
+      color: #ffffff;
+      box-shadow: var(--glow-red);
+    }
+
+    .timeline-item:hover .timeline-marker {
+      transform: scale(1.1);
+      box-shadow: var(--glow-red);
+    }
+
+    .timeline-content {
+      background: var(--card-bg);
+      border: 1px solid var(--border-color);
+      padding: 30px 24px;
+      position: relative;
+      box-shadow: var(--card-shadow);
+      transition: all var(--transition-speed) ease;
+    }
+
+    .timeline-content::before {
+      content: '';
+      position: absolute;
+      top: -2px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 30px;
+      height: 3px;
+      background: var(--racing-red);
+      transition: background var(--transition-speed) ease;
+    }
+
+    .timeline-content h4 {
+      font-family: var(--font-heading);
+      font-size: 1.1rem;
+      margin-bottom: 12px;
+    }
+
+    .timeline-content p {
+      font-size: 0.95rem;
+    }
+
+    /* ========================================
+       PROGRAMS SECTION
+       ======================================== */
+    .programs {
+      background: linear-gradient(180deg, var(--surface-gray) 0%, var(--bg-primary) 100%);
+      transition: background var(--transition-speed) ease;
+    }
+
+    [data-theme="dark"] .programs {
+      background: linear-gradient(180deg, var(--surface-gray) 0%, var(--bg-primary) 100%);
+    }
+
+    .programs-header {
+      text-align: center;
+      max-width: 700px;
+      margin: 0 auto 50px;
+    }
+
+    .programs-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 30px;
+    }
+
+    .program-card {
+      background: var(--card-bg);
+      border: 1px solid var(--border-color);
+      padding: 40px 30px;
+      text-align: center;
+      position: relative;
+      transition: all var(--transition-speed) ease;
+      box-shadow: var(--card-shadow);
+    }
+
+    .program-card:hover {
+      border-color: var(--border-hover);
+      transform: translateY(-8px);
+    }
+
+    .program-card.featured {
+      border-color: var(--racing-red);
+      background: linear-gradient(180deg, var(--card-bg) 0%, rgba(220, 38, 38, 0.03) 100%);
+    }
+
+    [data-theme="dark"] .program-card.featured {
+      background: linear-gradient(180deg, var(--card-bg) 0%, rgba(209, 0, 0, 0.05) 100%);
+    }
+
+    .program-badge {
+      position: absolute;
+      top: -12px;
+      left: 50%;
+      transform: translateX(-50%) skewX(-15deg);
+      background: var(--racing-red);
+      color: #ffffff;
+      font-family: var(--font-heading);
+      font-size: 0.75rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      padding: 6px 20px;
+    }
+
+    .program-icon {
+      width: 100px;
+      height: 100px;
+      background: var(--surface-gray);
+      border: 1px solid var(--border-color);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: 0 auto 24px;
+      overflow: hidden;
+      transition: border-color var(--transition-speed) ease;
+    }
+
+    .program-icon img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: transform 0.3s ease;
+    }
+
+    .program-card:hover .program-icon img {
+      transform: scale(1.1);
+    }
+
+    .program-card h3 {
+      font-family: var(--font-heading);
+      font-size: 1.25rem;
+      margin-bottom: 16px;
+    }
+
+    .program-card p {
+      font-size: 1rem;
+      margin-bottom: 24px;
+    }
+
+    .program-btn {
+      width: 100%;
+      padding: 14px 24px;
+      background: transparent;
+      border: 1px solid var(--text-secondary);
+      color: var(--text-primary);
+      font-family: var(--font-heading);
+      font-size: 0.9rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      cursor: pointer;
+      transition: all var(--transition-speed) ease;
+    }
+
+    .program-btn:hover {
+      background: var(--racing-red);
+      border-color: var(--racing-red);
+      color: #ffffff;
+    }
+
+    /* ========================================
+       LOCATION SECTION
+       ======================================== */
+    .location {
+      background: var(--bg-primary);
+    }
+    
+    .location-header {
+      text-align: center;
+      max-width: 700px;
+      margin: 0 auto 60px;
+    }
+    
+    .location-header h2 {
+      color: var(--text-primary);
+    }
+    
+    .location-header p {
+      font-size: 1.1rem;
+    }
+    
+    .location-item {
+      display: grid;
+      grid-template-columns: 1fr 1.5fr;
+      gap: 60px;
+      align-items: stretch;
+      margin-bottom: 80px;
+    }
+    
+    .location-item:last-child {
+      margin-bottom: 0;
+    }
+    
+    .location-item-info h3 {
+      color: var(--text-primary);
+      font-size: 1.8rem;
+      margin-bottom: 8px;
+    }
+    
+    .location-item-subtitle {
+      font-family: var(--font-heading);
+      font-size: 0.85rem;
+      font-weight: 600;
+      color: var(--racing-red);
+      text-transform: uppercase;
+      letter-spacing: 0.15em;
+      margin-bottom: 20px;
+      display: block;
+    }
+    
+    .location-item-info > p {
+      margin-bottom: 24px;
+    }
+    
+    .location-card {
+      background: var(--card-bg);
+      border: 1px solid var(--border-color);
+      padding: 24px;
+      box-shadow: var(--card-shadow);
+      transition: all var(--transition-speed) ease;
+    }
+    
+    .location-card:hover {
+      border-color: var(--border-hover);
+    }
+    
+    .location-card-header {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin-bottom: 16px;
+      padding-bottom: 12px;
+      border-bottom: 1px solid var(--border-color);
+      transition: border-color var(--transition-speed) ease;
+    }
+    
+    .location-card-icon {
+      width: 40px;
+      height: 40px;
+      background: linear-gradient(135deg, var(--racing-red), var(--racing-red-dark));
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #ffffff;
+      font-size: 1.1rem;
+      flex-shrink: 0;
+    }
+    
+    .location-card-header h4 {
+      font-family: var(--font-heading);
+      font-size: 1.1rem;
+      margin: 0;
+    }
+    
+    .location-details {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+    
+    .location-detail {
+      display: flex;
+      align-items: flex-start;
+      gap: 10px;
+    }
+    
+    .location-detail-icon {
+      color: var(--racing-red);
+      font-size: 0.9rem;
+      margin-top: 2px;
+    }
+    
+    .location-detail-text {
+      font-size: 0.95rem;
+      color: var(--text-secondary);
+    }
+    
+    .location-detail-text strong {
+      color: var(--text-primary);
+      font-weight: 600;
+    }
+    
+    .location-actions {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      margin-top: 20px;
+    }
+    
+    .location-btn {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      padding: 12px 20px;
+      font-family: var(--font-heading);
+      font-size: 0.85rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      text-decoration: none;
+      border: 1px solid var(--racing-red);
+      transition: all var(--transition-speed) ease;
+    }
+    
+    .location-btn-primary {
+      background: var(--racing-red);
+      color: #ffffff;
+    }
+    
+    .location-btn-primary:hover {
+      background: var(--racing-red-dark);
+      box-shadow: var(--glow-red);
+    }
+    
+    .location-btn-secondary {
+      background: transparent;
+      color: var(--racing-red);
+    }
+    
+    .location-btn-secondary:hover {
+      background: var(--racing-red);
+      color: #ffffff;
+    }
+    
+    .map-wrapper {
+      height: 100%;
+      min-height: 400px;
+      border: 1px solid var(--border-color);
+      overflow: hidden;
+      box-shadow: var(--card-shadow);
+      transition: border-color var(--transition-speed) ease;
+    }
+    
+    .map-wrapper iframe {
+      width: 100%;
+      height: 100%;
+      border: none;
+    }
+
+    /* ========================================
+       CONTACT SECTION
+       ======================================== */
+    .contact {
+      background: var(--bg-primary);
+    }
+
+    .contact-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 60px;
+    }
+
+    .contact-info h2 {
+      color: var(--text-primary);
+      margin-bottom: 24px;
+    }
+
+    .contact-info > p {
+      margin-bottom: 32px;
+    }
+
+    .contact-details {
+      margin-top: 40px;
+    }
+
+    .contact-item {
+      display: flex;
+      align-items: flex-start;
+      gap: 16px;
+      margin-bottom: 24px;
+    }
+
+    .contact-item-icon {
+      width: 50px;
+      height: 50px;
+      background: var(--surface-gray);
+      border: 1px solid var(--border-color);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.2rem;
+      color: var(--racing-red);
+      flex-shrink: 0;
+      transition: background-color var(--transition-speed) ease, border-color var(--transition-speed) ease;
+    }
+
+    .contact-item-content h4 {
+      font-family: var(--font-heading);
+      font-size: 1rem;
+      color: var(--text-primary);
+      margin-bottom: 4px;
+    }
+
+    .contact-item-content p {
+      font-size: 1rem;
+    }
+
+    .contact-item-content a {
+      color: var(--racing-red);
+      text-decoration: none;
+      transition: color var(--transition-speed) ease;
+    }
+
+    .contact-item-content a:hover {
+      color: var(--text-primary);
+    }
+
+    .contact-form-wrapper {
+      background: var(--card-bg);
+      border: 1px solid var(--border-color);
+      padding: 40px;
+      box-shadow: var(--card-shadow);
+      transition: all var(--transition-speed) ease;
+    }
+
+    .contact-form-wrapper h3 {
+      font-family: var(--font-heading);
+      font-size: 1.5rem;
+      margin-bottom: 24px;
+    }
+
+    .form-group {
+      margin-bottom: 20px;
+    }
+
+    .form-group label {
+      display: block;
+      font-family: var(--font-heading);
+      font-size: 0.85rem;
+      font-weight: 600;
+      color: var(--text-secondary);
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      margin-bottom: 8px;
+    }
+
+    .form-group input,
+    .form-group textarea {
+      width: 100%;
+      padding: 14px 16px;
+      background: var(--bg-primary);
+      border: 1px solid var(--border-color);
+      color: var(--text-primary);
+      font-family: var(--font-body);
+      font-size: 1rem;
+      transition: all var(--transition-speed) ease;
+    }
+
+    .form-group input:focus,
+    .form-group textarea:focus {
+      outline: none;
+      border-color: var(--racing-red);
+      box-shadow: 0 0 0 2px rgba(255, 56, 0, 0.1);
+    }
+
+    .form-group textarea {
+      min-height: 120px;
+      resize: vertical;
+    }
+
+    .submit-btn {
+      width: 100%;
+      padding: 16px;
+      background: var(--racing-red);
+      border: none;
+      color: #ffffff;
+      font-family: var(--font-heading);
+      font-size: 1rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      cursor: pointer;
+      transition: all var(--transition-speed) ease;
+    }
+
+    .submit-btn:hover {
+      background: var(--racing-red-dark);
+      box-shadow: var(--glow-red);
+    }
+
+    /* ========================================
+       CTA SECTION
+       ======================================== */
+    .cta-section {
+      background: linear-gradient(135deg, var(--racing-red-dark) 0%, var(--racing-red) 50%, var(--racing-red-dark) 100%);
+      padding: 80px 24px;
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .cta-section::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><defs><pattern id="diagonal" width="10" height="10" patternUnits="userSpaceOnUse"><path d="M-1,1 l2,-2 M0,10 l10,-10 M9,11 l2,-2" stroke="%23000000" stroke-width="0.3" opacity="0.1"/></pattern></defs><rect width="100" height="100" fill="url(%23diagonal)"/></svg>');
+      opacity: 0.3;
+    }
+
+    .cta-section h2 {
+      font-family: var(--font-heading);
+      font-size: clamp(1.8rem, 4vw, 2.5rem);
+      color: #ffffff;
+      margin-bottom: 16px;
+      position: relative;
+    }
+
+    .cta-section p {
+      font-size: 1.2rem;
+      color: rgba(255, 255, 255, 0.9);
+      margin-bottom: 32px;
+      position: relative;
+    }
+
+    .cta-section .btn {
+      background: #ffffff;
+      color: var(--racing-red);
+    }
+
+    .cta-section .btn:hover {
+      background: var(--text-primary);
+      color: #ffffff;
+    }
+
+    /* ========================================
+       FOOTER
+       ======================================== */
+    footer {
+      background: var(--bg-secondary);
+      padding: 60px 24px 30px;
+      border-top: 1px solid var(--border-color);
+      transition: background-color var(--transition-speed) ease, border-color var(--transition-speed) ease;
+    }
+
+    .footer-content {
+      max-width: var(--container-max);
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: 2fr 1fr 1fr 1fr;
+      gap: 40px;
+      margin-bottom: 40px;
+    }
+
+    .footer-brand h3 {
+      font-family: var(--font-heading);
+      font-size: 1.8rem;
+      font-style: italic;
+      background: linear-gradient(135deg, var(--text-primary), var(--text-secondary));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      margin-bottom: 16px;
+      transition: background var(--transition-speed) ease;
+    }
+
+    .footer-brand p {
+      font-size: 0.95rem;
+      color: var(--text-muted);
+    }
+
+    .footer-links h4 {
+      font-family: var(--font-heading);
+      font-size: 0.9rem;
+      color: var(--text-primary);
+      margin-bottom: 20px;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+    }
+
+    .footer-links ul {
+      list-style: none;
+    }
+
+    .footer-links li {
+      margin-bottom: 12px;
+    }
+
+    .footer-links a {
+      font-size: 0.95rem;
+      color: var(--text-muted);
+      text-decoration: none;
+      transition: color var(--transition-speed) ease;
+    }
+
+    .footer-links a:hover {
+      color: var(--racing-red);
+    }
+
+    .footer-bottom {
+      max-width: var(--container-max);
+      margin: 0 auto;
+      padding-top: 30px;
+      border-top: 1px solid var(--border-color);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 20px;
+      transition: border-color var(--transition-speed) ease;
+    }
+
+    .footer-bottom p {
+      font-size: 0.85rem;
+      color: var(--text-muted);
+    }
+
+    .social-links {
+      display: flex;
+      gap: 16px;
+    }
+
+    .social-link {
+      width: 40px;
+      height: 40px;
+      background: var(--bg-primary);
+      border: 1px solid var(--border-color);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--text-secondary);
+      text-decoration: none;
+      transition: all var(--transition-speed) ease;
+    }
+
+    .social-link:hover {
+      background: var(--racing-red);
+      border-color: var(--racing-red);
+      color: #ffffff;
+    }
+
+    /* ========================================
+       RESPONSIVE
+       ======================================== */
+    @media (max-width: 1024px) {
+      .about-grid,
+      .contact-grid {
+        grid-template-columns: 1fr;
+        gap: 40px;
+      }
+
+      .philosophy-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+
+      .programs-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+
+      .program-card.featured {
+        grid-column: span 2;
+      }
+
+      .footer-content {
+        grid-template-columns: repeat(2, 1fr);
+      }
+    }
+
+    @media (max-width: 768px) {
+      :root {
+        --section-padding: 80px 20px;
+      }
+
+      .nav-links {
+        display: none;
+        position: absolute;
+        top: 100%;
+        left: 0;
+        right: 0;
+        background: var(--bg-primary);
+        flex-direction: column;
+        padding: 20px;
+        gap: 0;
+        border-bottom: 1px solid var(--border-color);
+        transition: background-color var(--transition-speed) ease;
+      }
+
+      .nav-links.active {
+        display: flex;
+      }
+
+      .nav-links li {
+        border-bottom: 1px solid var(--border-color);
+        transition: border-color var(--transition-speed) ease;
+      }
+
+      .nav-links a {
+        display: block;
+        padding: 16px 0;
+      }
+
+      .mobile-menu-btn {
+        display: flex;
+      }
+
+      .philosophy-grid,
+      .programs-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .program-card.featured {
+        grid-column: auto;
+      }
+
+      .karting-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .timeline-items {
+        flex-direction: column;
+        gap: 40px;
+      }
+
+      .timeline::before {
+        top: 0;
+        bottom: 0;
+        left: 30px;
+        width: 2px;
+        height: 100%;
+        transform: none;
+      }
+
+      .timeline-item {
+        text-align: left;
+        padding-left: 80px;
+      }
+
+      .timeline-marker {
+        position: absolute;
+        left: 0;
+        margin: 0;
+      }
+
+      .timeline-content::before {
+        left: -2px;
+        top: 50%;
+        transform: translateY(-50%) rotate(90deg);
+      }
+
+      .stats-grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 30px;
+      }
+
+      .footer-content {
+        grid-template-columns: 1fr;
+        text-align: center;
+      }
+
+      .footer-bottom {
+        flex-direction: column;
+        text-align: center;
+      }
+
+      .nav-left {
+        gap: 20px;
+      }
+
+      .nav-right {
+        gap: 12px;
+      }
+
+      .theme-toggle {
+        width: 44px;
+        height: 24px;
+      }
+
+      .theme-toggle .toggle-thumb {
+        width: 16px;
+        height: 16px;
+      }
+
+      [data-theme="dark"] .theme-toggle .toggle-thumb {
+        left: 24px;
+      }
+
+      .location-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .location-item {
+        grid-template-columns: 1fr;
+        gap: 30px;
+        margin-bottom: 60px;
+      }
+
+      .location-item:last-child {
+        margin-bottom: 0;
+      }
+
+      .map-wrapper {
+        min-height: 300px;
+        order: -1;
+      }
+    }
+
+    @media (max-width: 480px) {
+      .hero-cta {
+        flex-direction: column;
+        align-items: center;
+      }
+
+      .btn {
+        width: 100%;
+        max-width: 280px;
+      }
+
+      .stat-number {
+        font-size: 2.2rem;
+      }
+    }
+
+    /* ========================================
+       ANIMATIONS
+       ======================================== */
+    .fade-in {
+      opacity: 0;
+      transform: translateY(30px);
+      transition: opacity 0.6s ease, transform 0.6s ease;
+    }
+
+    .fade-in.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    /* ========================================
+       PARTNER BANNER
+       ======================================== */
+    .partner-banner {
+      background: #000000;
+      padding: 40px 24px;
+      border-top: 1px solid rgba(255, 255, 255, 0.1);
+    }
+
+    .partner-logos {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 40px;
+      flex-wrap: wrap;
+    }
+
+    .partner-logo-link {
+      display: inline-block;
+      transition: opacity 0.3s ease, transform 0.3s ease;
+    }
+
+    .partner-logo-link:hover {
+      opacity: 0.8;
+      transform: scale(1.05);
+    }
+
+    .partner-logo {
+      max-height: 60px;
+      width: auto;
+      max-width: 200px;
+      object-fit: contain;
+    }
+
+    .partner-label {
+      font-family: var(--font-heading);
+      font-size: 0.75rem;
+      font-weight: 600;
+      color: rgba(255, 255, 255, 0.4);
+      text-transform: uppercase;
+      letter-spacing: 0.2em;
+    }
+
+    @media (max-width: 768px) {
+      .partner-banner {
+        padding: 30px 20px;
+      }
+
+      .partner-logos {
+        gap: 24px;
+      }
+
+      .partner-logo {
+        max-height: 45px;
+        max-width: 150px;
+      }
+
+      .partner-label {
+        font-size: 0.65rem;
+      }
+    }
+
+    /* ========================================
+       GO TO TOP BUTTON
+       ======================================== */
+    .go-top {
+      position: fixed;
+      width: 50px;
+      height: 50px;
+      bottom: 100px;
+      left: 30px;
+      background: var(--racing-red);
+      color: #ffffff;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      opacity: 0;
+      visibility: hidden;
+      transition: all 0.3s ease;
+      box-shadow: 0 4px 15px rgba(255, 56, 0, 0.3);
+      z-index: 999;
+    }
+
+    .go-top.visible {
+      opacity: 1;
+      visibility: visible;
+    }
+
+    .go-top:hover {
+      background: var(--racing-red-dark);
+      transform: translateY(-3px);
+      box-shadow: 0 6px 20px rgba(255, 56, 0, 0.4);
+    }
+
+    .go-top svg {
+      width: 24px;
+      height: 24px;
+    }
+
+    @media (max-width: 768px) {
+      .go-top {
+        width: 40px;
+        height: 40px;
+        bottom: 80px;
+        left: 15px;
+      }
+
+      .go-top svg {
+        width: 20px;
+        height: 20px;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Navigation -->
+  <nav class="navbar" id="navbar">
+    <div class="nav-container">
+      <div class="nav-left">
+        <a href="#" class="nav-logo">VEON <span>MOTORSPORTS</span></a>
+        <ul class="nav-links" id="navLinks">
+          <li><a href="#about">About</a></li>
+          <li><a href="#philosophy">Philosophy</a></li>
+          <li><a href="#karting">Shifter Karting</a></li>
+          <li><a href="#transition">Transition</a></li>
+          <li><a href="#programs">Programs</a></li>
+          <li><a href="#contact">Contact</a></li>
+        </ul>
+      </div>
+      <div class="nav-right">
+        <!-- Theme Toggle Switch -->
+        <button id="themeToggle" class="theme-toggle" aria-label="Toggle dark mode">
+          <div class="toggle-thumb"></div>
+          <span class="icon sun-icon">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor">
+              <path d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z"/>
+            </svg>
+          </span>
+          <span class="icon moon-icon">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor">
+              <path d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z"/>
+            </svg>
+          </span>
+        </button>
+        <button class="mobile-menu-btn" id="mobileMenuBtn" aria-label="Toggle menu">
+          <span></span>
+          <span></span>
+          <span></span>
+        </button>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Hero Section -->
+  <section class="hero" id="hero">
+    <!-- Hero Video Background -->
+    <video class="hero-video-bg" autoplay muted loop playsinline>
+      <source src="videos/hero.mp4" type="video/mp4">
+    </video>
+    <div class="hero-video-overlay"></div>
+
+    <div class="hero-content">
+      <h1>VEON MOTORSPORTS</h1>
+      <p class="hero-subtitle">Professional Driver Development | Shifter Karting to Open-Wheel Formula Cars</p>
+      <div class="hero-cta">
+        <a href="#programs" class="btn btn-primary">View Programs</a>
+        <a href="#contact" class="btn btn-outline">Get in Touch</a>
+      </div>
+    </div>
+    <div class="scroll-indicator">
+      <span>Scroll</span>
+      <div class="scroll-line"></div>
+    </div>
+  </section>
+
+  <!-- CTA Banner -->
+  <div class="cta-banner">
+    <div class="container">
+      <a href="tel:7865641351" class="cta-banner-link">
+        <span class="cta-banner-text">Call <span class="highlight">Now</span></span>
+        <span class="cta-banner-phone">(786) 564-1351</span>
+      </a>
+    </div>
+  </div>
+
+  <!-- About Section -->
+  <section class="about" id="about">
+    <div class="container">
+      <div class="about-grid">
+        <div class="about-content fade-in">
+          <span class="section-label">Who We Are</span>
+          <h2>About VEON MotorSports</h2>
+          <p>VEON MotorSports is a driver development company focused on building complete racing drivers through a structured, disciplined, and realistic progression model. Our work is centered on high-performance shifter karting as the foundation, followed by a guided transition into open-wheel formula cars such as Formula Enterprises 2 (FE2) and FIA Formula 4 (F4).</p>
+          <p>We do not sell championships or shortcuts. We develop drivers through process, education, and exposure to the correct competitive environments at the right time.</p>
+        </div>
+        <div class="about-visual fade-in">
+          <div class="about-image">
+            <span class="about-image-text">Professional Driver Development<br>Since 2024</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Stats Bar -->
+  <div class="stats-bar">
+    <div class="stats-grid">
+      <div class="stat-item fade-in">
+        <div class="stat-number">50+</div>
+        <div class="stat-label">Drivers Developed</div>
+      </div>
+      <div class="stat-item fade-in">
+        <div class="stat-number">1,200</div>
+        <div class="stat-label">Track Hours</div>
+      </div>
+      <div class="stat-item fade-in">
+        <div class="stat-number">12</div>
+        <div class="stat-label">Championships</div>
+      </div>
+      <div class="stat-item fade-in">
+        <div class="stat-number">8</div>
+        <div class="stat-label">Pro Graduates</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Philosophy Section -->
+  <section class="philosophy" id="philosophy">
+    <div class="container">
+      <span class="section-label">Our Approach</span>
+      <h2>Development Philosophy</h2>
+      <div class="philosophy-grid">
+        <div class="philosophy-card fade-in">
+          <div class="philosophy-icon">⚙</div>
+          <h3>Process Over Results</h3>
+          <p>Lap time improvement, technical understanding, racecraft, and mental discipline are prioritized over trophies.</p>
+        </div>
+        <div class="philosophy-card fade-in">
+          <div class="philosophy-icon">🏎</div>
+          <h3>Shifter Karting as a Foundation</h3>
+          <p>Shifter karts provide unmatched training in braking, race starts, car control, and mechanical feedback.</p>
+        </div>
+        <div class="philosophy-card fade-in">
+          <div class="philosophy-icon">🗺</div>
+          <h3>Realistic Career Mapping</h3>
+          <p>Each driver follows a personalized path based on ability, maturity, budget efficiency, and long-term goals.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Karting Section -->
+  <section class="karting" id="karting">
+    <div class="container">
+      <div class="karting-header fade-in">
+        <span class="section-label">Core Training</span>
+        <h2>Shifter Karting Focus</h2>
+        <p>Shifter karting is the core of our program. It is the most direct and cost-effective environment to prepare drivers for professional-level car racing.</p>
+      </div>
+      <div class="karting-grid">
+        <div class="karting-card fade-in">
+          <h3>Technical Skills</h3>
+          <ul>
+            <li>High-speed braking techniques</li>
+            <li>Gear management and downshifting</li>
+            <li>Data analysis and driver feedback</li>
+            <li>Chassis tuning fundamentals</li>
+          </ul>
+        </div>
+        <div class="karting-card fade-in">
+          <h3>Competitive Environment</h3>
+          <ul>
+            <li>National and regional shifter championships</li>
+            <li>High-grip, high-pressure race formats</li>
+            <li>Multi-session race weekends</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Transition Section -->
+  <section class="transition" id="transition">
+    <div class="container">
+      <div class="transition-header fade-in">
+        <span class="section-label">Career Path</span>
+        <h2>Transition to Formula Cars</h2>
+        <p>Moving from karting to cars is not a jump — it is a transition. VEON MotorSports prepares drivers technically, physically, and mentally before entering open-wheel competition.</p>
+      </div>
+      <div class="timeline">
+        <div class="timeline-items">
+          <div class="timeline-item fade-in">
+            <div class="timeline-marker">1</div>
+            <div class="timeline-content">
+              <h4>Advanced Shifter Mastery</h4>
+              <p>Consistent pace, race wins, mechanical understanding, and mental control.</p>
+            </div>
+          </div>
+          <div class="timeline-item fade-in">
+            <div class="timeline-marker">2</div>
+            <div class="timeline-content">
+              <h4>Formula Car Testing</h4>
+              <p>Introductory testing in FE2 or F4 to understand aerodynamics, braking systems, and car feedback.</p>
+            </div>
+          </div>
+          <div class="timeline-item fade-in">
+            <div class="timeline-marker">3</div>
+            <div class="timeline-content">
+              <h4>Structured Championship Entry</h4>
+              <p>Selective championship participation focused on learning, not immediate results.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Programs Section -->
+  <section class="programs" id="programs">
+    <div class="container">
+      <div class="programs-header fade-in">
+        <span class="section-label">What We Offer</span>
+        <h2>Driver Programs</h2>
+      </div>
+      <div class="programs-grid">
+        <div class="program-card fade-in">
+          <div class="program-icon">
+            <img src="https://media.istockphoto.com/id/172274851/photo/checkered-flag.jpg?s=612x612&w=0&k=20&c=sLOxCegFPcq-kmc4fq7PTwjqLpjgkqKJsh-IRcY4Hxw=" alt="Checkered Racing Flag">
+          </div>
+          <h3>Shifter Kart Development</h3>
+          <p>Coaching, race weekend support, data analysis, and long-term planning.</p>
+          <button class="program-btn">Learn More</button>
+        </div>
+        <div class="program-card fade-in">
+          <div class="program-icon">
+            <img src="https://media.istockphoto.com/id/1391374025/photo/red-race-car-driving-on-a-race-track.jpg?s=612x612&w=0&k=20&c=wcLiH0zrLpReioLoVZgx_qAFc_JibjR3BRCH8neXSJ8=" alt="Formula Race Car">
+          </div>
+          <h3>Karting to Formula Transition</h3>
+          <p>Testing programs, evaluation reports, and guidance into FE2 or F4 platforms.</p>
+          <button class="program-btn">Learn More</button>
+        </div>
+        <div class="program-card featured fade-in">
+          <span class="program-badge">New</span>
+          <div class="program-icon">
+            <img src="https://images.unsplash.com/photo-1506806732259-39c2d0268443?w=300&h=300&fit=crop" alt="Father and Son Racing">
+          </div>
+          <h3>Parent & Driver Education</h3>
+          <p>Clear explanations of pathways, costs, risks, and realistic expectations.</p>
+          <button class="program-btn">Learn More</button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Location Section -->
+  <section class="location" id="location">
+    <div class="container">
+      <div class="location-header fade-in">
+        <span class="section-label">Find Us</span>
+        <h2>Our Track Locations</h2>
+        <p>Train with VEON MotorSports at premier motorsport facilities in Texas. Multiple locations to serve your driver development needs.</p>
+      </div>
+      
+      <!-- Speedsportz Racing Park (First) -->
+      <div class="location-item fade-in">
+        <div class="location-item-info">
+          <span class="location-item-subtitle">Primary Location</span>
+          <h3>Speedsportz Racing Park</h3>
+          <p>Our main training facility featuring a world-class karting track and professional amenities for driver development.</p>
+          
+          <div class="location-card">
+            <div class="location-card-header">
+              <div class="location-card-icon">📍</div>
+              <h4>Address</h4>
+            </div>
+            <div class="location-details">
+              <div class="location-detail">
+                <span class="location-detail-icon">●</span>
+                <span class="location-detail-text"><strong>Location:</strong> 23050 Speed St, New Caney, TX 77357</span>
+              </div>
+              <div class="location-detail">
+                <span class="location-detail-icon">●</span>
+                <span class="location-detail-text"><strong>Website:</strong> <a href="http://www.speedsportzracingpark.com/" target="_blank" rel="noopener noreferrer">speedsportzracingpark.com</a></span>
+              </div>
+            </div>
+            <div class="location-actions">
+              <a href="https://www.google.com/maps/dir//23050+Speed+St,+New+Caney,+TX+77357" target="_blank" rel="noopener noreferrer" class="location-btn location-btn-primary">
+                <span>📍</span> Get Directions
+              </a>
+              <a href="http://www.speedsportzracingpark.com/" target="_blank" rel="noopener noreferrer" class="location-btn location-btn-secondary">
+                <span>🌐</span> Visit Website
+              </a>
+            </div>
+          </div>
+        </div>
+        <div class="map-wrapper">
+          <iframe 
+            src="https://maps.google.com/maps?q=23050%20Speed%20St%2C%20New%20Caney%2C%20TX%2077357&t=h&z=15&output=embed&iwloc=near"
+            allowfullscreen=""
+            loading="lazy"
+            referrerpolicy="no-referrer-when-downgrade"
+            title="VEON MotorSports Location - Speedsportz Racing Park">
+          </iframe>
+        </div>
+      </div>
+      
+      <!-- MSR Houston (Second) -->
+      <div class="location-item fade-in">
+        <div class="location-item-info">
+          <span class="location-item-subtitle">Secondary Location</span>
+          <h3>MSR Houston</h3>
+          <p>An excellent alternative facility for additional track time and specialized training sessions.</p>
+          
+          <div class="location-card">
+            <div class="location-card-header">
+              <div class="location-card-icon">📍</div>
+              <h4>Address</h4>
+            </div>
+            <div class="location-details">
+              <div class="location-detail">
+                <span class="location-detail-icon">●</span>
+                <span class="location-detail-text"><strong>Location:</strong> 1 Performance Drive, Angleton, TX 77515</span>
+              </div>
+              <div class="location-detail">
+                <span class="location-detail-icon">●</span>
+                <span class="location-detail-text"><strong>Facility:</strong> MSR Houston Circuit</span>
+              </div>
+            </div>
+            <div class="location-actions">
+              <a href="https://www.google.com/maps/dir//1+Performance+Drive,+Angleton,+TX+77515" target="_blank" rel="noopener noreferrer" class="location-btn location-btn-primary">
+                <span>📍</span> Get Directions
+              </a>
+            </div>
+          </div>
+        </div>
+        <div class="map-wrapper">
+          <iframe 
+            src="https://maps.google.com/maps?q=1%20Performance%20Drive%2C%20Angleton%2C%20TX%2077515&t=h&z=15&output=embed&iwloc=near"
+            allowfullscreen=""
+            loading="lazy"
+            referrerpolicy="no-referrer-when-downgrade"
+            title="VEON MotorSports Location - MSR Houston">
+          </iframe>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Contact Section -->
+  <section class="contact" id="contact">
+    <div class="container">
+      <div class="contact-grid">
+        <div class="contact-info fade-in">
+          <span class="section-label">Get Started</span>
+          <h2>Contact Us</h2>
+          <p>For inquiries regarding driver development programs, testing opportunities, or collaboration, reach out to our team.</p>
+          <div class="contact-details">
+            <div class="contact-item">
+              <div class="contact-item-icon">✉</div>
+              <div class="contact-item-content">
+                <h4>Email</h4>
+                <p><a href="/cdn-cgi/l/email-protection#e1888f878ea197848e8f8c8e958e9392918e9395cf828e8c"><span class="__cf_email__" data-cfemail="84edeae2ebc4f2e1ebeae9ebf0ebf6f7f4ebf6f0aae7ebe9">[email&#160;protected]</span></a></p>
+              </div>
+            </div>
+            <div class="contact-item">
+              <div class="contact-item-icon">📞</div>
+              <div class="contact-item-content">
+                <h4>Phone</h4>
+                <p><a href="tel:+17865641351">(786) 564-1351</a></p>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="contact-form-wrapper fade-in">
+          <h3>Send a Message</h3>
+          <form id="contactForm">
+            <div class="form-group">
+              <label for="name">Name</label>
+              <input type="text" id="name" name="name" required placeholder="Your full name">
+            </div>
+            <div class="form-group">
+              <label for="email">Email</label>
+              <input type="email" id="email" name="email" required placeholder="your@email.com">
+            </div>
+            <div class="form-group">
+              <label for="subject">Subject</label>
+              <input type="text" id="subject" name="subject" placeholder="Program inquiry">
+            </div>
+            <div class="form-group">
+              <label for="message">Message</label>
+              <textarea id="message" name="message" required placeholder="Tell us about your racing goals..."></textarea>
+            </div>
+            <button type="submit" class="submit-btn">Send Message</button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA Section -->
+  <section class="cta-section">
+    <h2>Develop the Driver, Not Just the Results</h2>
+    <p>VEON MotorSports — Building drivers for the next level.</p>
+    <a href="#contact" class="btn">Start Your Journey</a>
+  </section>
+
+  <!-- Partner Logos Banner -->
+  <section class="partner-banner">
+    <div class="container">
+      <div class="partner-logos">
+        <a href="https://msrhouston.com" target="_blank" rel="noopener noreferrer" class="partner-logo-link" aria-label="Visit MSR Houston">
+          <img src="https://msrhouston.com/wp-content/uploads/2015/03/MSR_logo@2x.png" alt="MSR Houston" class="partner-logo">
+        </a>
+        <span class="partner-label">Partner</span>
+        <a href="https://kartcrg.com" target="_blank" rel="noopener noreferrer" class="partner-logo-link" aria-label="Visit KartCRG">
+          <img src="https://kartcrg.com/wp-content/uploads/2017/07/logo_sub-e1509373476641.png" alt="KartCRG" class="partner-logo">
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer>
+    <div class="footer-content">
+      <div class="footer-brand">
+        <h3>VEON MOTORSPORTS</h3>
+        <p>Professional driver development program focused on shifter karting and the transition to open-wheel formula cars.</p>
+      </div>
+      <div class="footer-links">
+        <h4>Programs</h4>
+        <ul>
+          <li><a href="#karting">Shifter Karting</a></li>
+          <li><a href="#transition">Formula Transition</a></li>
+          <li><a href="#programs">Driver Education</a></li>
+        </ul>
+      </div>
+      <div class="footer-links">
+        <h4>Company</h4>
+        <ul>
+          <li><a href="#about">About Us</a></li>
+          <li><a href="#location">Locations</a></li>
+          <li><a href="#philosophy">Philosophy</a></li>
+          <li><a href="#contact">Contact</a></li>
+        </ul>
+      </div>
+      <div class="footer-links">
+        <h4>Connect</h4>
+        <ul>
+          <li><a href="#">Instagram</a></li>
+          <li><a href="#">YouTube</a></li>
+          <li><a href="#">Twitter</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p>&copy; 2026 VEON MotorSports. All rights reserved.</p>
+      <button onclick="window.scrollTo({top: 0, behavior: 'smooth'})" style="background: var(--racing-red); color: white; border: none; width: 50px; height: 50px; border-radius: 50%; cursor: pointer; font-family: var(--font-heading); font-size: 0.7rem; font-weight: 600; text-transform: uppercase; letter-spacing: 0.15em; box-shadow: 0 4px 10px rgba(0,0,0,0.3); transition: all 0.3s ease;">Top</button>
+      <div class="social-links">
+        <a href="#" class="social-link">IG</a>
+        <a href="#" class="social-link">YT</a>
+        <a href="#" class="social-link">X</a>
+      </div>
+    </div>
+  </footer>
+
+  <script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
+    // Theme Toggle Functionality
+    const themeToggle = document.getElementById('themeToggle');
+    const htmlElement = document.documentElement;
+
+    // Initialize theme on page load
+    function initTheme() {
+      const savedTheme = localStorage.getItem('theme');
+      const systemPrefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+
+      if (savedTheme === 'dark' || (!savedTheme && systemPrefersDark)) {
+        htmlElement.setAttribute('data-theme', 'dark');
+      } else {
+        htmlElement.setAttribute('data-theme', 'light');
+      }
+    }
+
+    // Toggle theme function
+    function toggleTheme() {
+      const currentTheme = htmlElement.getAttribute('data-theme');
+      const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
+
+      htmlElement.setAttribute('data-theme', newTheme);
+      localStorage.setItem('theme', newTheme);
+    }
+
+    // Event listeners
+    themeToggle.addEventListener('click', toggleTheme);
+    window.addEventListener('DOMContentLoaded', initTheme);
+
+    // Mobile Menu Toggle
+    const mobileMenuBtn = document.getElementById('mobileMenuBtn');
+    const navLinks = document.getElementById('navLinks');
+
+    mobileMenuBtn.addEventListener('click', () => {
+      navLinks.classList.toggle('active');
+    });
+
+    // Close mobile menu when clicking a link
+    navLinks.querySelectorAll('a').forEach(link => {
+      link.addEventListener('click', () => {
+        navLinks.classList.remove('active');
+      });
+    });
+
+    // Navbar scroll effect
+    const navbar = document.getElementById('navbar');
+    window.addEventListener('scroll', () => {
+      if (window.scrollY > 50) {
+        navbar.classList.add('scrolled');
+      } else {
+        navbar.classList.remove('scrolled');
+      }
+    });
+
+    // Scroll reveal animation
+    const observerOptions = {
+      root: null,
+      rootMargin: '0px',
+      threshold: 0.1
+    };
+
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('visible');
+        }
+      });
+    }, observerOptions);
+
+    document.querySelectorAll('.fade-in').forEach(el => {
+      observer.observe(el);
+    });
+
+    // Hero Carousel Functionality
+    const slides = document.querySelectorAll('.hero-slide');
+    const prevBtn = document.getElementById('carouselPrev');
+    const nextBtn = document.getElementById('carouselNext');
+    const dotsContainer = document.getElementById('carouselDots');
+    let currentSlide = 0;
+    const totalSlides = slides.length;
+
+    // Create dots for each slide
+    slides.forEach((_, index) => {
+      if (index > 0) {
+        const dot = document.createElement('div');
+        dot.className = 'carousel-dot';
+        dot.dataset.slide = index;
+        dot.addEventListener('click', () => goToSlide(index));
+        dotsContainer.appendChild(dot);
+      }
+    });
+
+    function updateCarousel() {
+      slides.forEach((slide, index) => {
+        slide.classList.toggle('active', index === currentSlide);
+      });
+      
+      const dots = dotsContainer.querySelectorAll('.carousel-dot');
+      dots.forEach((dot, index) => {
+        dot.classList.toggle('active', index === currentSlide);
+      });
+    }
+
+    function goToSlide(index) {
+      currentSlide = index;
+      updateCarousel();
+    }
+
+    function nextSlide() {
+      currentSlide = (currentSlide + 1) % totalSlides;
+      updateCarousel();
+    }
+
+    function prevSlide() {
+      currentSlide = (currentSlide - 1 + totalSlides) % totalSlides;
+      updateCarousel();
+    }
+
+    prevBtn.addEventListener('click', prevSlide);
+    nextBtn.addEventListener('click', nextSlide);
+
+    // Auto-advance slides every 5 seconds
+    setInterval(nextSlide, 5000);
+
+    // Smooth scroll for navigation links
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+      anchor.addEventListener('click', function(e) {
+        e.preventDefault();
+        const target = document.querySelector(this.getAttribute('href'));
+        if (target) {
+          target.scrollIntoView({
+            behavior: 'smooth',
+            block: 'start'
+          });
+        }
+      });
+    });
+
+    // Form submission handler
+    const contactForm = document.getElementById('contactForm');
+    contactForm.addEventListener('submit', (e) => {
+      e.preventDefault();
+      const formData = new FormData(contactForm);
+      const name = formData.get('name');
+      alert(`Thank you, ${name}! Your message has been sent. We will contact you soon.`);
+      contactForm.reset();
+    });
+
+    // Stats counter animation
+    const statNumbers = document.querySelectorAll('.stat-number');
+    let statsAnimated = false;
+
+    const animateStats = () => {
+      if (statsAnimated) return;
+
+      const statsSection = document.querySelector('.stats-bar');
+      const rect = statsSection.getBoundingClientRect();
+
+      if (rect.top < window.innerHeight && rect.bottom > 0) {
+        statsAnimated = true;
+
+        statNumbers.forEach(stat => {
+          const finalValue = stat.textContent;
+          const numericValue = parseInt(finalValue.replace(/[^0-9]/g, ''));
+          const suffix = finalValue.replace(/[0-9]/g, '');
+          let current = 0;
+          const increment = numericValue / 50;
+          const timer = setInterval(() => {
+            current += increment;
+            if (current >= numericValue) {
+              stat.textContent = finalValue;
+              clearInterval(timer);
+            } else {
+              stat.textContent = Math.floor(current) + suffix;
+            }
+          }, 30);
+        });
+      }
+    };
+
+    window.addEventListener('scroll', animateStats);
+    animateStats();
+  </script>
+
+  <!-- Floating WhatsApp Button -->
+  <a href="https://wa.me/17865641351" target="_blank" rel="noopener noreferrer" class="whatsapp-float" aria-label="Contact us on WhatsApp">
+    <svg viewBox="0 0 24 24" fill="currentColor">
+      <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/>
+    </svg>
+  </a>
+
+  <!-- Go to Top Button -->
+  <button onclick="topFunction()" id="myBtn" class="go-top" title="Go to top">
+    <span class="go-top-arrow"></span>
+  </button>
+
+  <style>
+    /* Floating WhatsApp Button */
+    .whatsapp-float {
+      position: fixed;
+      width: 60px;
+      height: 60px;
+      bottom: 120px;
+      right: 30px;
+      background-color: #25d366;
+      color: #ffffff;
+      border-radius: 50%;
+      text-align: center;
+      font-size: 30px;
+      box-shadow: 4px 4px 10px rgba(0, 0, 0, 0.3);
+      z-index: 1000;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: all 0.3s ease;
+    }
+
+    .whatsapp-float svg {
+      width: 32px;
+      height: 32px;
+    }
+
+    .whatsapp-float:hover {
+      background-color: #1ebc57;
+      transform: scale(1.1);
+      box-shadow: 6px 6px 15px rgba(37, 211, 102, 0.4);
+    }
+
+    @media (max-width: 768px) {
+      .whatsapp-float {
+        width: 50px;
+        height: 50px;
+        bottom: 100px;
+        right: 20px;
+      }
+      
+      .whatsapp-float svg {
+        width: 26px;
+        height: 26px;
+      }
+    }
+  </style>
+</body>
+</html>
