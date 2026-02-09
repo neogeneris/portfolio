@@ -1,0 +1,810 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title data-i18n="donations_title">Support the Team | VEON MotorSports</title>
+    <link href="https://fonts.googleapis.com/css2?family=Chakra+Petch:wght@400;600;700&family=Rajdhani:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --racing-red: #FF5F00;
+            --racing-red-dark: #E04E00;
+            --neon-yellow: #EAFF00;
+            --bg-primary-light: #FAFAFA;
+            --bg-secondary-light: #FFFFFF;
+            --surface-gray-light: #F0F0F0;
+            --text-primary-light: #333333;
+            --text-secondary-light: #666666;
+            --text-muted-light: #999999;
+            --border-color-light: #EEEEEE;
+            --card-bg-light: #FFFFFF;
+        }
+
+        [data-theme="dark"] {
+            --bg-primary: #0A0A0A;
+            --bg-secondary: #141414;
+            --surface-gray: #1E1E1E;
+            --text-primary: #E8E8E8;
+            --text-secondary: #B0B0B0;
+            --text-muted: #707070;
+            --border-color: rgba(255, 255, 255, 0.1);
+            --card-bg: #1A1A1A;
+        }
+
+        [data-theme="light"] {
+            --bg-primary: var(--bg-primary-light);
+            --bg-secondary: var(--bg-secondary-light);
+            --surface-gray: var(--surface-gray-light);
+            --text-primary: var(--text-primary-light);
+            --text-secondary: var(--text-secondary-light);
+            --text-muted: var(--text-muted-light);
+            --border-color: var(--border-color-light);
+            --card-bg: var(--card-bg-light);
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        
+        body { 
+            background-color: var(--bg-primary); 
+            font-family: 'Rajdhani', sans-serif; 
+            color: var(--text-primary);
+            line-height: 1.7;
+            transition: background-color 0.3s ease, color 0.3s ease;
+        }
+
+        .top-bar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            padding: 20px 24px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            z-index: 1000;
+            background: var(--bg-primary);
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .back-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            color: var(--text-secondary);
+            text-decoration: none;
+            font-size: 0.9rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            transition: all 0.3s ease;
+        }
+
+        .back-link:hover {
+            color: var(--racing-red);
+        }
+
+        .header-actions {
+            display: flex;
+            gap: 15px;
+            align-items: center;
+        }
+
+        .lang-toggle {
+            display: flex;
+            gap: 5px;
+            background: var(--surface-gray);
+            border: 1px solid var(--border-color);
+            border-radius: 6px;
+            padding: 4px;
+        }
+
+        .lang-btn {
+            padding: 8px 16px;
+            background: transparent;
+            border: none;
+            color: var(--text-secondary);
+            font-family: 'Rajdhani', sans-serif;
+            font-size: 0.85rem;
+            font-weight: 600;
+            cursor: pointer;
+            border-radius: 4px;
+            transition: all 0.3s ease;
+        }
+
+        .lang-btn.active {
+            background: var(--racing-red);
+            color: #ffffff;
+        }
+
+        .lang-btn:hover:not(.active) {
+            background: rgba(255, 95, 0, 0.1);
+            color: var(--racing-red);
+        }
+
+        .theme-toggle {
+            position: relative;
+            width: 52px;
+            height: 28px;
+            background: var(--surface-gray);
+            border: 1px solid var(--border-color);
+            border-radius: 28px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 3px;
+            transition: all 0.3s ease;
+        }
+
+        .theme-toggle:hover {
+            border-color: var(--racing-red);
+        }
+
+        .theme-toggle .icon {
+            width: 18px;
+            height: 18px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s ease;
+        }
+
+        .theme-toggle .sun-icon {
+            color: var(--racing-red);
+            opacity: 0;
+            transform: rotate(-90deg) scale(0.5);
+        }
+
+        .theme-toggle .moon-icon {
+            color: var(--text-secondary);
+            opacity: 1;
+            transform: rotate(0deg) scale(1);
+        }
+
+        [data-theme="dark"] .theme-toggle .sun-icon {
+            opacity: 1;
+            transform: rotate(0deg) scale(1);
+        }
+
+        [data-theme="dark"] .theme-toggle .moon-icon {
+            opacity: 0;
+            transform: rotate(90deg) scale(0.5);
+        }
+
+        .theme-toggle .toggle-thumb {
+            position: absolute;
+            left: 3px;
+            width: 20px;
+            height: 20px;
+            background: var(--text-primary);
+            border-radius: 50%;
+            transition: all 0.3s ease;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+        }
+
+        [data-theme="dark"] .theme-toggle .toggle-thumb {
+            left: 27px;
+            background: var(--racing-red);
+        }
+
+        .hero-section {
+            padding: 120px 24px 80px;
+            text-align: center;
+            background: var(--bg-primary);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero-section::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: 
+                linear-gradient(45deg, transparent 40%, rgba(255, 95, 0, 0.03) 50%, transparent 60%),
+                linear-gradient(-45deg, transparent 40%, rgba(255, 95, 0, 0.03) 50%, transparent 60%);
+            pointer-events: none;
+        }
+
+        .container { 
+            max-width: 1100px; 
+            margin: 0 auto; 
+            position: relative;
+            z-index: 1;
+        }
+
+        .driver-banner {
+            display: none;
+            background: linear-gradient(135deg, var(--surface-gray) 0%, var(--card-bg) 100%);
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            padding: 20px 30px;
+            margin-bottom: 40px;
+            align-items: center;
+            justify-content: center;
+            gap: 20px;
+        }
+
+        .driver-banner.active {
+            display: flex;
+        }
+
+        .driver-banner img {
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 2px solid var(--racing-red);
+        }
+
+        .driver-banner-info h3 {
+            font-family: 'Chakra Petch', sans-serif;
+            font-size: 1.2rem;
+            color: var(--racing-red);
+            margin-bottom: 5px;
+        }
+
+        .driver-banner-info p {
+            color: var(--text-secondary);
+            font-size: 0.9rem;
+        }
+
+        .accent-text { 
+            color: var(--racing-red); 
+            font-weight: 700; 
+            text-transform: uppercase; 
+            letter-spacing: 2px;
+            font-size: 0.9rem;
+            display: block;
+            margin-bottom: 15px;
+        }
+
+        h1 { 
+            font-family: 'Chakra Petch', sans-serif; 
+            font-size: clamp(2rem, 5vw, 3.5rem); 
+            text-transform: uppercase; 
+            font-style: italic; 
+            margin-bottom: 20px;
+            line-height: 1.1;
+        }
+        
+        .intro-text { 
+            font-size: 1.2rem; 
+            color: var(--text-secondary); 
+            max-width: 650px; 
+            margin: 0 auto 50px;
+        }
+
+        /* Support Tiers */
+        .tier-section {
+            padding: 60px 24px 80px;
+            background: var(--bg-secondary);
+            border-top: 1px solid var(--border-color);
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .tier-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+            margin-top: 40px;
+        }
+
+        .tier-card {
+            background: var(--card-bg);
+            padding: 40px 30px;
+            border: 1px solid var(--border-color);
+            position: relative;
+            transition: all 0.3s ease;
+        }
+
+        .tier-card:hover {
+            border-color: var(--racing-red);
+            transform: translateY(-8px);
+            box-shadow: 0 10px 40px rgba(255, 95, 0, 0.15);
+        }
+
+        .tier-card.featured {
+            border-color: var(--racing-red);
+        }
+
+        .popular-badge {
+            position: absolute;
+            top: 0;
+            right: 0;
+            background: var(--racing-red);
+            color: white;
+            padding: 6px 16px;
+            font-size: 0.7rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            border-radius: 0;
+        }
+
+        .tier-card h2 { 
+            font-family: 'Chakra Petch', sans-serif; 
+            font-size: 1.5rem; 
+            margin-bottom: 10px;
+        }
+
+        .tier-subtitle {
+            color: var(--text-secondary);
+            font-size: 0.9rem;
+            margin-bottom: 20px;
+        }
+
+        .price { 
+            font-size: 2.5rem; 
+            font-weight: 700; 
+            color: var(--text-primary); 
+            display: block; 
+            margin-bottom: 25px;
+            font-family: 'Chakra Petch', sans-serif;
+            font-style: italic;
+        }
+
+        .price-period {
+            font-size: 1rem;
+            color: var(--text-muted);
+            font-family: 'Rajdhani', sans-serif;
+            font-style: normal;
+        }
+
+        .tier-features { 
+            list-style: none; 
+            padding: 0; 
+            margin-bottom: 30px; 
+            text-align: left; 
+            color: var(--text-secondary);
+        }
+
+        .tier-features li { 
+            margin-bottom: 12px; 
+            display: flex; 
+            align-items: flex-start; 
+            gap: 12px;
+            line-height: 1.4;
+        }
+
+        .tier-features li::before { 
+            content: '✓'; 
+            color: var(--racing-red); 
+            font-weight: bold;
+            font-size: 1.1rem;
+            line-height: 1;
+        }
+
+        /* CALL TO ACTION BUTTON */
+        .cta-button {
+            display: inline-block;
+            background: var(--racing-red);
+            color: white;
+            padding: 16px 40px;
+            font-family: 'Chakra Petch', sans-serif;
+            font-size: 1rem;
+            font-weight: 700;
+            text-decoration: none;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            border: none;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            width: 100%;
+            text-align: center;
+            clip-path: skewX(-12deg);
+        }
+
+        .cta-button:hover {
+            background: var(--racing-red-dark);
+            box-shadow: 0 0 25px rgba(255, 95, 0, 0.4);
+        }
+
+        .cta-button.outline {
+            background: transparent;
+            border: 2px solid var(--border-color);
+            color: var(--text-primary);
+        }
+
+        .cta-button.outline:hover {
+            border-color: var(--racing-red);
+            color: var(--racing-red);
+            background: rgba(255, 95, 0, 0.1);
+            box-shadow: none;
+        }
+
+        .custom-donation {
+            padding: 80px 24px;
+            text-align: center;
+            background: var(--bg-primary);
+        }
+
+        .custom-donation h2 {
+            font-family: 'Chakra Petch', sans-serif;
+            font-size: 1.8rem;
+            margin-bottom: 15px;
+            text-transform: uppercase;
+        }
+
+        .custom-donation p {
+            color: var(--text-secondary);
+            margin-bottom: 30px;
+            max-width: 500px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .custom-link {
+            color: var(--racing-red);
+            font-weight: 700;
+            text-decoration: none;
+            border-bottom: 2px solid var(--racing-red);
+            padding-bottom: 5px;
+            transition: all 0.3s ease;
+        }
+
+        .custom-link:hover {
+            color: var(--neon-yellow);
+            border-color: var(--neon-yellow);
+        }
+
+        /* Benefits Section */
+        .benefits-section {
+            padding: 80px 24px;
+            background: var(--bg-primary);
+        }
+
+        .benefits-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 30px;
+            margin-top: 40px;
+        }
+
+        .benefit-card {
+            text-align: center;
+            padding: 30px 20px;
+        }
+
+        .benefit-icon {
+            font-size: 2.5rem;
+            margin-bottom: 20px;
+        }
+
+        .benefit-card h3 {
+            font-family: 'Chakra Petch', sans-serif;
+            font-size: 1.2rem;
+            margin-bottom: 10px;
+        }
+
+        .benefit-card p {
+            color: var(--text-secondary);
+            font-size: 0.95rem;
+        }
+
+        @media (max-width: 768px) {
+            .driver-banner {
+                flex-direction: column;
+                text-align: center;
+            }
+
+            .top-bar {
+                padding: 15px 20px;
+            }
+
+            .header-actions {
+                gap: 10px;
+            }
+
+            .lang-btn {
+                padding: 6px 12px;
+                font-size: 0.8rem;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="top-bar">
+        <a href="../#club" class="back-link">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M19 12H5M12 19l-7-7 7-7"/>
+            </svg>
+            <span data-i18n="back_link">Back to The Club</span>
+        </a>
+        <div class="header-actions">
+            <div class="lang-toggle">
+                <button class="lang-btn active" data-lang="en" onclick="setLanguage('en')">EN</button>
+                <button class="lang-btn" data-lang="es" onclick="setLanguage('es')">ES</button>
+            </div>
+            <div class="theme-toggle" onclick="toggleTheme()">
+                <div class="icon sun-icon">☀</div>
+                <div class="icon moon-icon">☾</div>
+                <div class="toggle-thumb"></div>
+            </div>
+        </div>
+    </div>
+
+    <section class="hero-section">
+        <div class="container">
+            <div id="driver-banner" class="driver-banner">
+                <img id="driver-photo" src="" alt="Driver">
+                <div class="driver-banner-info">
+                    <h3 id="driver-greeting" data-i18n="supporting_driver">Supporting</h3>
+                    <p id="driver-name"></p>
+                </div>
+            </div>
+
+            <span class="accent-text" data-i18n="accent_text">Fuel the Future</span>
+            <h1 data-i18n="hero_title">Support the Team</h1>
+            <p class="intro-text" data-i18n="hero_text">
+                Motorsport is a journey of precision and speed. Your support helps our drivers with equipment, travel, and training to reach the top of the podium.
+            </p>
+        </div>
+    </section>
+
+    <section class="tier-section">
+        <div class="container">
+            <div class="tier-grid">
+                <div class="tier-card">
+                    <h2 data-i18n="tier1_title">Fan Support</h2>
+                    <p class="tier-subtitle" data-i18n="tier1_subtitle">Individual</p>
+                    <span class="price" data-i18n="tier1_price">$25<span class="price-period">/month</span></span>
+                    <ul class="tier-features">
+                        <li data-i18n="tier1_feat1">Social Media Shoutout</li>
+                        <li data-i18n="tier1_feat2">Digital Newsletter Access</li>
+                        <li data-i18n="tier1_feat3">Digital Team Wall Recognition</li>
+                    </ul>
+                    <a href="mailto:info@veonmotorsport.com?subject=Fan Support Donation" class="cta-button" data-i18n="cta_support">Support Now</a>
+                </div>
+
+                <div class="tier-card featured">
+                    <span class="popular-badge" data-i18n="popular_badge">Popular</span>
+                    <h2 data-i18n="tier2_title">Corporate</h2>
+                    <p class="tier-subtitle" data-i18n="tier2_subtitle">Partnership</p>
+                    <span class="price" data-i18n="tier2_price">$100<span class="price-period">/month</span></span>
+                    <ul class="tier-features">
+                        <li data-i18n="tier2_feat1">Logo on Racing Equipment</li>
+                        <li data-i18n="tier2_feat2">Race Weekend VIP Access</li>
+                        <li data-i18n="tier2_feat3">Branded Content for Your Brand</li>
+                        <li data-i18n="tier2_feat4">On-Site Event Presence</li>
+                    </ul>
+                    <a href="mailto:partners@veonmotorsport.com" class="cta-button" data-i18n="cta_partner">Become a Partner</a>
+                </div>
+
+                <div class="tier-card">
+                    <h2 data-i18n="tier3_title">Champion</h2>
+                    <p class="tier-subtitle" data-i18n="tier3_subtitle">Major Sponsor</p>
+                    <span class="price" data-i18n="tier3_price">$500<span class="price-period">/month</span></span>
+                    <ul class="tier-features">
+                        <li data-i18n="tier3_feat1">Full Car Livery Placement</li>
+                        <li data-i18n="tier3_feat2">Exclusive VIP Experiences</li>
+                        <li data-i18n="tier3_feat3">Priority Media Coverage</li>
+                        <li data-i18n="tier3_feat4">Meet & Greet with Drivers</li>
+                        <li data-i18n="tier3_feat5">Annual Recognition Dinner</li>
+                    </ul>
+                    <a href="mailto:sponsorships@veonmotorsport.com" class="cta-button outline" data-i18n="cta_sponsor">Become a Sponsor</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="benefits-section">
+        <div class="container">
+            <h2 data-i18n="benefits_title" style="text-align: center; font-family: 'Chakra Petch', sans-serif; font-size: 1.8rem; text-transform: uppercase; margin-bottom: 10px;">Why Support Us?</h2>
+            <p style="text-align: center; color: var(--text-secondary); margin-bottom: 40px;" data-i18n="benefits_subtitle">Your contribution makes a real difference</p>
+            
+            <div class="benefits-grid">
+                <div class="benefit-card">
+                    <div class="benefit-icon">🏎️</div>
+                    <h3 data-i18n="benefit1_title">Equipment</h3>
+                    <p data-i18n="benefit1_text">Help fund high-quality karting equipment and safety gear for peak performance.</p>
+                </div>
+                <div class="benefit-card">
+                    <div class="benefit-icon">✈️</div>
+                    <h3 data-i18n="benefit2_title">Travel</h3>
+                    <p data-i18n="benefit2_text">Support travel costs to competitions across the country and beyond.</p>
+                </div>
+                <div class="benefit-card">
+                    <div class="benefit-icon">🎓</div>
+                    <h3 data-i18n="benefit3_title">Training</h3>
+                    <p data-i18n="benefit3_text">Enable advanced driving techniques and physical training programs.</p>
+                </div>
+                <div class="benefit-card">
+                    <div class="benefit-icon">🏆</div>
+                    <h3 data-i18n="benefit4_title">Excellence</h3>
+                    <p data-i18n="benefit4_text">Drive our team toward championships and professional racing careers.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <div class="custom-donation">
+        <div class="container">
+            <h2 data-i18n="custom_title">Custom Contribution</h2>
+            <p data-i18n="custom_text">Every contribution helps us get closer to the next race. Use the link below for custom support amounts.</p>
+            <a href="mailto:info@veonmotorsport.com?subject=Custom Donation" class="custom-link" data-i18n="custom_cta">
+                CONTRIBUTE VIA SECURE LINK
+            </a>
+        </div>
+    </div>
+
+    <script>
+        const translations = {
+            es: {
+                back_link: "Volver a The Club",
+                accent_text: "Combustible para el Futuro",
+                hero_title: "Apoya al Equipo",
+                hero_text: "El motorsport es un viaje de precisión y velocidad. Tu apoyo ayuda a nuestros pilotos con equipamiento, viajes y entrenamiento para llegar a la cima del podio.",
+                supporting_driver: "Apoyando a",
+                tier1_title: "Apoyo de Fans",
+                tier1_subtitle: "Individual",
+                tier1_price: "$25<span class='price-period'>/mes</span>",
+                tier1_feat1: "Mención en Redes Sociales",
+                tier1_feat2: "Acceso al Boletín Digital",
+                tier1_feat3: "Reconocimiento en Muro Digital",
+                cta_support: "Apoyar Ahora",
+                popular_badge: "Popular",
+                tier2_title: "Corporativo",
+                tier2_subtitle: "Asociación",
+                tier2_price: "$100<span class='price-period'>/mes</span>",
+                tier2_feat1: "Logo en Equipamiento de Carreras",
+                tier2_feat2: "Acceso VIP a Fines de Semana",
+                tier2_feat3: "Contenido Marcado para Tu Marca",
+                tier2_feat4: "Presencia en Eventos",
+                cta_partner: "Ser Socio",
+                tier3_title: "Campeón",
+                tier3_subtitle: "Patrocinador Principal",
+                tier3_price: "$500<span class='price-period'>/mes</span>",
+                tier3_feat1: "Colocación Completa en Carrocería",
+                tier3_feat2: "Experiencias VIP Exclusivas",
+                tier3_feat3: "Cobertura Mediática Prioritaria",
+                tier3_feat4: "Encuentro con los Pilotos",
+                tier3_feat5: "Cena Anual de Reconocimiento",
+                cta_sponsor: "Ser Patrocinador",
+                benefits_title: "¿Por Qué Apoyarnos?",
+                benefits_subtitle: "Tu contribución marca una diferencia real",
+                benefit1_title: "Equipamiento",
+                benefit1_text: "Ayuda a financiar karting de alta calidad y equipo de seguridad para un rendimiento óptimo.",
+                benefit2_title: "Viajes",
+                benefit2_text: "Apoya los costos de viaje a competencias en todo el país y más allá.",
+                benefit3_title: "Entrenamiento",
+                benefit3_text: "Permite técnicas avanzadas de conducción y programas de entrenamiento físico.",
+                benefit4_title: "Excelencia",
+                benefit4_text: "Impulsa a nuestro equipo hacia campeonatos y carreras profesionales.",
+                custom_title: "Contribución Personalizada",
+                custom_text: "Cada contribución nos acerca más a la siguiente carrera. Usa el siguiente enlace para montos de apoyo personalizados.",
+                custom_cta: "CONTRIBUIR ENLACE SEGURO"
+            },
+            en: {
+                back_link: "Back to The Club",
+                accent_text: "Fuel the Future",
+                hero_title: "Support the Team",
+                hero_text: "Motorsport is a journey of precision and speed. Your support helps our drivers with equipment, travel, and training to reach the top of the podium.",
+                supporting_driver: "Supporting",
+                tier1_title: "Fan Support",
+                tier1_subtitle: "Individual",
+                tier1_price: "$25<span class='price-period'>/month</span>",
+                tier1_feat1: "Social Media Shoutout",
+                tier1_feat2: "Digital Newsletter Access",
+                tier1_feat3: "Digital Team Wall Recognition",
+                cta_support: "Support Now",
+                popular_badge: "Popular",
+                tier2_title: "Corporate",
+                tier2_subtitle: "Partnership",
+                tier2_price: "$100<span class='price-period'>/month</span>",
+                tier2_feat1: "Logo on Racing Equipment",
+                tier2_feat2: "Race Weekend VIP Access",
+                tier2_feat3: "Branded Content for Your Brand",
+                tier2_feat4: "On-Site Event Presence",
+                cta_partner: "Become a Partner",
+                tier3_title: "Champion",
+                tier3_subtitle: "Major Sponsor",
+                tier3_price: "$500<span class='price-period'>/month</span>",
+                tier3_feat1: "Full Car Livery Placement",
+                tier3_feat2: "Exclusive VIP Experiences",
+                tier3_feat3: "Priority Media Coverage",
+                tier3_feat4: "Meet & Greet with Drivers",
+                tier3_feat5: "Annual Recognition Dinner",
+                cta_sponsor: "Become a Sponsor",
+                benefits_title: "Why Support Us?",
+                benefits_subtitle: "Your contribution makes a real difference",
+                benefit1_title: "Equipment",
+                benefit1_text: "Help fund high-quality karting equipment and safety gear for peak performance.",
+                benefit2_title: "Travel",
+                benefit2_text: "Support travel costs to competitions across the country and beyond.",
+                benefit3_title: "Training",
+                benefit3_text: "Enable advanced driving techniques and physical training programs.",
+                benefit4_title: "Excellence",
+                benefit4_text: "Drive our team toward championships and professional racing careers.",
+                custom_title: "Custom Contribution",
+                custom_text: "Every contribution helps us get closer to the next race. Use the link below for custom support amounts.",
+                custom_cta: "CONTRIBUTE VIA SECURE LINK"
+            }
+        };
+
+        // Driver data for referrals
+        const drivers = {
+            'john-paul': {
+                name: 'John Paul Melchiorri',
+                photo: '../user_input_files/3.png',
+                email: 'info@veonmotorsport.com'
+            },
+            'lucas': {
+                name: 'Lucas Fink',
+                photo: '../user_input_files/2.png',
+                email: 'info@veonmotorsport.com'
+            },
+            'brandon': {
+                name: 'Brandon Greene',
+                photo: '../user_input_files/1.png',
+                email: 'info@veonmotorsport.com'
+            }
+        };
+
+        let currentLang = localStorage.getItem('donations_lang') || 'en';
+
+        function setLanguage(lang) {
+            currentLang = lang;
+            localStorage.setItem('donations_lang', lang);
+            
+            document.querySelectorAll('[data-i18n]').forEach(element => {
+                const key = element.getAttribute('data-i18n');
+                if (translations[lang] && translations[lang][key]) {
+                    element.innerHTML = translations[lang][key];
+                }
+            });
+
+            document.querySelectorAll('.lang-btn').forEach(btn => {
+                btn.classList.toggle('active', btn.dataset.lang === lang);
+            });
+
+            // Update driver banner text if visible
+            updateDriverBanner();
+        }
+
+        function initTheme() {
+            const savedTheme = localStorage.getItem('donations_theme');
+            const systemPrefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+
+            if (savedTheme === 'light' || (!savedTheme && !systemPrefersDark)) {
+                document.documentElement.setAttribute('data-theme', 'light');
+            } else {
+                document.documentElement.setAttribute('data-theme', 'dark');
+            }
+        }
+
+        function toggleTheme() {
+            const currentTheme = document.documentElement.getAttribute('data-theme');
+            const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
+            
+            document.documentElement.setAttribute('data-theme', newTheme);
+            localStorage.setItem('donations_theme', newTheme);
+        }
+
+        function updateDriverBanner() {
+            const driverId = localStorage.getItem('selected_driver');
+            const banner = document.getElementById('driver-banner');
+            const photo = document.getElementById('driver-photo');
+            const name = document.getElementById('driver-name');
+            
+            if (driverId && drivers[driverId]) {
+                const driver = drivers[driverId];
+                photo.src = driver.photo;
+                name.textContent = driver.name;
+                banner.classList.add('active');
+            } else {
+                banner.classList.remove('active');
+            }
+        }
+
+        document.addEventListener('DOMContentLoaded', function() {
+            initTheme();
+            setLanguage(currentLang);
+            updateDriverBanner();
+        });
+    </script>
+</body>
+</html>

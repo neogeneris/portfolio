@@ -1,0 +1,807 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title data-i18n="bg_title">Brandon Greene | Piloto Profesional</title>
+    <link href="https://fonts.googleapis.com/css2?family=Chakra+Petch:wght@400;600;700&family=Rajdhani:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --racing-red: #FF5F00;
+            --racing-red-dark: #E04E00;
+            --neon-yellow: #EAFF00;
+            --bg-primary-light: #FAFAFA;
+            --bg-secondary-light: #FFFFFF;
+            --surface-gray-light: #F0F0F0;
+            --text-primary-light: #333333;
+            --text-secondary-light: #666666;
+            --text-muted-light: #999999;
+            --border-color-light: #EEEEEE;
+            --card-bg-light: #FFFFFF;
+        }
+
+        [data-theme="dark"] {
+            --bg-primary: #0A0A0A;
+            --bg-secondary: #141414;
+            --surface-gray: #1E1E1E;
+            --text-primary: #E8E8E8;
+            --text-secondary: #B0B0B0;
+            --text-muted: #707070;
+            --border-color: rgba(255, 255, 255, 0.1);
+            --card-bg: #1A1A1A;
+        }
+
+        [data-theme="light"] {
+            --bg-primary: var(--bg-primary-light);
+            --bg-secondary: var(--bg-secondary-light);
+            --surface-gray: var(--surface-gray-light);
+            --text-primary: var(--text-primary-light);
+            --text-secondary: var(--text-secondary-light);
+            --text-muted: var(--text-muted-light);
+            --border-color: var(--border-color-light);
+            --card-bg: var(--card-bg-light);
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        
+        body { 
+            background-color: var(--bg-primary); 
+            font-family: 'Rajdhani', sans-serif; 
+            color: var(--text-primary);
+            line-height: 1.7;
+            transition: background-color 0.3s ease, color 0.3s ease;
+        }
+
+        .profile-header {
+            min-height: 60vh;
+            display: flex;
+            align-items: center;
+            background: 
+                linear-gradient(135deg, var(--bg-primary) 0%, var(--bg-secondary) 100%),
+                url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><defs><pattern id="grid" width="10" height="10" patternUnits="userSpaceOnUse"><path d="M 10 0 L 0 0 0 10" fill="none" stroke="%23E0E0E0" stroke-width="0.5"/></pattern></defs><rect width="100" height="100" fill="url(%23grid)"/></svg>');
+            position: relative;
+            overflow: hidden;
+            padding: 60px 0;
+        }
+
+        [data-theme="dark"] .profile-header {
+            background: 
+                linear-gradient(135deg, rgba(10, 10, 10, 0.95) 0%, rgba(20, 20, 20, 0.85) 100%),
+                url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><defs><pattern id="grid" width="10" height="10" patternUnits="userSpaceOnUse"><path d="M 10 0 L 0 0 0 10" fill="none" stroke="%23141414" stroke-width="0.5"/></pattern></defs><rect width="100" height="100" fill="url(%23grid)"/></svg>');
+        }
+
+        .profile-header::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: 
+                linear-gradient(45deg, transparent 40%, rgba(255, 95, 0, 0.03) 50%, transparent 60%),
+                linear-gradient(-45deg, transparent 40%, rgba(255, 95, 0, 0.03) 50%, transparent 60%);
+            pointer-events: none;
+        }
+
+        .top-bar {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            padding: 20px 24px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            z-index: 100;
+        }
+
+        .container { 
+            max-width: 1200px; 
+            margin: 0 auto; 
+            padding: 0 24px; 
+            position: relative;
+            z-index: 1;
+        }
+
+        .back-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            color: var(--text-secondary);
+            text-decoration: none;
+            font-family: var(--font-heading);
+            font-size: 0.9rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            transition: all 0.3s ease;
+        }
+
+        .back-link:hover {
+            color: var(--racing-red);
+        }
+
+        .header-actions {
+            display: flex;
+            gap: 15px;
+            align-items: center;
+        }
+
+        .lang-toggle {
+            display: flex;
+            gap: 5px;
+            background: var(--surface-gray);
+            border: 1px solid var(--border-color);
+            border-radius: 6px;
+            padding: 4px;
+        }
+
+        .lang-btn {
+            padding: 8px 16px;
+            background: transparent;
+            border: none;
+            color: var(--text-secondary);
+            font-family: var(--font-heading);
+            font-size: 0.85rem;
+            font-weight: 600;
+            cursor: pointer;
+            border-radius: 4px;
+            transition: all 0.3s ease;
+        }
+
+        .lang-btn.active {
+            background: var(--racing-red);
+            color: #ffffff;
+        }
+
+        .lang-btn:hover:not(.active) {
+            background: rgba(255, 95, 0, 0.1);
+            color: var(--racing-red);
+        }
+
+        .theme-toggle {
+            position: relative;
+            width: 52px;
+            height: 28px;
+            background: var(--surface-gray);
+            border: 1px solid var(--border-color);
+            border-radius: 28px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 3px;
+            transition: all 0.3s ease;
+        }
+
+        .theme-toggle:hover {
+            border-color: var(--racing-red);
+        }
+
+        .theme-toggle .icon {
+            width: 18px;
+            height: 18px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s ease;
+        }
+
+        .theme-toggle .sun-icon {
+            color: var(--racing-red);
+            opacity: 0;
+            transform: rotate(-90deg) scale(0.5);
+        }
+
+        .theme-toggle .moon-icon {
+            color: var(--text-secondary);
+            opacity: 1;
+            transform: rotate(0deg) scale(1);
+        }
+
+        [data-theme="dark"] .theme-toggle .sun-icon {
+            opacity: 1;
+            transform: rotate(0deg) scale(1);
+        }
+
+        [data-theme="dark"] .theme-toggle .moon-icon {
+            opacity: 0;
+            transform: rotate(90deg) scale(0.5);
+        }
+
+        .theme-toggle .toggle-thumb {
+            position: absolute;
+            left: 3px;
+            width: 20px;
+            height: 20px;
+            background: var(--text-primary);
+            border-radius: 50%;
+            transition: all 0.3s ease;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+        }
+
+        [data-theme="dark"] .theme-toggle .toggle-thumb {
+            left: 27px;
+            background: var(--racing-red);
+        }
+
+        .profile-content {
+            display: grid;
+            grid-template-columns: 1fr 1.5fr;
+            gap: 60px;
+            align-items: center;
+            margin-top: 40px;
+        }
+
+        .image-wrapper {
+            position: relative;
+            clip-path: polygon(0 0, 100% 0, 100% 85%, 85% 100%, 0 100%);
+            border: 1px solid var(--border-color);
+            overflow: hidden;
+        }
+
+        [data-theme="dark"] .image-wrapper {
+            clip-path: none;
+        }
+
+        .image-wrapper img {
+            width: 100%;
+            display: block;
+            filter: grayscale(100%);
+            transition: all 0.5s ease;
+        }
+
+        .image-wrapper:hover img { 
+            filter: grayscale(0%); 
+            transform: scale(1.02);
+        }
+
+        .header-content h1 {
+            font-family: var(--font-heading);
+            font-size: clamp(2rem, 5vw, 3.5rem);
+            line-height: 1;
+            font-style: italic;
+            margin-bottom: 15px;
+            text-transform: uppercase;
+        }
+
+        .category-tag {
+            color: var(--racing-red);
+            font-weight: 700;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            font-size: 0.9rem;
+            display: inline-block;
+            margin-bottom: 15px;
+        }
+
+        .profile-subtitle {
+            font-size: 1.2rem;
+            color: var(--text-secondary);
+            margin-bottom: 25px;
+            font-weight: 500;
+        }
+
+        .bio-details {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 15px;
+            margin-bottom: 30px;
+        }
+
+        .bio-item {
+            font-size: 1rem;
+            color: var(--text-secondary);
+        }
+
+        .bio-item strong {
+            color: var(--text-primary);
+            display: block;
+            font-size: 0.85rem;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            margin-bottom: 3px;
+        }
+
+        .profile-cta {
+            display: flex;
+            gap: 15px;
+            flex-wrap: wrap;
+        }
+
+        .btn-profile {
+            font-family: var(--font-heading);
+            font-size: 0.95rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            padding: 14px 28px;
+            border: none;
+            cursor: pointer;
+            transform: skewX(-12deg);
+            transition: all 0.3s ease;
+            text-decoration: none;
+            display: inline-block;
+        }
+
+        .btn-primary-profile {
+            background: var(--racing-red);
+            color: #ffffff;
+        }
+
+        .btn-primary-profile:hover {
+            background: var(--racing-red-dark);
+            box-shadow: 0 0 20px rgba(255, 95, 0, 0.4);
+        }
+
+        .btn-outline-profile {
+            background: rgba(255, 255, 255, 0.1);
+            color: var(--text-primary);
+            border: 2px solid var(--border-color);
+        }
+
+        .btn-outline-profile:hover {
+            background: rgba(255, 95, 0, 0.1);
+            border-color: var(--racing-red);
+        }
+
+        /* Stats Section */
+        .stats-section {
+            background: var(--bg-secondary);
+            padding: 60px 24px;
+            border-top: 1px solid var(--border-color);
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .stats-grid {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 25px;
+        }
+
+        .stat-box {
+            background: var(--card-bg);
+            padding: 30px 20px;
+            text-align: center;
+            border-bottom: 3px solid var(--border-color);
+            transition: all 0.3s ease;
+        }
+
+        .stat-box:hover { 
+            border-color: var(--racing-red); 
+            transform: translateY(-5px);
+        }
+
+        .stat-number {
+            display: block;
+            font-size: 2.5rem;
+            font-weight: 700;
+            color: var(--racing-red);
+            font-family: var(--font-heading);
+            font-style: italic;
+            line-height: 1;
+            margin-bottom: 8px;
+        }
+
+        .stat-label { 
+            font-size: 0.8rem; 
+            color: var(--text-secondary); 
+            text-transform: uppercase;
+            letter-spacing: 0.15em;
+        }
+
+        /* Resume Section */
+        .resume-section {
+            background: var(--bg-primary);
+            padding: 80px 24px;
+        }
+
+        .resume-container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .section-title {
+            font-family: var(--font-heading);
+            font-size: clamp(1.5rem, 3vw, 2rem);
+            margin-bottom: 40px;
+            border-left: 5px solid var(--racing-red);
+            padding-left: 20px;
+            text-transform: uppercase;
+        }
+
+        .resume-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 50px;
+        }
+
+        .resume-table th {
+            text-align: left;
+            color: var(--text-muted);
+            font-size: 0.8rem;
+            padding: 18px;
+            border-bottom: 2px solid var(--border-color);
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+        }
+
+        .resume-table td { 
+            padding: 20px 18px; 
+            border-bottom: 1px solid var(--border-color);
+            font-size: 1rem;
+        }
+
+        .resume-table tr:hover {
+            background: rgba(255, 95, 0, 0.03);
+        }
+
+        .highlight-win { 
+            color: var(--racing-red); 
+            font-weight: 700;
+        }
+
+        .position-cell {
+            font-family: var(--font-heading);
+            font-size: 1rem;
+        }
+
+        /* Sponsorship Section */
+        .sponsor-section {
+            background: var(--bg-secondary);
+            padding: 60px 24px;
+            border-top: 1px solid var(--border-color);
+        }
+
+        .sponsor-container {
+            max-width: 700px;
+            margin: 0 auto;
+            text-align: center;
+        }
+
+        .sponsor-section h3 {
+            font-family: var(--font-heading);
+            font-size: 1.5rem;
+            margin-bottom: 15px;
+            text-transform: uppercase;
+        }
+
+        .sponsor-section p {
+            color: var(--text-secondary);
+            margin-bottom: 25px;
+            font-size: 1rem;
+        }
+
+        .sponsor-email {
+            display: inline-block;
+            font-family: var(--font-heading);
+            font-size: 1.1rem;
+            color: var(--racing-red);
+            text-decoration: none;
+            margin-bottom: 25px;
+            transition: all 0.3s ease;
+        }
+
+        .sponsor-email:hover {
+            color: var(--neon-yellow);
+        }
+
+        @media (max-width: 992px) {
+            .profile-content {
+                grid-template-columns: 1fr;
+                gap: 40px;
+            }
+
+            .image-wrapper {
+                max-width: 350px;
+                margin: 0 auto;
+            }
+
+            .stats-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .bio-details {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        @media (max-width: 576px) {
+            .stats-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .profile-cta {
+                flex-direction: column;
+            }
+
+            .btn-profile {
+                width: 100%;
+                text-align: center;
+            }
+
+            .header-actions {
+                flex-direction: column;
+                gap: 10px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <section class="profile-header">
+        <div class="top-bar">
+            <a href="../#club" class="back-link">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M19 12H5M12 19l-7-7 7-7"/>
+                </svg>
+                <span data-i18n="back_link">Volver a The Club</span>
+            </a>
+            <div class="header-actions">
+                <div class="lang-toggle">
+                    <button class="lang-btn active" data-lang="es" onclick="setLanguage('es')">ES</button>
+                    <button class="lang-btn" data-lang="en" onclick="setLanguage('en')">EN</button>
+                </div>
+                <div class="theme-toggle" onclick="toggleTheme()">
+                    <div class="icon sun-icon">☀</div>
+                    <div class="icon moon-icon">☾</div>
+                    <div class="toggle-thumb"></div>
+                </div>
+            </div>
+        </div>
+
+        <div class="container">
+            <div class="profile-content">
+                <div class="image-wrapper">
+                    <img src="../user_input_files/3.png" alt="Brandon Greene">
+                </div>
+                <div class="header-content">
+                    <span class="category-tag" data-i18n="category_tag">Pro KZ Shifter | #14</span>
+                    <h1>Brandon Greene</h1>
+                    <p class="profile-subtitle" data-i18n="bg_subtitle">
+                        Piloto estadounidense con amplia experiencia en shifter karts y competencias nacionales. Conocido por su consistencia y capacidad de mejora continua en cada carrera.
+                    </p>
+                    <div class="bio-details">
+                        <div class="bio-item">
+                            <strong data-i18n="nationality">Nacionalidad</strong>
+                            <span data-i18n="bg_nationality">Estadounidense (Texas)</span>
+                        </div>
+                        <div class="bio-item">
+                            <strong data-i18n="specialty">Especialidad</strong>
+                            <span data-i18n="specialty_kz">Pro KZ Shifter</span>
+                        </div>
+                        <div class="bio-item">
+                            <strong data-i18n="team">Equipo Actual</strong>
+                            <span data-i18n="bg_team">Slipstream Racing / TB Kart</span>
+                        </div>
+                        <div class="bio-item">
+                            <strong data-i18n="base">Base</strong>
+                            <span data-i18n="bg_base">Amarillo Kart Complex</span>
+                        </div>
+                    </div>
+                    <div class="profile-cta">
+                        <a href="https://www.instagram.com/brandngreene" target="_blank" class="btn-profile btn-primary-profile" data-i18n="instagram_btn">Ver Perfil de Instagram</a>
+                        <a href="profiles/donations.html" class="btn-profile btn-outline-profile" data-i18n="donate_btn" onclick="selectDriver('brandon')">Donar / Support</a>
+                        <a href="mailto:info@veonmotorsport.com" class="btn-profile btn-outline-profile" data-i18n="contact_veon">Contactar a VEON Motorsport</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <div class="stats-section">
+        <div class="stats-grid">
+            <div class="stat-box">
+                <span class="stat-number">15</span>
+                <span class="stat-label" data-i18n="wins">Victorias</span>
+            </div>
+            <div class="stat-box">
+                <span class="stat-number">32</span>
+                <span class="stat-label" data-i18n="podiums">Podios</span>
+            </div>
+            <div class="stat-box">
+                <span class="stat-number">5+</span>
+                <span class="stat-label" data-i18n="experience">Años de Experiencia</span>
+            </div>
+            <div class="stat-box">
+                <span class="stat-number">68</span>
+                <span class="stat-label" data-i18n="races">Carreras TSRS</span>
+            </div>
+        </div>
+    </div>
+
+    <section class="resume-section">
+        <div class="resume-container">
+            <h2 class="section-title" data-i18n="resume_title">Trayectoria de Carreras</h2>
+            <table class="resume-table">
+                <thead>
+                    <tr>
+                        <th data-i18n="competition">Competencia</th>
+                        <th data-i18n="category">Categoría</th>
+                        <th data-i18n="position">Posición</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td data-i18n="bg_race1">TSRS 2025 - Winter Warm Up</td>
+                        <td data-i18n="bg_cat1">Pro KZ Shifter</td>
+                        <td class="position-cell" data-i18n="5th_place">5° Lugar</td>
+                    </tr>
+                    <tr>
+                        <td data-i18n="bg_race2">TSRS 2025 - Summer Shootout</td>
+                        <td data-i18n="bg_cat1">Pro KZ Shifter</td>
+                        <td class="position-cell highlight-win" data-i18n="podium">3° Lugar - Podio</td>
+                    </tr>
+                    <tr>
+                        <td data-i18n="bg_race3">Amarillo Kart Complex Night Race</td>
+                        <td data-i18n="bg_cat2">LO206 Senior</td>
+                        <td class="position-cell highlight-win" data-i18n="1st_place">1° Lugar</td>
+                    </tr>
+                    <tr>
+                        <td data-i18n="bg_race4">Greater Houston Race Series</td>
+                        <td data-i18n="bg_cat2">LO206 Senior</td>
+                        <td class="position-cell highlight-win" data-i18n="multiple_wins">Múltiples Victorias</td>
+                    </tr>
+                    <tr>
+                        <td data-i18n="bg_race5">Triple Crown Kart Championship</td>
+                        <td data-i18n="bg_cat2">LO206 Senior</td>
+                        <td class="position-cell highlight-win" data-i18n="multiple_podiums">Múltiples Podios</td>
+                    </tr>
+                    <tr>
+                        <td data-i18n="bg_race6">TKL (Texas Kart League)</td>
+                        <td data-i18n="bg_cat3">Competición Regional</td>
+                        <td class="position-cell highlight-win" data-i18n="regional_champ">Campeonato Regional</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </section>
+
+    <div class="sponsor-section">
+        <div class="sponsor-container">
+            <h3 data-i18n="partner_title">Asociación con Brandon</h3>
+            <p data-i18n="partner_text">Un piloto experimentado con un historial demostrado de victorias y podios en las competencias más importantes de Texas. Ideal para asociaciones a largo plazo.</p>
+            <a href="mailto:info@veonmotorsport.com" class="sponsor-email" data-i18n="contact_veon">Contactar a VEON Motorsport</a>
+            <div>
+                <a href="https://www.instagram.com/brandngreene" target="_blank" class="btn-profile btn-outline-profile" data-i18n="follow_instagram">Seguir en Instagram</a>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const translations = {
+            es: {
+                back_link: "Volver a The Club",
+                category_tag: "Pro KZ Shifter | #14",
+                bg_subtitle: "Piloto estadounidense con amplia experiencia en shifter karts y competencias nacionales. Conocido por su consistencia y capacidad de mejora continua en cada carrera.",
+                nationality: "Nacionalidad",
+                bg_nationality: "Estadounidense (Texas)",
+                specialty: "Especialidad",
+                specialty_kz: "Pro KZ Shifter",
+                team: "Equipo Actual",
+                bg_team: "Slipstream Racing / TB Kart",
+                base: "Base",
+                bg_base: "Amarillo Kart Complex",
+                donate_btn: "Donar / Support",
+                instagram_btn: "Ver Perfil de Instagram",
+                contact_veon: "Contactar a VEON Motorsport",
+                wins: "Victorias",
+                podiums: "Podios",
+                experience: "Años de Experiencia",
+                races: "Carreras TSRS",
+                resume_title: "Trayectoria de Carreras",
+                competition: "Competencia",
+                category: "Categoría",
+                position: "Posición",
+                bg_race1: "TSRS 2025 - Winter Warm Up",
+                bg_cat1: "Pro KZ Shifter",
+                "5th_place": "5° Lugar",
+                bg_race2: "TSRS 2025 - Summer Shootout",
+                podium: "3° Lugar - Podio",
+                bg_race3: "Amarillo Kart Complex Night Race",
+                bg_cat2: "LO206 Senior",
+                "1st_place": "1° Lugar",
+                bg_race4: "Greater Houston Race Series",
+                multiple_wins: "Múltiples Victorias",
+                bg_race5: "Triple Crown Kart Championship",
+                multiple_podiums: "Múltiples Podios",
+                bg_race6: "TKL (Texas Kart League)",
+                bg_cat3: "Competición Regional",
+                regional_champ: "Campeonato Regional",
+                partner_title: "Asociación con Brandon",
+                partner_text: "Un piloto experimentado con un historial demostrado de victorias y podios en las competencias más importantes de Texas. Ideal para asociaciones a largo plazo.",
+                follow_instagram: "Seguir en Instagram"
+            },
+            en: {
+                back_link: "Back to The Club",
+                category_tag: "Pro KZ Shifter | #14",
+                bg_subtitle: "American driver with extensive experience in shifter karts and national competitions. Known for his consistency and continuous improvement ability in every race.",
+                nationality: "Nationality",
+                bg_nationality: "American (Texas)",
+                specialty: "Specialty",
+                specialty_kz: "Pro KZ Shifter",
+                team: "Current Team",
+                bg_team: "Slipstream Racing / TB Kart",
+                base: "Base",
+                bg_base: "Amarillo Kart Complex",
+                instagram_btn: "View Instagram Profile",
+                contact_veon: "Contact VEON Motorsport",
+                wins: "Wins",
+                podiums: "Podiums",
+                experience: "Years of Experience",
+                races: "TSRS Races",
+                resume_title: "Racing Career",
+                competition: "Competition",
+                category: "Category",
+                position: "Position",
+                bg_race1: "TSRS 2025 - Winter Warm Up",
+                bg_cat1: "Pro KZ Shifter",
+                "5th_place": "5th Place",
+                bg_race2: "TSRS 2025 - Summer Shootout",
+                podium: "3rd Place - Podium",
+                bg_race3: "Amarillo Kart Complex Night Race",
+                bg_cat2: "LO206 Senior",
+                "1st_place": "1st Place",
+                bg_race4: "Greater Houston Race Series",
+                multiple_wins: "Multiple Wins",
+                bg_race5: "Triple Crown Kart Championship",
+                multiple_podiums: "Multiple Podiums",
+                bg_race6: "TKL (Texas Kart League)",
+                bg_cat3: "Regional Competition",
+                regional_champ: "Regional Championship",
+                partner_title: "Partner with Brandon",
+                partner_text: "An experienced driver with a proven track record of wins and podiums in the most important Texas competitions. Ideal for long-term partnerships.",
+                follow_instagram: "Follow on Instagram"
+            }
+        };
+
+        let currentLang = localStorage.getItem('profile_lang') || 'en';
+
+        function setLanguage(lang) {
+            currentLang = lang;
+            localStorage.setItem('profile_lang', lang);
+            
+            document.querySelectorAll('[data-i18n]').forEach(element => {
+                const key = element.getAttribute('data-i18n');
+                if (translations[lang][key]) {
+                    element.textContent = translations[lang][key];
+                }
+            });
+
+            document.querySelectorAll('.lang-btn').forEach(btn => {
+                btn.classList.toggle('active', btn.dataset.lang === lang);
+            });
+        }
+
+        function initTheme() {
+            const savedTheme = localStorage.getItem('theme');
+            const systemPrefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+
+            if (savedTheme === 'light' || (!savedTheme && !systemPrefersDark)) {
+                document.documentElement.setAttribute('data-theme', 'light');
+            } else {
+                document.documentElement.setAttribute('data-theme', 'dark');
+            }
+        }
+
+        function toggleTheme() {
+            const currentTheme = document.documentElement.getAttribute('data-theme');
+            const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
+            
+            document.documentElement.setAttribute('data-theme', newTheme);
+            localStorage.setItem('theme', newTheme);
+        }
+
+        function selectDriver(driverId) {
+            localStorage.setItem('selected_driver', driverId);
+        }
+
+        document.addEventListener('DOMContentLoaded', function() {
+            initTheme();
+            setLanguage(currentLang);
+        });
+    </script>
+</body>
+</html>
