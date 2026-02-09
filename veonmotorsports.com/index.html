@@ -2050,60 +2050,125 @@
       }
     }
 
-/* --- ESTILOS PARA LA SECCIÓN CLUB --- */
-#club {
+/* ============================================================
+   CLUB SECTION - DRIVER CARDS (MATCHING NEW HTML)
+   ============================================================ */
+
+.club {
     background-color: #000;
-    padding: 80px 0;
+    padding: 100px 0;
 }
 
-.driver-grid {
+.club-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-    gap: 30px;
-    padding: 20px;
+    grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+    gap: 40px;
+    margin-top: 50px;
 }
 
-.driver-card {
+.driver-card-new {
     background: #111;
-    border: 1px solid #333;
-    padding: 20px;
-    text-align: center;
-    transition: 0.3s;
-    text-decoration: none; /* Quita el subrayado de los links */
-    display: block;
+    border: 1px solid #222;
+    text-decoration: none;
+    color: white;
+    transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+    position: relative;
 }
 
-.driver-card:hover {
+.driver-card-new:hover {
     border-color: #FF5F00; /* Naranja VEON */
     transform: translateY(-10px);
+    box-shadow: 0 20px 40px rgba(255, 95, 0, 0.15);
 }
 
-.driver-card img {
+/* Container de la imagen con efecto Pro */
+.driver-image-container {
+    position: relative;
+    width: 100%;
+    overflow: hidden;
+    background: #000;
+}
+
+.driver-img {
     width: 100%;
     height: auto;
-    filter: grayscale(100%); /* Efecto Pro */
-    transition: 0.5s;
-    margin-bottom: 20px;
+    display: block;
+    filter: grayscale(100%);
+    transition: 0.6s ease;
 }
 
-.driver-card:hover img {
+.driver-card-new:hover .driver-img {
     filter: grayscale(0%);
+    transform: scale(1.05);
 }
 
-.driver-card h3 {
-    color: #fff;
+/* Badge del número del piloto */
+.driver-number-badge {
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    background: #FF5F00;
+    color: #000;
     font-family: 'Chakra Petch', sans-serif;
-    margin: 10px 0;
+    font-weight: 700;
+    padding: 10px 20px;
+    font-size: 1.5rem;
+    clip-path: polygon(20% 0%, 100% 0%, 100% 100%, 0% 100%);
 }
 
-.driver-card .stats {
-    display: flex;
-    justify-content: space-around;
+/* Información del piloto */
+.driver-info {
+    padding: 25px;
+    border-top: 2px solid #222;
+}
+
+.driver-category {
     color: #FF5F00;
-    font-weight: bold;
+    font-size: 0.8rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+}
+
+.driver-info h3 {
+    font-family: 'Chakra Petch', sans-serif;
+    font-size: 1.8rem;
+    margin: 10px 0;
+    text-transform: uppercase;
+}
+
+.driver-info p {
+    color: #888;
+    font-size: 0.95rem;
+    margin-bottom: 20px;
+    line-height: 1.4;
+}
+
+/* Preview de Estadísticas */
+.driver-stats-preview {
+    display: flex;
+    justify-content: space-between;
     border-top: 1px solid #222;
     padding-top: 15px;
-}	  
+}
+
+.driver-stats-preview span {
+    font-size: 0.9rem;
+    color: #fff;
+    text-transform: uppercase;
+}
+
+.driver-stats-preview strong {
+    color: #FF5F00;
+    font-size: 1.1rem;
+}
+
+
+
+	  
   </style>
 
 </head>
