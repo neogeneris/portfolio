@@ -2049,6 +2049,61 @@
         height: 20px;
       }
     }
+
+/* --- ESTILOS PARA LA SECCIÓN CLUB --- */
+#club {
+    background-color: #000;
+    padding: 80px 0;
+}
+
+.driver-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 30px;
+    padding: 20px;
+}
+
+.driver-card {
+    background: #111;
+    border: 1px solid #333;
+    padding: 20px;
+    text-align: center;
+    transition: 0.3s;
+    text-decoration: none; /* Quita el subrayado de los links */
+    display: block;
+}
+
+.driver-card:hover {
+    border-color: #FF5F00; /* Naranja VEON */
+    transform: translateY(-10px);
+}
+
+.driver-card img {
+    width: 100%;
+    height: auto;
+    filter: grayscale(100%); /* Efecto Pro */
+    transition: 0.5s;
+    margin-bottom: 20px;
+}
+
+.driver-card:hover img {
+    filter: grayscale(0%);
+}
+
+.driver-card h3 {
+    color: #fff;
+    font-family: 'Chakra Petch', sans-serif;
+    margin: 10px 0;
+}
+
+.driver-card .stats {
+    display: flex;
+    justify-content: space-around;
+    color: #FF5F00;
+    font-weight: bold;
+    border-top: 1px solid #222;
+    padding-top: 15px;
+}	  
   </style>
 
 </head>
