@@ -9,12 +9,11 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Chakra+Petch:ital,wght@0,400;0,600;0,700;1,400&family=Rajdhani:wght@400;500;600;700&display=swap" rel="stylesheet">
   <style>
-    /* ========================================
+/* ========================================
        VEON MOTORSPORTS - DESIGN SYSTEM
-       WITH LIGHT/DARK THEME TOGGLE
        ======================================== */
     :root {
-      /* Color Palette - Light Theme (Default) with Light Gray Background */
+      /* Backgrounds */
       --bg-primary: #FAFAFA;
       --bg-secondary: #FFFFFF;
       --surface-gray: #F0F0F0;
@@ -27,32 +26,32 @@
       --chrome-start: #FAFAFA;
       --chrome-end: #EEEEEE;
       
-      /* Racing Neon Accents */
-      --racing-red: #CCFF00;
-      --racing-red-dark: #CCFF00;
-      --neon-yellow: #EAFF00;
+      /* Racing Neon Accents - REEMPLAZADO POR AMARILLO NEON */
+      --racing-red: #CCFF00;       /* Antes naranja, ahora Amarillo Neón */
+      --racing-red-dark: #BBDD00;
+      --neon-yellow: #CCFF00;
       
       /* Borders & Dividers */
       --border-color: #EEEEEE;
-      --border-hover: rgba(255, 95, 0, 0.3);
+      --border-hover: rgba(204, 255, 0, 0.3);
       
       /* Typography */
       --font-heading: 'Chakra Petch', sans-serif;
       --font-body: 'Rajdhani', sans-serif;
       
-      /* Spacing */
-      --section-padding: 100px 24px;
+      /* Spacing & Layout */
+      --section-padding: 80px 24px; /* Reducido un poco para compactar */
       --container-max: 1200px;
       
       /* Effects */
       --skew-angle: -12deg;
-      --glow-red: 0 0 20px rgba(255, 95, 0, 0.4);
-      --glow-yellow: 0 0 15px rgba(234, 255, 0, 0.5);
-      --card-shadow: 0 4px 6px -1px rgba(13, 71, 161, 0.15);
+      --glow-red: 0 0 15px rgba(204, 255, 0, 0.5); /* Glow amarillo */
+      --glow-yellow: 0 0 15px rgba(204, 255, 0, 0.5);
+      --card-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
       --transition-speed: 0.3s;
     }
 
-    /* Dark Theme Override - No Blue Colors */
+    /* Dark Theme Override */
     [data-theme="dark"] {
       --bg-primary: #0A0A0A;
       --bg-secondary: #141414;
@@ -65,14 +64,16 @@
       --chrome-start: #E8E8E8;
       --chrome-end: #A0A0A0;
       
-      --racing-red: #FF5F00;
-      --racing-red-dark: #E04E00;
-      --neon-yellow: #EAFF00;
+      /* Mantenemos Amarillo Neón en Dark */
+      --racing-red: #CCFF00; 
+      --racing-red-dark: #BBDD00;
+      --neon-yellow: #CCFF00;
       
       --border-color: rgba(255, 255, 255, 0.1);
-      --border-hover: rgba(255, 95, 0, 0.3);
+      --border-hover: rgba(204, 255, 0, 0.4);
       
       --card-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.5);
+      --glow-red: 0 0 20px rgba(204, 255, 0, 0.4);
     }
 
     /* Reset & Base */
