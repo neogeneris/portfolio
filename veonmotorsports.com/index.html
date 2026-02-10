@@ -2061,9 +2061,11 @@
 
 .club-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
-    gap: 40px;
-    margin-top: 50px;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); /* Reducimos el ancho mínimo de las tarjetas */
+    gap: 25px; /* Reducimos el espacio entre ellas */
+    transform: scale(0.9); /* Escala al 90% (el 80% suele ser demasiado pequeño en web) */
+    transform-origin: top center; /* Para que no queden espacios en blanco arriba */
+    margin-top: 20px;
 }
 
 .driver-card-new {
