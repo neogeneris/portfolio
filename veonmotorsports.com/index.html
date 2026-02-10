@@ -150,8 +150,11 @@
        ======================================== */
     .container {
       max-width: var(--container-max);
-      margin: 0 auto;
-      padding: 0 24px;
+      width: 75%;       /* Ocupa el 80% del ancho de la pantalla */
+      margin: 0 auto;   /* El truco clave para centrar el bloque horizontalmente */
+      display: flex;
+      flex-direction: column;
+      gap: 50px;        /* Añade espacio vertical entre las secciones */
     }
 
     .section-label {
