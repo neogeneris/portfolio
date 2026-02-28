@@ -1,0 +1,1624 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>VEON Motorsport · VEON Web Page</title>
+  <style>
+    :root{
+      --yellow:#eaff00;
+      --orange:#ff7a00;
+      --black:#0a0a0a;
+      --gray:#6e6e6e;
+    }
+    *{box-sizing:border-box}
+    html{scroll-behavior:smooth}
+    body{
+      margin:0;
+      font-family: Inter, system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+      color:var(--black);
+      background:#ffffff;
+      padding-top:76px; /* fixed top bar */
+    }
+
+    body.dark{
+      background:#0a0a0a;
+      color:#f1f1f1;
+    }
+    body.dark .topbar{background:#0a0a0a;border-bottom-color:var(--yellow)}
+    body.dark .nav a{color:#f1f1f1}
+    body.dark .sectionHeader p,
+    body.dark .heroText p,
+    body.dark .driversHeader p{color:#d0d0d0}
+    body.dark .panel,
+    body.dark .tier,
+    body.dark .progCard,
+    body.dark .driverCard,
+    body.dark .strip div{background:#121212;border-color:#1f1f1f}
+    body.dark .footer{background:#0f0f0f}
+    body.dark .footerNav a{color:#bdbdbd}
+
+    /* TOP BAR */
+    .topbar{
+      position:fixed;
+      top:0;left:0;right:0;
+      background:#ffffff;
+      border-bottom:3px solid var(--orange);
+      z-index:100;
+      box-shadow:none;
+    }
+    .topbarInner{
+      max-width:1200px;
+      margin:auto;
+      padding:14px 32px;
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:18px;
+    }
+    .brand{display:flex;align-items:center;gap:14px}
+
+    .brand img{height:40px;width:auto}
+    .veon-logo{filter:none}
+
+    /* NAV LINKS */
+    .nav{display:flex;align-items:center;gap:26px}
+    .nav a{
+      color:var(--black);
+      text-decoration:none;
+      font-weight:900;
+      font-size:13px;
+      letter-spacing:.08em;
+      text-transform:uppercase;
+      position:relative;
+      padding:4px 0;
+    }
+    .nav a::after{
+      content:"";
+      position:absolute;
+      left:0;right:0;bottom:-6px;
+      height:2px;
+      background:linear-gradient(90deg,var(--yellow),var(--orange));
+      transform:scaleX(0);
+      transform-origin:left;
+      transition:transform .25s ease;
+    }
+    .nav a:hover::after{transform:scaleX(1)}
+
+    /* APPLY BUTTON */
+    .nav .btnApply{
+      margin-left:10px;
+      padding:10px 20px;
+      border-radius:999px;
+      background:linear-gradient(135deg,var(--yellow),var(--orange));
+      color:var(--black);
+      font-weight:950;
+      letter-spacing:.08em;
+      border:none;
+      box-shadow:0 6px 18px rgba(255,122,0,.35);
+    }
+    .nav .btnApply:hover{transform:translateY(-1px)}
+
+    @media(max-width:900px){
+      .topbarInner{padding:12px 18px}
+      .nav{gap:14px}
+      .nav a{font-size:12px}
+    }
+    @media(max-width:620px){
+      .nav a:nth-child(3){display:none}
+    }
+
+    /* Language Toggle */
+    .langToggle{display:flex;gap:2px;background:#f0f0f0;border-radius:6px;padding:2px}
+    .langBtn{
+      padding:6px 10px;
+      background:transparent;
+      border:none;
+      border-radius:4px;
+      font-size:11px;
+      font-weight:900;
+      cursor:pointer;
+      color:#666;
+      transition: all 0.2s ease;
+    }
+    .langBtn:hover{color:#000}
+    .langBtn.active{
+      background:var(--yellow);
+      color:var(--black);
+    }
+    body.dark .langToggle{background:#1a1a1a}
+    body.dark .langBtn{color:#999}
+    body.dark .langBtn:hover{color:#fff}
+
+    /* BUTTONS */
+    .btn{
+      padding:14px 26px;
+      font-weight:900;
+      border-radius:999px;
+      border:2px solid var(--black);
+      text-decoration:none;
+      color:var(--black);
+      letter-spacing:.04em;
+      background:#fff;
+      cursor:pointer;
+    }
+    .btnPrimary{background:linear-gradient(135deg,var(--yellow),var(--orange));border:none}
+
+    /* Read more toggle */
+    .readMore{
+      margin-top:10px;
+      display:inline-flex;
+      align-items:center;
+      gap:10px;
+      border:2px solid #111;
+      background:#fff;
+      border-radius:999px;
+      padding:10px 14px;
+      font-weight:950;
+      letter-spacing:.06em;
+      cursor:pointer;
+      font-size:12px;
+      text-transform:uppercase;
+    }
+    .readMore:hover{transform:translateY(-1px)}
+    .readMore .rmIcon{font-size:14px;font-weight:950;line-height:1}
+    .readMoreBody{display:none;margin-top:12px}
+    .readMore.open + .readMoreBody{display:block}
+
+    body.dark .readMore{background:#0f0f0f;border-color:#2a2a2a;color:#f1f1f1}
+    body.dark .readMore:hover{border-color:var(--yellow)}
+    body.dark .readMoreBody p{color:#d7d7d7}
+
+
+    /* HERO */
+    .hero{
+      position:relative;
+      min-height:100vh;
+      display:grid;
+      grid-template-columns:1.1fr .9fr;
+      align-items:center;
+      gap:40px;
+      padding:80px;
+      overflow:hidden;
+    }
+
+    /* Subtle speed haze + neon streaks behind hero */
+    .hero::before{
+      content:"";
+      position:absolute;
+      inset:-140px -180px;
+      background:
+        radial-gradient(closest-side at 15% 20%, rgba(234,255,0,.22), rgba(234,255,0,0) 55%),
+        radial-gradient(closest-side at 80% 35%, rgba(255,122,0,.20), rgba(255,122,0,0) 60%),
+        repeating-linear-gradient(
+          110deg,
+          rgba(255,122,0,.10) 0 2px,
+          rgba(255,122,0,0) 2px 20px
+        );
+      opacity:.45;
+      filter: blur(0.5px);
+      pointer-events:none;
+      transform:skewY(-2deg);
+      z-index:0;
+    }
+    .hero::after{
+      content:"";
+      position:absolute;
+      left:-20%;
+      top:18%;
+      width:140%;
+      height:320px;
+      background:linear-gradient(90deg, rgba(234,255,0,0), rgba(234,255,0,.14), rgba(255,122,0,.16), rgba(255,122,0,0));
+      transform:skewX(-18deg);
+      opacity:.55;
+      filter: blur(10px);
+      pointer-events:none;
+      z-index:0;
+    }
+
+    .heroText{position:relative;z-index:2}
+
+    .heroText h1{
+      font-size:52px;
+      line-height:1.02;
+      margin:0 0 14px;
+      letter-spacing:-1.2px;
+    }
+    .heroText h1 span{color:var(--orange)}
+    .heroText p{
+      font-size:15px;
+      color:#333;
+      max-width:500px;
+      line-height:1.45;
+    }
+    .heroActions{margin-top:32px;display:flex;gap:18px;flex-wrap:wrap}
+
+    /* Speed line lateral */
+    .speedLine{
+      position:absolute;
+      right:-40px;
+      top:0;
+      width:120px;
+      height:100%;
+      background:linear-gradient(180deg, var(--yellow), var(--orange));
+      transform:skewX(-12deg);
+      opacity:.92;
+      pointer-events:none;
+      z-index:1;
+    }
+    .speedLine::after{
+      content:"";
+      position:absolute;
+      inset:-10px;
+      background:repeating-linear-gradient(
+        180deg,
+        rgba(255,255,.38) 0 6px,
+        rgba(255,255,0) 6px 14px
+      );
+      mix-blend-mode:overlay;
+      opacity:.42;
+      filter: blur(0.4px);
+    }
+
+    .heroImage{position:relative;z-index:2}
+
+    /* Photo frame + neon motion overlay */
+    .heroImage::before{
+      content:"";
+      position:absolute;
+      inset:-10px;
+      border-radius:22px;
+      background:linear-gradient(135deg, rgba(234,255,0,.0), rgba(234,255,0,.18), rgba(255,122,0,.18), rgba(255,122,0,.0));
+      filter: blur(10px);
+      opacity:.75;
+      pointer-events:none;
+      z-index:0;
+    }
+    .heroImage::after{
+      content:"";
+      position:absolute;
+      inset:0;
+      border-radius:18px;
+      background:
+        linear-gradient(135deg, rgba(10,10,10,.05), rgba(10,10,10,0) 45%),
+        repeating-linear-gradient(
+          110deg,
+          rgba(234,255,0,.10) 0 2px,
+          rgba(234,255,0,0) 2px 16px
+        );
+      opacity:.55;
+      mix-blend-mode: multiply;
+      pointer-events:none;
+      z-index:2;
+    }
+
+    .heroImage img{
+      width:100%;
+      max-height:80vh;
+      object-fit:cover;
+      border-radius:18px;
+      box-shadow:0 14px 34px rgba(0,0,0,.10);
+      position:relative;
+      z-index:1;
+    }
+
+    /* Big translucent P1 overlay for speed feel */
+    .p1Overlay{
+      position:absolute;
+      right:14px;
+      top:-10px;
+      font-weight:950;
+      font-size:180px;
+      letter-spacing:-10px;
+      line-height:1;
+      color:rgba(255,255,255,.55);
+      mix-blend-mode: overlay;
+      filter: blur(.2px);
+      pointer-events:none;
+      z-index:3;
+    }
+    .p1Overlay span{
+      display:block;
+      margin-top:-22px;
+      font-size:14px;
+      letter-spacing:.22em;
+      text-transform:uppercase;
+      color:rgba(0,0,0,.45);
+      mix-blend-mode: normal;
+      font-weight:900;
+      text-align:right;
+      padding-right:10px;
+    }
+
+    .tag{position:absolute;top:18px;left:18px;background:var(--yellow);padding:8px 14px;font-weight:900;font-size:12px;letter-spacing:.08em;z-index:4}
+
+    /* STRIP */
+    .strip{
+      position:relative;
+      padding:36px 80px;
+      display:grid;
+      grid-template-columns:repeat(3,1fr);
+      gap:26px;
+      background:#fafafa;
+      background-image:
+        linear-gradient(0deg, rgba(234,255,0,.10), rgba(234,255,0,0) 55%),
+        repeating-linear-gradient(110deg, rgba(255,122,0,.12) 0 2px, rgba(255,122,0,0) 2px 18px);
+      background-blend-mode: multiply;
+      border-top:1px solid #e9e9e9;
+      border-bottom:1px solid #e9e9e9;
+      overflow:hidden;
+    }
+    .strip::before{
+      content:"";
+      position:absolute;
+      left:0;right:0;top:0;
+      height:4px;
+      background:linear-gradient(90deg,var(--yellow),var(--orange));
+    }
+    .strip::after{
+      content:"";
+      position:absolute;
+      inset:-80px -120px;
+      background:repeating-linear-gradient(
+        120deg,
+        rgba(255,122,0,.10) 0 2px,
+        rgba(255,122,0,0) 2px 20px
+      );
+      opacity:.22;
+      pointer-events:none;
+    }
+    .strip div{
+      position:relative;
+      background:#ffffff;
+      border:1px solid #ededed;
+      border-radius:18px;
+      padding:18px 20px 20px;
+      box-shadow:0 10px 28px rgba(0,0,0,.06);
+      font-weight:700;
+      font-size:13px;
+      line-height:1.45;
+      color:#222;
+      z-index:1;
+    }
+    .strip div::before{
+      content:"";
+      position:absolute;
+      left:18px;
+      top:18px;
+      width:10px;
+      height:10px;
+      border-radius:3px;
+      background:linear-gradient(135deg,var(--yellow),var(--orange));
+      box-shadow:0 0 12px rgba(255,122,0,.45);
+    }
+    .strip div::after{
+      content:"";
+      position:absolute;
+      left:0;right:0;bottom:0;
+      height:3px;
+      border-bottom-left-radius:18px;
+      border-bottom-right-radius:18px;
+      background:linear-gradient(90deg,var(--yellow),var(--orange));
+      opacity:.95;
+    }
+    .strip b{
+      display:block;
+      margin-left:20px;
+      margin-bottom:6px;
+      text-transform:uppercase;
+      letter-spacing:.08em;
+      font-size:12px;
+      color:var(--black);
+    }
+
+    /* PARTNERS */
+    .partners{border-top:1px solid #ededed;border-bottom:1px solid #ededed;background:#fff}
+    .partnersInner{max-width:1200px;margin:auto;padding:28px 32px}
+    .partnersLabel{margin:0 0 14px;font-size:12px;letter-spacing:.14em;text-transform:uppercase;color:#777;font-weight:800}
+    .partnersLogos{display:grid;grid-template-columns:repeat(5,1fr);gap:22px;align-items:center}
+    .logoBox{
+      height:64px;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      border:1px solid #e6e6e6;
+      border-radius:14px;
+      font-weight:950;
+      letter-spacing:.12em;
+      color:#444;
+      background:#fafafa;
+      overflow:hidden;
+      padding:8px;
+      transition: all 0.3s ease;
+    }
+    .logoBox:hover{
+      transform: translateY(-2px);
+      box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+    }
+    .logoBox img{
+      max-width:100%;
+      max-height:100%;
+      object-fit:contain;
+    }
+
+    /* Dark mode partners - show/hide based on theme */
+    .partnersLogos-light{display:grid;grid-template-columns:repeat(5,1fr);gap:22px;align-items:center}
+    .partnersLogos-dark{display:none;grid-template-columns:repeat(5,1fr);gap:22px;align-items:center}
+
+    body.dark .partnersLogos-light{display:none}
+    body.dark .partnersLogos-dark{display:grid}
+
+    body.dark .partners{background:#0a0a0a;border-top-color:#242424;border-bottom-color:#242424}
+    body.dark .logoBox-dark{
+      background:#141414;
+      border-color:#2a2a2a;
+    }
+    body.dark .logoBox-dark:hover{
+      box-shadow: 0 4px 12px rgba(255,122,0,0.2);
+      border-color: var(--orange);
+    }
+
+    /* Sponsor logo chips */
+    .logoRow{display:flex;flex-wrap:wrap;gap:10px;margin-top:12px}
+    .logoChip{
+      display:inline-flex;align-items:center;justify-content:center;
+      height:30px; padding:0 12px;
+      border:1px solid #e6e6e6;
+      border-radius:999px;
+      background:#fafafa;
+      font-size:11px;
+      letter-spacing:.10em;
+      text-transform:uppercase;
+      font-weight:950;
+      color:#444;
+      filter:grayscale(1);
+    }
+    body.dark .logoChip{background:#141414;border-color:#242424;color:#d7d7d7;filter:grayscale(1)}
+
+    /* Reviews / testimonials */
+    .reviewGrid{display:grid;grid-template-columns:repeat(3,1fr);gap:18px;margin-top:18px}
+    .reviewCard{border:1px solid #ededed;border-radius:18px;background:#fff;box-shadow:0 10px 28px rgba(0,0,0,.06);padding:16px 16px 14px;position:relative;overflow:hidden}
+    .reviewCard::after{content:"";position:absolute;left:0;right:0;top:0;height:3px;background:linear-gradient(90deg,var(--yellow),var(--orange))}
+    .stars{font-size:13px;letter-spacing:2px;color:#111;margin:0 0 8px;font-weight:950}
+    .reviewCard p{margin:0;color:#333;line-height:1.5;font-size:13px}
+    .reviewBy{margin-top:10px;font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:#666;font-weight:950}
+    body.dark .reviewCard{background:#121212;border-color:#1f1f1f}
+    body.dark .reviewCard p{color:#d0d0d0}
+    body.dark .reviewBy{color:#9a9a9a}
+
+    @media(max-width:900px){.partnersLogos{grid-template-columns:repeat(2,1fr)}.reviewGrid{grid-template-columns:1fr}}
+
+    /* SPONSORS */
+    .section{max-width:1200px;margin:70px auto 0;padding:0 32px}
+    .sectionHeader{display:flex;align-items:flex-end;justify-content:space-between;gap:22px;flex-wrap:wrap}
+    .sectionHeader h2{margin:0;font-size:30px;letter-spacing:-.6px}
+    .sectionHeader p{margin:6px 0 0;color:#333;max-width:680px;line-height:1.45;font-size:14px}
+    .kicker{font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:#777;font-weight:900}
+
+    .tiers{display:grid;grid-template-columns:repeat(3,1fr);gap:18px;margin-top:18px}
+    .tier{border:1px solid #ededed;border-radius:18px;background:#fff;box-shadow:0 10px 28px rgba(0,0,0,.06);padding:18px 18px 16px;position:relative;overflow:hidden}
+    .tier::after{content:"";position:absolute;left:0;right:0;top:0;height:3px;background:linear-gradient(90deg,var(--yellow),var(--orange))}
+    .tier h3{margin:0 0 6px;font-size:16px;letter-spacing:-.3px}
+    .tier .price{font-weight:950;letter-spacing:.06em;text-transform:uppercase;font-size:12px;color:#222}
+    .tier ul{margin:12px 0 0;padding-left:16px;color:#333;line-height:1.5;font-size:13px}
+    .tier .tierActions{margin-top:14px;display:flex;gap:10px;flex-wrap:wrap}
+
+    /* PROGRAM */
+    .programGrid{display:grid;grid-template-columns:1fr 1fr;gap:18px;margin-top:18px;align-items:start}
+    .progCard{border:1px solid #ededed;border-radius:18px;background:#fff;box-shadow:0 10px 28px rgba(0,0,0,.06);padding:18px}
+    .progCard h3{margin:0 0 8px;font-size:16px;letter-spacing:-.3px}
+    .progCard p{margin:0;color:#333;line-height:1.5;font-size:13px}
+    .accordion{margin-top:14px;border-top:1px solid #ededed}
+    .accItem{border-bottom:1px solid #ededed;padding:12px 0}
+    .accBtn{width:100%;text-align:left;background:#fff;border:none;padding:0;cursor:pointer;display:flex;align-items:center;justify-content:space-between;gap:12px}
+    .accBtn b{font-size:13px;letter-spacing:.06em;text-transform:uppercase}
+    .accBody{display:none;margin-top:10px;color:#333;line-height:1.5;font-size:13px}
+    .accItem.open .accBody{display:block}
+
+    /* GOLDEN PATH */
+    .goldenWrap{position:relative;margin-top:18px;padding:18px 0 0}
+    .gpRail{position:absolute;left:10px;top:12px;bottom:12px;width:4px;border-radius:99px;background:linear-gradient(180deg,var(--yellow),var(--orange));box-shadow:0 0 18px rgba(255,122,0,.28)}
+    .gpStep{position:relative;margin-left:28px;margin-bottom:14px;border:1px solid #ededed;border-radius:18px;background:#fff;box-shadow:0 10px 28px rgba(0,0,0,.06);padding:16px 16px 14px;overflow:hidden}
+    .gpStep::before{content:"";position:absolute;left:-10px;top:18px;width:18px;height:18px;border-radius:6px;background:linear-gradient(135deg,var(--yellow),var(--orange));box-shadow:0 0 14px rgba(255,122,0,.35)}
+    .gpStep::after{content:"";position:absolute;left:0;right:0;top:0;height:3px;background:linear-gradient(90deg,var(--yellow),var(--orange))}
+    .gpBadge{display:inline-flex;align-items:center;gap:8px;width:max-content;padding:6px 10px;border-radius:999px;font-size:11px;font-weight:950;letter-spacing:.12em;text-transform:uppercase;background:#0a0a0a;color:var(--yellow)}
+    .gpBadge::before{content:"";width:8px;height:8px;border-radius:3px;background:linear-gradient(135deg,var(--yellow),var(--orange))}
+    .gpStep h3{margin:10px 0 6px;font-size:15px;letter-spacing:-.25px}
+    .gpStep p{margin:0;color:#333;line-height:1.5;font-size:13px;max-width:920px}
+    .gpTags{display:flex;flex-wrap:wrap;gap:10px;margin-top:10px}
+    .gpTag{border:1px solid #e6e6e6;border-radius:999px;padding:8px 10px;font-size:11px;font-weight:950;letter-spacing:.08em;text-transform:uppercase;color:#444;background:#fafafa}
+    .gpExamples{display:flex;flex-wrap:wrap;gap:10px;margin-top:10px}
+    body.dark .gpStep{background:#121212;border-color:#1f1f1f}
+    body.dark .gpStep p{color:#d0d0d0}
+    body.dark .gpTag{background:#141414;border-color:#242424;color:#d7d7d7}
+
+    /* APPLY + AUTH */
+    .applyWrap{display:grid;grid-template-columns:1.05fr .95fr;gap:18px;margin-top:18px;align-items:start}
+    .panel{border:1px solid #ededed;border-radius:18px;background:#fff;box-shadow:0 10px 28px rgba(0,0,0,.06);padding:18px}
+    .panel h3{margin:0 0 10px;font-size:16px;letter-spacing:-.3px}
+    .formGrid{display:grid;grid-template-columns:repeat(2,1fr);gap:12px}
+    .field{display:flex;flex-direction:column;gap:6px}
+    .field label{font-size:11px;letter-spacing:.12em;text-transform:uppercase;font-weight:900;color:#666}
+    .field input,.field select,.field textarea{border:1px solid #e6e6e6;border-radius:12px;padding:10px 12px;font-size:14px;font-weight:650;outline:none}
+    .field textarea{min-height:110px;resize:vertical;line-height:1.45}
+    .field input:focus,.field select:focus,.field textarea:focus{border-color:#000}
+    .span2{grid-column:1/-1}
+    .hint{font-size:12px;color:#666;line-height:1.45}
+
+    .authTabs{display:flex;gap:10px;margin-bottom:12px;flex-wrap:wrap}
+    .tab{border:2px solid #111;background:#fff;border-radius:999px;padding:9px 12px;font-weight:950;letter-spacing:.06em;cursor:pointer;font-size:12px}
+    .tab.active{border:none;background:linear-gradient(135deg,var(--yellow),var(--orange))}
+    .authRow{display:flex;gap:10px;flex-wrap:wrap;margin-top:12px}
+
+    .dashTop{display:flex;align-items:flex-start;justify-content:space-between;gap:14px;flex-wrap:wrap}
+    .avatar{width:64px;height:64px;border-radius:14px;border:1px solid #e6e6e6;background:#fafafa;object-fit:cover}
+    .dashMeta{display:flex;flex-direction:column;gap:4px}
+    .dashMeta b{font-size:14px}
+    .dashMeta span{font-size:12px;color:#666;font-weight:800}
+
+    .table{width:100%;border-collapse:separate;border-spacing:0 10px;margin-top:10px}
+    .table th{font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:#666;text-align:left;padding:0 8px}
+    .row{background:#fafafa;border:1px solid #ededed;border-radius:14px}
+    .row td{padding:10px 8px;font-size:13px;color:#333}
+    .pillBtn{border:none;border-radius:999px;padding:8px 12px;font-weight:950;letter-spacing:.06em;cursor:pointer;background:#000;color:var(--yellow)}
+    .pillBtn.gray{background:#e9e9e9;color:#111}
+
+    @media(max-width:980px){
+      .tiers{grid-template-columns:1fr}
+      .programGrid{grid-template-columns:1fr}
+      .applyWrap{grid-template-columns:1fr}
+      .formGrid{grid-template-columns:1fr}
+    }
+
+    /* DRIVERS */
+    .drivers{max-width:1200px;margin:70px auto 0;padding:0 32px}
+    .driversHeader h2{font-size:30px;letter-spacing:-.6px;margin:0 0 6px}
+    .driversHeader p{margin:0 0 18px;color:#333;max-width:600px;line-height:1.45;font-size:14px}
+    .driversGrid{display:grid;grid-template-columns:repeat(2,1fr);gap:22px}
+    .driverCard{border:1px solid #ededed;border-radius:18px;overflow:hidden;background:#fff;box-shadow:0 10px 28px rgba(0,0,0,.06)}
+    .driverCard img{width:100%;height:260px;object-fit:cover;display:block}
+    .driverInfo{padding:18px 18px 20px}
+    .driverInfo h3{margin:0 0 4px;font-size:16px;letter-spacing:-.3px}
+    .driverInfo span{display:block;color:#444;font-weight:700;margin-bottom:10px;font-size:12px;letter-spacing:.04em}
+    .driverActions{display:flex;gap:12px;flex-wrap:wrap}
+    .driverCard.placeholder{display:flex;align-items:center;justify-content:center;min-height:360px;background:#fafafa}
+    .placeholderBox{border:2px dashed #d8d8d8;padding:26px 28px;border-radius:16px;color:#777;font-weight:800}
+
+    /* PROFILE */
+    .profile{padding:80px 0 30px;background:#fff}
+    .profileInner{max-width:1200px;margin:auto;padding:0 32px}
+    .backLink{display:inline-block;margin-bottom:18px;color:#666;text-decoration:none;font-weight:800}
+    .backLink:hover{color:#000}
+    .profileGrid{display:grid;grid-template-columns:1.1fr .9fr;gap:34px;align-items:start}
+    .profileMedia{position:relative}
+    .profileImg{width:100%;height:640px;object-fit:cover;border-radius:18px;box-shadow:0 14px 34px rgba(0,0,0,.10)}
+    .mediaTag{position:absolute;left:18px;top:18px;background:var(--yellow);padding:8px 12px;font-weight:950;letter-spacing:.08em;font-size:12px}
+    .profileName{font-size:38px;line-height:1.02;margin:0 0 8px;letter-spacing:-1.1px}
+    .profileMeta{font-weight:900;color:#222;letter-spacing:.06em;text-transform:uppercase;font-size:12px;margin-bottom:18px}
+    .profileActions{display:flex;gap:12px;flex-wrap:wrap;margin-bottom:18px}
+    .profileCards{display:grid;grid-template-columns:repeat(2,1fr);gap:12px;margin:18px 0 22px}
+    .miniCard{border:1px solid #ededed;border-radius:16px;padding:14px 14px 12px;background:#fafafa}
+    .miniCard b{display:block;text-transform:uppercase;letter-spacing:.08em;font-size:11px;color:#333;margin-bottom:6px}
+    .miniCard span{font-weight:900;color:#0a0a0a}
+    .profileBlock{border-top:1px solid #ededed;padding-top:18px;margin-top:18px}
+    .profileBlock h3{margin:0 0 10px;font-size:14px;letter-spacing:.08em;text-transform:uppercase}
+    .profileBlock p{margin:0;color:#333;line-height:1.5;max-width:560px;font-size:14px}
+    .bullets{margin:0;padding-left:16px;color:#333;line-height:1.5;font-size:14px}
+    .profileFooter{margin-top:30px;display:flex;align-items:center;gap:14px}
+    .pfLine{height:3px;flex:1;background:linear-gradient(90deg,var(--yellow),var(--orange))}
+    .pfText{font-size:12px;color:#666;font-weight:800;letter-spacing:.04em}
+
+    /* MODAL */
+    .modal{position:fixed;inset:0;display:none;z-index:200}
+    .modal.open{display:block}
+    .modalBackdrop{position:absolute;inset:0;background:rgba(0,0,0,.45)}
+    .modalPanel{position:relative;max-width:760px;margin:8vh auto 0;background:#fff;border-radius:20px;overflow:hidden;box-shadow:0 18px 60px rgba(0,0,0,.25)}
+    .modalHead{display:flex;align-items:flex-start;justify-content:space-between;gap:14px;padding:22px 22px 18px;border-bottom:1px solid #ededed}
+    .modalKicker{font-weight:950;letter-spacing:.10em;font-size:11px;color:#333}
+    .modalTitle{font-size:22px;font-weight:950;letter-spacing:-.3px;margin-top:4px}
+    .modalClose{border:1px solid #e5e5e5;background:#fff;border-radius:12px;width:40px;height:40px;font-size:22px;font-weight:900;cursor:pointer}
+    .modalClose:hover{border-color:#000}
+
+    /* Mini driver card inside modal */
+    .modalMini{
+      display:flex;
+      align-items:center;
+      gap:14px;
+      padding:14px 22px 0;
+    }
+    .miniAvatar{
+      width:64px;height:64px;border-radius:16px;
+      border:1px solid #e6e6e6;background:#fafafa;object-fit:cover;
+      box-shadow:0 10px 24px rgba(0,0,0,.10);
+    }
+    .miniMeta{display:flex;flex-direction:column;gap:4px;min-width:0}
+    .miniName{font-weight:950;letter-spacing:-.2px;font-size:14px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+    .miniLine{font-size:11px;letter-spacing:.10em;text-transform:uppercase;color:#555;font-weight:900}
+    .miniAch{
+      font-size:12px;
+      color:#333;
+      line-height:1.35;
+      max-width:520px;
+      display:-webkit-box;
+      -webkit-line-clamp:2;
+      -webkit-box-orient:vertical;
+      overflow:hidden;
+    }
+    .miniBadge{
+      display:inline-flex;
+      align-items:center;
+      gap:8px;
+      width:max-content;
+      padding:6px 10px;
+      border-radius:999px;
+      font-size:11px;
+      font-weight:950;
+      letter-spacing:.12em;
+      text-transform:uppercase;
+      background:linear-gradient(135deg,var(--yellow),var(--orange));
+      color:var(--black);
+      box-shadow:0 8px 18px rgba(255,122,0,.25);
+    }
+    .miniBadge::before{
+      content:"";
+      width:8px;
+      height:8px;
+      border-radius:3px;
+      background:rgba(10,10,10,.92);
+    }
+
+    .modalBody{padding:12px 22px 22px}
+    .choiceGroup{margin-top:12px}
+    .choiceLabel{font-weight:950;letter-spacing:.08em;text-transform:uppercase;font-size:11px;color:#444;margin-bottom:10px}
+    .choiceGrid{display:flex;flex-wrap:wrap;gap:10px}
+    .chip{border:2px solid #111;background:#fff;border-radius:999px;padding:10px 14px;font-weight:950;letter-spacing:.04em;cursor:pointer}
+    .chip:hover{transform:translateY(-1px)}
+    .chip.active{border:none;background:linear-gradient(135deg,var(--yellow),var(--orange))}
+    .noteRow{margin-top:16px}
+    .noteBox{background:#fafafa;border:1px solid #ededed;border-radius:16px;padding:12px 14px;color:#333;line-height:1.5}
+    .modalActions{display:flex;justify-content:flex-end;gap:12px;margin-top:16px;flex-wrap:wrap}
+
+    /* FOOTER */
+    .footer{border-top:1px solid #e6e6e6;background:#fafafa;margin-top:80px}
+    .footerInner{max-width:1200px;margin:auto;padding:28px 32px;display:flex;flex-direction:column;gap:14px}
+    .footerNav{display:flex;flex-wrap:wrap;gap:18px}
+    .footerNav a{color:#8a8a8a;text-decoration:none;font-size:13px;font-weight:600;letter-spacing:.04em}
+    .footerNav a:hover{color:#000}
+    .footerCopy{font-size:12px;color:#9a9a9a}
+
+    /* RESPONSIVE */
+    @media(max-width:980px){
+      .hero{grid-template-columns:1fr;padding:40px;min-height:auto}
+      .heroText h1{font-size:42px}
+      .strip{grid-template-columns:1fr;padding:30px}
+      .drivers{margin-top:40px}
+      .driversGrid{grid-template-columns:1fr}
+      .profileGrid{grid-template-columns:1fr}
+      .profileImg{height:420px}
+      .profileName{font-size:34px}
+    }
+    @media(max-width:820px){
+      .modalPanel{margin:10vh 14px 0}
+    }
+  
+
+    /* ==========================
+       DARK MODE READABILITY FIX
+       ========================== */
+    body.dark{
+      background:#0a0a0a;
+      color:#f1f1f1;
+    }
+
+    /* Make the site truly black in dark mode */
+    body.dark .strip,
+    body.dark .partners,
+    body.dark .section,
+    body.dark .drivers,
+    body.dark .profile,
+    body.dark .footer{background:#0a0a0a}
+
+    body.dark .topbar{background:#0a0a0a;border-bottom-color:var(--yellow)}
+    body.dark .nav a{color:#f1f1f1}
+
+    /* Cards / panels */
+    body.dark .panel,
+    body.dark .tier,
+    body.dark .progCard,
+    body.dark .driverCard,
+    body.dark .gpStep,
+    body.dark .reviewCard,
+    body.dark .strip div,
+    body.dark .miniCard{background:#121212;border-color:#242424}
+
+    /* Universal typography contrast */
+    body.dark .kicker,
+    body.dark .partnersLabel,
+    body.dark .hint,
+    body.dark .pfText,
+    body.dark .footerCopy{color:#bdbdbd}
+
+    body.dark .sectionHeader p,
+    body.dark .driversHeader p,
+    body.dark .progCard p,
+    body.dark .tier ul,
+    body.dark .tier .price,
+    body.dark .accBody,
+    body.dark .gpStep p,
+    body.dark .driverInfo span,
+    body.dark .profileMeta,
+    body.dark .profileBlock p,
+    body.dark .bullets,
+    body.dark .noteBox,
+    body.dark .miniAch{color:#d7d7d7}
+
+    body.dark .strip b{color:#f1f1f1}
+    body.dark .strip div{color:#e6e6e6}
+
+    /* Partners boxes */
+    body.dark .logoBox{background:#141414;border-color:#242424;color:#d7d7d7}
+
+    /* Forms */
+    body.dark .field label{color:#cfcfcf}
+    body.dark .field input,
+    body.dark .field select,
+    body.dark .field textarea{background:#0f0f0f;border-color:#2a2a2a;color:#f1f1f1}
+    body.dark .field input:focus,
+    body.dark .field select:focus,
+    body.dark .field textarea:focus{border-color:var(--yellow)}
+
+    /* Tables */
+    body.dark .table th{color:#bdbdbd}
+    body.dark .row{background:#141414;border-color:#242424}
+    body.dark .row td{color:#e6e6e6}
+
+    /* Footer links */
+    body.dark .footerNav a{color:#c9c9c9}
+    body.dark .footerNav a:hover{color:#ffffff}
+
+    /* Modal */
+    body.dark .modalPanel{background:#121212}
+    body.dark .modalHead{border-bottom-color:#242424}
+    body.dark .modalKicker,
+    body.dark .choiceLabel{color:#cfcfcf}
+    body.dark .modalTitle{color:#ffffff}
+    body.dark .modalClose{background:#0f0f0f;border-color:#2a2a2a;color:#f1f1f1}
+    body.dark .chip{background:#0f0f0f;border-color:#2a2a2a;color:#f1f1f1}
+    body.dark .noteBox{background:#0f0f0f;border-color:#242424}
+
+    body.dark .backLink{color:#cfcfcf}
+    body.dark .backLink:hover{color:#ffffff}
+
+    /* ==========================
+       DARK MODE TARGETED FIXES
+       ========================== */
+
+    /* Program accordion headers */
+    body.dark .accordion{border-top-color:#242424}
+    body.dark .accItem{border-bottom-color:#242424}
+    body.dark .accBtn{background:#0a0a0a !important;color:#f1f1f1 !important}
+    body.dark .accBtn b{color:#f1f1f1 !important}
+    body.dark .accBtn span{color:#bdbdbd !important}
+
+    /* Application form labels */
+    body.dark #applyForm .field label,
+    body.dark #applyForm .roleFields label,
+    body.dark #tab-login .field label,
+    body.dark #tab-register .field label,
+    body.dark #tab-dashboard .field label{color:#f1f1f1 !important}
+
+    /* Profile mini-cards */
+    body.dark .miniCard b{color:#d7d7d7 !important}
+    body.dark .miniCard span{color:#f1f1f1 !important}
+
+    /* Partner visibility paragraph */
+    body.dark .profileBlock p[style*="color:#333"]{color:#f1f1f1 !important}
+
+
+</style>
+</head>
+<body id="top">
+
+  <script>
+    // Translations
+    const translations = {
+      en: {
+        hero_title: "WE BUILD<br><span>RACE DRIVERS</span>",
+        hero_desc: "VEON Motorsport operates as a professional driver development organization built around structure, accountability, and long-term performance. The project is designed as a complete system for families and motorsport enthusiasts who believe that young drivers are athletes with natural ability that must be identified, refined, and guided over time.",
+        view_drivers: "VIEW DRIVERS",
+        sponsor_driver: "SPONSOR A DRIVER",
+        nav_drivers: "Drivers",
+        nav_sponsors: "Sponsors",
+        nav_foundation: "Foundation",
+        nav_program: "Program",
+        nav_about: "About",
+        nav_members: "Members",
+        nav_apply: "Apply",
+        strip_1_title: "Structured development system",
+        strip_1_text: "VEON follows a clearly defined development framework based on timing, progression gates, and realistic milestones. Drivers are treated as developing athletes.",
+        strip_2_title: "Performance-first mentality",
+        strip_2_text: "All decisions inside VEON are driven by measurable performance indicators such as lap-time trends, consistency, data usage, and execution under pressure.",
+        strip_3_title: "Sponsor-ready drivers",
+        strip_3_text: "Drivers are trained to represent partners professionally, communicate clearly, and deliver consistent visibility.",
+        partners_label: "Tracks & Racing Organizations",
+        sponsors_kicker: "Sponsors",
+        sponsor_title: "Sponsorship structured as a long-term development partnership",
+        sponsor_desc: "VEON sponsorship is designed for families, enthusiasts, and organizations that want to support a young racing athlete with clarity, structure, and measurable accountability.",
+        read_more: "Read more",
+        sponsor_driver_btn: "Sponsor a driver",
+        donate_foundation: "Donate to Foundation",
+        become_partner: "Become a partner",
+        foundation_title: "VEON Foundation",
+        foundation_price: "Charitable contributions",
+        foundation_feat1: "Donations are made directly to the VEON Foundation",
+        foundation_feat2: "Funds support youth driver development",
+        foundation_feat3: "May be tax-deductible",
+        donate_btn: "Donate",
+        learn_more: "Learn more",
+        apply: "Apply",
+        contact: "Contact",
+        program_title: "Program",
+        program_subtitle: "Development pathway",
+        program_desc: "Our structured approach prepares drivers for the highest levels of competitive racing through progressive stages.",
+        youth_dev: "Youth Development",
+        youth_desc: "Foundation skills for young drivers focusing on safety, fundamentals, and love for racing.",
+        elite_racing: "Elite Racing",
+        elite_desc: "Advanced training for serious competitors aiming at professional careers.",
+        ages_8_12: "Ages 8-12",
+        ages_13_15: "Ages 13-15",
+        karting_pro: "Karting Pro",
+        car_transition: "Car Transition",
+        apply_title: "Apply / Contact",
+        role_label: "Role",
+        select_role: "Select role...",
+        name_label: "Name",
+        email_label: "Email",
+        phone_label: "Phone",
+        message_label: "Message",
+        message_placeholder: "Tell us about your goals, timeline, and current racing level.",
+        submit: "Submit application",
+        members_title: "REGISTER / LOGIN",
+        members_subtitle: "Update achievements, race results & profile pictures",
+        login_tab: "Login",
+        register_tab: "Register",
+        drivers_title: "Drivers",
+        drivers_desc: "VEON drivers are developed as performance assets—supported by structure, measurable progression, and sponsor-ready professionalism.",
+        view_profile: "View Profile",
+        sponsor: "Sponsor",
+        about_title: "About",
+        achievements_title: "Achievements",
+        profile_age: "Age",
+        profile_category: "Category",
+        profile_focus: "Focus",
+        profile_availability: "Availability",
+        back_drivers: "← Back to Drivers",
+        footer_home: "Home",
+        footer_drivers: "Drivers",
+        footer_sponsors: "Sponsors",
+        footer_foundation: "Foundation",
+        footer_program: "Program",
+        footer_apply: "Apply",
+        footer_about: "About us",
+        footer_members: "Members",
+        footer_contact: "Contact",
+        footer_copy: "© VEON Motorsport · All rights reserved"
+      },
+      es: {
+        hero_title: "CONSTRUIMOS<br><span>PILOTOS DE CARRERAS</span>",
+        hero_desc: "VEON Motorsport opera como una organización profesional de desarrollo de pilotos estructurada en torno a la responsabilidad y el rendimiento a largo plazo.",
+        view_drivers: "VER PILOTOS",
+        sponsor_driver: "PATROCINAR UN PILOTO",
+        nav_drivers: "Pilotos",
+        nav_sponsors: "Patrocinadores",
+        nav_foundation: "Fundación",
+        nav_program: "Programa",
+        nav_about: "Sobre",
+        nav_members: "Miembros",
+        nav_apply: "Aplicar",
+        strip_1_title: "Sistema de desarrollo estructurado",
+        strip_1_text: "VEON sigue un marco de desarrollo claramente definido basado en tiempos, puertas de progresión y logros realistas.",
+        strip_2_title: "Mentalidad de rendimiento",
+        strip_2_text: "Todas las decisiones dentro de VEON están impulsadas por indicadores de rendimiento medibles.",
+        strip_3_title: "Pilotos listos para patrocinadores",
+        strip_3_text: "Los pilotos están entrenados para representar a los socios profesionalmente.",
+        partners_label: "Pistas y Organizaciones de Carreras",
+        sponsors_kicker: "Patrocinadores",
+        sponsor_title: "Patrocinio estructurado como asociación de desarrollo a largo plazo",
+        sponsor_desc: "El patrocinio de VEON está diseñado para familias, entusiastas y organizaciones que desean apoyar a un piloto joven.",
+        read_more: "Leer más",
+        sponsor_driver_btn: "Patrocinar piloto",
+        donate_foundation: "Donar a Fundación",
+        become_partner: "Ser socio",
+        foundation_title: "Fundación VEON",
+        foundation_price: "Contribuciones caritativas",
+        foundation_feat1: "Las donaciones se hacen directamente a la Fundación VEON",
+        foundation_feat2: "Los fondos apoyan el desarrollo de pilotos jóvenes",
+        foundation_feat3: "Pueden ser deducibles de impuestos",
+        donate_btn: "Donar",
+        learn_more: "Más información",
+        apply: "Aplicar",
+        contact: "Contactar",
+        program_title: "Programa",
+        program_subtitle: "Camino de desarrollo",
+        program_desc: "Nuestro enfoque estructurado prepara a los pilotos para los más altos niveles de competencia.",
+        youth_dev: "Desarrollo Juvenil",
+        youth_desc: "Habilidades fundamentales para pilotos jóvenes enfocadas en seguridad y amor por las carreras.",
+        elite_racing: "Carreras de Élite",
+        elite_desc: "Entrenamiento avanzado para competidores serios que aspiran a carreras profesionales.",
+        ages_8_12: "Edades 8-12",
+        ages_13_15: "Edades 13-15",
+        karting_pro: "Karting Pro",
+        car_transition: "Transición a Autos",
+        apply_title: "Aplicar / Contactar",
+        role_label: "Rol",
+        select_role: "Seleccionar rol...",
+        name_label: "Nombre",
+        email_label: "Email",
+        phone_label: "Teléfono",
+        message_label: "Mensaje",
+        message_placeholder: "Cuéntanos sobre tus metas, cronograma y nivel actual de carreras.",
+        submit: "Enviar aplicación",
+        members_title: "REGISTRAR / INICIAR SESIÓN",
+        members_subtitle: "Actualiza logros, resultados y fotos de perfil",
+        login_tab: "Iniciar sesión",
+        register_tab: "Registrarse",
+        drivers_title: "Pilotos",
+        drivers_desc: "Los pilotos de VEON se desarrollan como activos de rendimiento con estructura y profesionalismo.",
+        view_profile: "Ver Perfil",
+        sponsor: "Patrocinar",
+        about_title: "Sobre",
+        achievements_title: "Logros",
+        profile_age: "Edad",
+        profile_category: "Categoría",
+        profile_focus: "Enfoque",
+        profile_availability: "Disponibilidad",
+        back_drivers: "← Volver a Pilotos",
+        footer_home: "Inicio",
+        footer_drivers: "Pilotos",
+        footer_sponsors: "Patrocinadores",
+        footer_foundation: "Fundación",
+        footer_program: "Programa",
+        footer_apply: "Aplicar",
+        footer_about: "Sobre nosotros",
+        footer_members: "Miembros",
+        footer_contact: "Contacto",
+        footer_copy: "© VEON Motorsport · Todos los derechos reservados"
+      }
+    };
+
+    // Language functions
+    let currentLang = localStorage.getItem('veon_lang') || 'en';
+
+    function setLanguage(lang) {
+      currentLang = lang;
+      localStorage.setItem('veon_lang', lang);
+      
+      // Update all elements with data-i18n
+      document.querySelectorAll('[data-i18n]').forEach(element => {
+        const key = element.getAttribute('data-i18n');
+        if (translations[lang] && translations[lang][key]) {
+          element.innerHTML = translations[lang][key];
+        }
+      });
+
+      // Update language buttons
+      document.querySelectorAll('.langBtn').forEach(btn => {
+        btn.classList.toggle('active', btn.dataset.lang === lang);
+      });
+    }
+
+    // Theme toggle (fixed)
+    window.addEventListener('DOMContentLoaded', () => {
+      const themeBtn = document.getElementById('themeToggle');
+      if(themeBtn){
+        themeBtn.addEventListener('click', () => document.body.classList.toggle('dark'));
+      }
+
+      // Set initial language
+      setLanguage(currentLang);
+
+      // Members shortcut: if URL hash is #members, focus the auth area and default to Login.
+      if(window.location.hash === '#members'){
+        const membersEl = document.getElementById('members');
+        if(membersEl){
+          membersEl.scrollIntoView({behavior:'smooth', block:'start'});
+          const loginTab = document.querySelector('[data-tab="login"]');
+          if(loginTab) loginTab.click();
+        }
+      }
+    });
+  </script>
+
+  <header class="topbar">
+    <div class="topbarInner">
+      <div class="brand">
+        <img class="veon-logo" alt="VEON Motorsport" src="assets/images/logo_veon.png" />
+      </div>
+      <nav class="nav">
+        <button class="tab" id="themeToggle" type="button" title="Toggle theme">◐</button>
+        
+        <div class="langToggle">
+          <button class="langBtn active" data-lang="en" onclick="setLanguage('en')">EN</button>
+          <button class="langBtn" data-lang="es" onclick="setLanguage('es')">ES</button>
+        </div>
+        
+        <a href="#drivers" data-i18n="nav_drivers">Drivers</a>
+        <a href="#sponsor" data-i18n="nav_sponsors">Sponsors</a>
+        <a href="#foundation" data-i18n="nav_foundation">Foundation</a>
+        <a href="#program" data-i18n="nav_program">Program</a>
+        <a href="#about" data-i18n="nav_about">About</a>
+        <a href="#members" data-i18n="nav_members">Members</a>
+        <a href="#apply" class="btnApply" data-i18n="nav_apply">Apply</a>
+      </nav>
+    </div>
+  </header>
+
+  <section class="hero">
+    <div class="heroText">
+      <h1 data-i18n="hero_title">
+        WE BUILD<br>
+        <span>RACE DRIVERS</span>
+      </h1>
+      <p data-i18n="hero_desc">
+        VEON Motorsport operates as a professional driver development organization built around structure, accountability, and long-term performance. The project is designed as a complete system for families and motorsport enthusiasts who believe that young drivers are athletes with natural ability that must be identified, refined, and guided over time. VEON exists to discover that potential early, develop it methodically, and prepare drivers to operate as competitive racing assets within modern motorsport environments, while creating meaningful long-term relationships between drivers and those who support them.
+      </p>
+
+      <div class="heroActions">
+        <a href="#drivers" class="btn btnPrimary" data-i18n="view_drivers">VIEW DRIVERS</a>
+        <a href="#sponsor" class="btn" data-i18n="sponsor_driver">SPONSOR A DRIVER</a>
+      </div>
+    </div>
+
+    <div class="speedLine" aria-hidden="true"></div>
+    <div class="heroImage">
+      <div class="p1Overlay">P1<span>Podium / Race Weekend</span></div>
+      <span class="tag">VEON DRIVER</span>
+      <img id="heroPodium" alt="VEON Driver" src="https://images.unsplash.com/photo-1568605117036-5fe5e7bab0b7?w=800&h=1000&fit=crop" />
+    </div>
+  </section>
+
+  <section class="strip">
+    <div>
+      <b data-i18n="strip_1_title">Structured development system</b>
+      <span data-i18n="strip_1_text">
+        VEON follows a clearly defined development framework based on timing, progression gates, and realistic milestones. Drivers are treated as developing athletes, progressing through clearly defined phases designed to refine natural ability into repeatable performance.
+      </span>
+    </div>
+    <div>
+      <b data-i18n="strip_2_title">Performance-first mentality</b>
+      <span data-i18n="strip_2_text">
+        All decisions inside VEON are driven by measurable performance indicators such as lap-time trends, consistency, data usage, and execution under pressure. Development decisions are based on objective evaluation over time.
+      </span>
+    </div>
+    <div>
+      <b data-i18n="strip_3_title">Sponsor-ready drivers</b>
+      <span data-i18n="strip_3_text">
+        Drivers are trained to represent partners professionally, communicate clearly, and deliver consistent visibility. Sponsorship within VEON is a relationship built on mutual respect.
+      </span>
+    </div>
+  </section>
+
+  <!-- PARTNERS / TRACKS -->
+  <section class="partners">
+    <div class="partnersInner">
+      <p class="partnersLabel" data-i18n="partners_label">Tracks & Racing Organizations</p>
+      
+      <!-- Light mode logos -->
+      <div class="partnersLogos-light">
+        <div class="logoBox"><img src="assets/images/parner_msr.jpeg" alt="MSR" /></div>
+        <div class="logoBox"><img src="assets/images/parner_skusa.png" alt="SKUSA" /></div>
+        <div class="logoBox"><img src="assets/images/parner_crg.png" alt="CRG" /></div>
+        <div class="logoBox"><img src="assets/images/parner_protour.png" alt="ProTour" /></div>
+        <div class="logoBox"><img src="assets/images/parner_scca.jpeg" alt="SCCA" /></div>
+      </div>
+      
+      <!-- Dark mode logos -->
+      <div class="partnersLogos-dark">
+        <div class="logoBox logoBox-dark"><img src="assets/images/parner_msr.jpeg" alt="MSR" /></div>
+        <div class="logoBox logoBox-dark"><img src="assets/images/parner_skusa.png" alt="SKUSA" /></div>
+        <div class="logoBox logoBox-dark"><img src="assets/images/parner_crg.png" alt="CRG" /></div>
+        <div class="logoBox logoBox-dark"><img src="assets/images/parner_protour.png" alt="ProTour" /></div>
+        <div class="logoBox logoBox-dark"><img src="assets/images/parner_scca.jpeg" alt="SCCA" /></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- SPONSORS SECTION -->
+  <section id="sponsor" class="section">
+    <div class="sectionHeader">
+      <div>
+        <div class="kicker" data-i18n="sponsors_kicker">Sponsors</div>
+        <h2 data-i18n="sponsor_title">Sponsorship structured as a long-term development partnership</h2>
+        <p data-i18n="sponsor_desc">
+          VEON sponsorship is designed for families, enthusiasts, and organizations that want to support a young racing athlete with clarity, structure, and measurable accountability.
+        </p>
+
+        <button class="readMore" type="button" data-readmore="sponsorMore">
+          <span data-i18n="read_more">Read more</span>
+          <span class="rmIcon">+</span>
+        </button>
+
+        <div class="readMoreBody" id="sponsorMore" aria-hidden="true">
+          <p>
+            Sponsorship inside VEON is not treated as a one-time donation. It is structured as a long-term partnership that grows in value as the driver develops competitively and commercially.
+          </p>
+        </div>
+      </div>
+      <div>
+        <a class="btn btnPrimary" href="#drivers" data-i18n="sponsor_driver_btn">Sponsor a driver</a>
+        <a class="btn" href="#foundation" data-i18n="donate_foundation">Donate to Foundation</a>
+        <a class="btn" href="#apply" data-i18n="become_partner">Become a partner</a>
+      </div>
+    </div>
+
+    <div class="tiers">
+      <div class="tier">
+        <h3 data-i18n="foundation_title">VEON Foundation</h3>
+        <div class="price" data-i18n="foundation_price">Charitable contributions</div>
+        <ul>
+          <li data-i18n="foundation_feat1">Donations are made directly to the VEON Foundation</li>
+          <li data-i18n="foundation_feat2">Funds support youth driver development</li>
+          <li data-i18n="foundation_feat3">May be tax-deductible</li>
+        </ul>
+        <div class="tierActions">
+          <button class="btn btnPrimary" type="button" data-open-foundation data-i18n="donate_btn">Donate</button>
+          <a class="btn" href="#foundation" data-i18n="learn_more">Learn more</a>
+        </div>
+      </div>
+      <div class="tier">
+        <h3>Program Sponsor</h3>
+        <div class="price">Institutional and individual support</div>
+        <ul>
+          <li>Open to families, enthusiasts, and businesses</li>
+          <li>Direct association to VEON athletes</li>
+          <li>Professional acknowledgment and visibility</li>
+        </ul>
+        <div class="tierActions">
+          <a class="btn btnPrimary" href="#apply" data-i18n="apply">Apply</a>
+          <a class="btn" href="#apply" data-i18n="contact">Contact</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- PROGRAM SECTION -->
+  <section id="program" class="section">
+    <div class="sectionHeader">
+      <div>
+        <div class="kicker" data-i18n="program_title">Program</div>
+        <h2 data-i18n="program_subtitle">Development pathway</h2>
+        <p data-i18n="program_desc">Our structured approach prepares drivers for the highest levels of competitive racing through progressive stages.</p>
+      </div>
+    </div>
+
+    <div class="programGrid">
+      <div class="progCard">
+        <h3 data-i18n="youth_dev">Youth Development</h3>
+        <p data-i18n="youth_desc">Foundation skills for young drivers focusing on safety, fundamentals, and love for racing.</p>
+        <div class="accordion">
+          <div class="accItem">
+            <button class="accBtn"><b data-i18n="ages_8_12">Ages 8-12</b><span>+</span></button>
+            <div class="accBody">Introduction to karting, basic mechanics, and racing fundamentals.</div>
+          </div>
+          <div class="accItem">
+            <button class="accBtn"><b data-i18n="ages_13_15">Ages 13-15</b><span>+</span></button>
+            <div class="accBody">Competitive karting, data analysis, and mental preparation.</div>
+          </div>
+        </div>
+      </div>
+      <div class="progCard">
+        <h3 data-i18n="elite_racing">Elite Racing</h3>
+        <p data-i18n="elite_desc">Advanced training for serious competitors aiming at professional careers.</p>
+        <div class="accordion">
+          <div class="accItem">
+            <button class="accBtn"><b data-i18n="karting_pro">Karting Pro</b><span>+</span></button>
+            <div class="accBody">High-performance karting categories and championship competition.</div>
+          </div>
+          <div class="accItem">
+            <button class="accBtn"><b data-i18n="car_transition">Car Transition</b><span>+</span></button>
+            <div class="accBody">Move to formula cars and GT racing with comprehensive training.</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- APPLY SECTION -->
+  <section id="apply" class="section">
+    <div class="applyWrap">
+      <div class="panel">
+        <h3 data-i18n="apply_title">Apply / Contact</h3>
+        <form id="applyForm">
+          <div class="formGrid">
+            <div class="field"><label data-i18n="role_label">Role</label>
+              <select name="role">
+                <option value="" data-i18n="select_role">Select role...</option>
+                <option value="Driver">Driver</option>
+                <option value="Parent">Parent</option>
+                <option value="Sponsor">Sponsor</option>
+                <option value="Partner">Partner</option>
+                <option value="Enthusiast">Enthusiast</option>
+              </select>
+            </div>
+            <div class="field"><label data-i18n="name_label">Name</label><input name="name" type="text" placeholder="Your name" /></div>
+            <div class="field"><label data-i18n="email_label">Email</label><input name="email" type="email" placeholder="your@email.com" /></div>
+            <div class="field"><label data-i18n="phone_label">Phone</label><input name="phone" type="tel" placeholder="+1 (555) 000-0000" /></div>
+            <div class="field span2"><label data-i18n="message_label">Message</label><textarea name="message" placeholder="Tell us about your goals, timeline, and current racing level." data-i18n-placeholder="message_placeholder"></textarea></div>
+          </div>
+          <div class="authRow">
+            <button class="btn btnPrimary" type="submit" data-i18n="submit">Submit application</button>
+            <a class="btn" href="#apply" data-i18n="contact">Contact</a>
+          </div>
+        </form>
+      </div>
+
+      <div class="panel" id="members">
+        <div class="dashTop">
+          <div class="dashMeta">
+            <b data-i18n="members_title">REGISTER / LOGIN</b>
+            <span data-i18n="members_subtitle">Update achievements, race results & profile pictures</span>
+          </div>
+          <img id="dashAvatar" class="avatar" alt="Profile" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///ywAAAAAAQABAAACAUwAOw==" />
+        </div>
+
+        <div class="authTabs">
+          <button class="tab active" type="button" data-tab="login" data-i18n="login_tab">Login</button>
+          <button class="tab" type="button" data-tab="register" data-i18n="register_tab">Register</button>
+        </div>
+
+        <div id="tab-login">
+          <div class="formGrid">
+            <div class="field span2"><label>Email</label><input id="loginEmail" type="email" /></div>
+            <div class="field span2"><label>Password</label><input id="loginPass" type="password" /></div>
+          </div>
+          <div class="authRow">
+            <button class="pillBtn" type="button" id="loginBtn">Login</button>
+          </div>
+        </div>
+
+        <div id="tab-register" style="display:none">
+          <div class="formGrid">
+            <div class="field"><label>First name</label><input id="regFirst" type="text" /></div>
+            <div class="field"><label>Last name</label><input id="regLast" type="text" /></div>
+            <div class="field"><label>Email</label><input id="regEmail" type="email" /></div>
+            <div class="field"><label>Password</label><input id="regPass" type="password" /></div>
+          </div>
+          <div class="authRow">
+            <button class="pillBtn" type="button" id="registerBtn">Create account</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- DRIVERS SECTION -->
+  <section id="drivers" class="drivers">
+    <div class="driversHeader">
+      <h2 data-i18n="drivers_title">Drivers</h2>
+      <p data-i18n="drivers_desc">
+        VEON drivers are developed as performance assets—supported by structure, measurable progression, and sponsor-ready professionalism.
+      </p>
+    </div>
+
+    <div class="driversGrid" id="driversGrid">
+      <article class="driverCard">
+        <img id="jpCardImg" alt="John Paul Melchiorri" src="https://images.unsplash.com/photo-1596825208700-49b8e6c5e1ab?w=400&h=300&fit=crop" />
+        <div class="driverInfo">
+          <h3>John Paul Melchiorri</h3>
+          <span>KZ Pro Shifter · USA</span>
+          <div class="driverActions">
+            <a href="#johnpaul" class="btn btnPrimary" data-i18n="view_profile">View Profile</a>
+            <button type="button" class="btn" data-open-sponsor="johnpaul" data-i18n="sponsor">Sponsor</button>
+          </div>
+        </div>
+      </article>
+    </div>
+  </section>
+
+  <!-- DRIVER PROFILE: JOHN PAUL -->
+  <section id="johnpaul" class="profile">
+    <div class="profileInner">
+      <a class="backLink" href="#drivers" data-i18n="back_drivers">← Back to Drivers</a>
+
+      <div class="profileGrid">
+        <div class="profileMedia">
+          <img class="profileImg" alt="John Paul Melchiorri" src="https://images.unsplash.com/photo-1596825208700-49b8e6c5e1ab?w=600&h=800&fit=crop" />
+          <div class="mediaTag">PODIUM / RACE WEEKEND</div>
+        </div>
+
+        <div class="profileText">
+          <h2 class="profileName">John Paul Melchiorri</h2>
+          <div class="profileMeta">KZ Pro Shifter · Texas, USA</div>
+
+          <div class="profileActions">
+            <button class="btn btnPrimary" type="button" data-open-sponsor="johnpaul" data-i18n="sponsor_driver_btn">Sponsor this driver</button>
+            <a class="btn" href="https://instagram.com/johnpaulracing" target="_blank" rel="noopener">Instagram</a>
+          </div>
+
+          <div class="profileCards">
+            <div class="miniCard"><b data-i18n="profile_age">Age</b><span>15</span></div>
+            <div class="miniCard"><b data-i18n="profile_category">Category</b><span>KZ Pro Shifter</span></div>
+            <div class="miniCard"><b data-i18n="profile_focus">Focus</b><span>Racecraft · Data</span></div>
+            <div class="miniCard"><b data-i18n="profile_availability">Availability</b><span>Open</span></div>
+          </div>
+
+          <div class="profileBlock">
+            <h3 data-i18n="about_title">About</h3>
+            <p>
+              John Paul Melchiorri is developed under the VEON Motorsport performance framework, a structured driver development system designed to transform natural driving ability into measurable, accountable performance.
+            </p>
+          </div>
+
+          <div class="profileBlock">
+            <h3 data-i18n="achievements_title">Achievements</h3>
+            <p>Greater Houston Race Series Spring Champion · Dallas Triple Crown Sub-Champion</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="profileFooter">
+        <div class="pfLine"></div>
+        <div class="pfText">VEON Motorsport · Driver Factory · info@veonmotorsport.com</div>
+      </div>
+    </div>
+  </section>
+
+  <script>
+    // Accordion behavior
+    document.addEventListener('click', (e)=>{
+      const btn = e.target.closest('[data-accordion] .accBtn');
+      if(btn){
+        const item = btn.closest('.accItem');
+        item.classList.toggle('open');
+      }
+
+      const rm = e.target.closest('[data-readmore]');
+      if(rm){
+        rm.classList.toggle('open');
+        const icon = rm.querySelector('.rmIcon');
+        if(icon) icon.textContent = rm.classList.contains('open') ? '−' : '+';
+        const body = rm.nextElementSibling;
+        if(body && body.classList.contains('readMoreBody')){
+          const isOpen = rm.classList.contains('open');
+          body.setAttribute('aria-hidden', isOpen ? 'false' : 'true');
+        }
+      }
+    });
+
+    // APPLY form
+    (function(){
+      const form = document.getElementById('applyForm');
+      if(!form) return;
+
+      form.addEventListener('submit', (e)=>{
+        e.preventDefault();
+        const data = new FormData(form);
+        const role = data.get('role');
+        const name = data.get('name');
+        const email = data.get('email');
+        const phone = data.get('phone');
+        const message = data.get('message');
+
+        const subject = encodeURIComponent('VEON Application — ' + role);
+        const bodyText = `Hello VEON Motorsport,
+
+Role: ${role}
+Name: ${name}
+Email: ${email}
+Phone: ${phone || ''}
+
+Message:
+${message}
+
+Thank you.`;
+        const body = encodeURIComponent(bodyText);
+        window.location.href = `mailto:info@veonmotorsport.com?subject=${subject}&body=${body}`;
+      });
+    })();
+
+    // REGISTER / LOGIN
+    (function(){
+      const $ = (sel)=>document.querySelector(sel);
+      const $$ = (sel)=>Array.from(document.querySelectorAll(sel));
+
+      const tabs = $$('[data-tab]');
+      const panes = {
+        login: $('#tab-login'),
+        register: $('#tab-register')
+      };
+
+      function setTab(name){
+        tabs.forEach(t=>t.classList.toggle('active', t.dataset.tab===name));
+        Object.entries(panes).forEach(([k,el])=>{ if(el) el.style.display = (k===name)?'block':'none'; });
+      }
+
+      tabs.forEach(t=>t.addEventListener('click', ()=>{
+        setTab(t.dataset.tab);
+      }));
+
+      const LS_USERS = 'veon_users_v1';
+      const LS_SESSION = 'veon_session_v1';
+
+      function loadUsers(){
+        try{return JSON.parse(localStorage.getItem(LS_USERS)||'[]');}catch{return []}
+      }
+      function saveUsers(u){ localStorage.setItem(LS_USERS, JSON.stringify(u)); }
+      function setSession(email){ localStorage.setItem(LS_SESSION, email||''); }
+      function getSession(){ return (localStorage.getItem(LS_SESSION)||'').trim() || null; }
+
+      const registerBtn = $('#registerBtn');
+      if(registerBtn){
+        registerBtn.addEventListener('click', ()=>{
+          const first = $('#regFirst').value.trim();
+          const last = $('#regLast').value.trim();
+          const email = $('#regEmail').value.trim().toLowerCase();
+          const pass = $('#regPass').value;
+          if(!first || !last || !email || !pass){ alert('Please fill all fields.'); return; }
+          const users = loadUsers();
+          if(users.some(u=>u.email===email)){ alert('Account already exists.'); return; }
+          const driverKey = 'drv_' + Date.now().toString(36);
+          users.push({email, pass, first, last, driverKey, displayName:first+' '+last, category:'', achievements:'', bio:'', photo:'', results:[]});
+          saveUsers(users);
+          setSession(email);
+          setTab('login');
+          alert('Account created! Please login.');
+        });
+      }
+
+      const loginBtn = $('#loginBtn');
+      if(loginBtn){
+        loginBtn.addEventListener('click', ()=>{
+          const email = $('#loginEmail').value.trim().toLowerCase();
+          const pass = $('#loginPass').value;
+          const users = loadUsers();
+          const u = users.find(x=>x.email===email && x.pass===pass);
+          if(!u){ alert('Invalid credentials.'); return; }
+          setSession(email);
+          alert('Logged in!');
+        });
+      }
+    })();
+  </script>
+
+  <!-- SPONSOR MODAL -->
+  <div class="modal" id="sponsorModal" aria-hidden="true" role="dialog" aria-modal="true">
+    <div class="modalBackdrop" data-close-modal></div>
+    <div class="modalPanel" role="document">
+      <div class="modalHead">
+        <div>
+          <div class="modalKicker" id="sponsorKicker">SPONSOR</div>
+          <div class="modalTitle">Choose how you want to help</div>
+        </div>
+        <button class="modalClose" type="button" aria-label="Close" data-close-modal>×</button>
+      </div>
+
+      <div class="modalMini">
+        <img id="sponsorMiniImg" class="miniAvatar" alt="Driver" src="https://images.unsplash.com/photo-1596825208700-49b8e6c5e1ab?w=100&h=100&fit=crop" />
+        <div class="miniMeta">
+          <div id="sponsorMiniName" class="miniName">John Paul Melchiorri</div>
+          <div id="sponsorMiniLine" class="miniLine">KZ Pro Shifter · USA</div>
+        </div>
+      </div>
+
+      <div class="modalBody">
+        <div class="choiceGroup">
+          <div class="choiceLabel">Quick support</div>
+          <div class="choiceGrid">
+            <button class="chip" type="button" data-sponsor-choice="$50">$50</button>
+            <button class="chip" type="button" data-sponsor-choice="$100">$100</button>
+            <button class="chip" type="button" data-sponsor-choice="$500">$500</button>
+            <button class="chip" type="button" data-sponsor-choice="$1000">$1,000</button>
+          </div>
+        </div>
+
+        <div class="choiceGroup">
+          <div class="choiceLabel">In-kind support</div>
+          <div class="choiceGrid">
+            <button class="chip" type="button" data-sponsor-choice="Race Gas">Race Gas</button>
+            <button class="chip" type="button" data-sponsor-choice="Tires">Set of Tires</button>
+            <button class="chip" type="button" data-sponsor-choice="Entry Fee">Entry Fee</button>
+          </div>
+        </div>
+
+        <div class="modalActions">
+          <button class="btn" type="button" data-close-modal>Cancel</button>
+          <a class="btn btnPrimary" id="sponsorContinue" href="mailto:sponsors@veonmotorsport.com">Continue</a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    (function(){
+      const modal = document.getElementById('sponsorModal');
+      const continueLink = document.getElementById('sponsorContinue');
+      let selected = null;
+      let currentDriver = 'John Paul Melchiorri';
+
+      const kickerEl = document.getElementById('sponsorKicker');
+
+      function openModal(driverName){
+        currentDriver = driverName || 'John Paul Melchiorri';
+        if(kickerEl) kickerEl.textContent = 'SPONSOR ' + currentDriver.toUpperCase();
+        
+        const miniName = document.getElementById('sponsorMiniName');
+        if(miniName) miniName.textContent = currentDriver;
+
+        modal.classList.add('open');
+        modal.setAttribute('aria-hidden','false');
+        selected = null;
+        document.querySelectorAll('.chip').forEach(b=>b.classList.remove('active'));
+        updateContinue();
+      }
+
+      function closeModal(){
+        modal.classList.remove('open');
+        modal.setAttribute('aria-hidden','true');
+      }
+
+      function updateContinue(){
+        const subject = encodeURIComponent('Sponsor ' + currentDriver);
+        const bodyText = `Hello VEON Motorsport,
+
+I would like to sponsor ${currentDriver}.
+
+My selected support: ${selected || '[please select]'}
+
+Name: 
+Company (optional): 
+Phone (optional): 
+
+Thank you.`;
+        const body = encodeURIComponent(bodyText);
+        continueLink.href = `mailto:sponsors@veonmotorsport.com?subject=${subject}&body=${body}`;
+        continueLink.style.opacity = selected ? '1' : '.55';
+        continueLink.style.pointerEvents = selected ? 'auto' : 'none';
+      }
+
+      document.addEventListener('click', (e)=>{
+        const openBtn = e.target.closest('[data-open-sponsor]');
+        if(openBtn){
+          openModal('John Paul Melchiorri');
+          return;
+        }
+        if(e.target.closest('[data-close-modal]')){
+          closeModal();
+          return;
+        }
+        const chip = e.target.closest('[data-sponsor-choice]');
+        if(chip){
+          selected = chip.getAttribute('data-sponsor-choice');
+          document.querySelectorAll('.chip').forEach(b=>b.classList.remove('active'));
+          chip.classList.add('active');
+          updateContinue();
+        }
+      });
+
+      document.addEventListener('keydown', (e)=>{
+        if(e.key === 'Escape' && modal.classList.contains('open')) closeModal();
+      });
+
+      updateContinue();
+    })();
+  </script>
+
+  <!-- FOOTER -->
+  <footer class="footer">
+    <div class="footerInner">
+      <nav class="footerNav">
+        <a href="#top" data-i18n="footer_home">Home</a>
+        <a href="#drivers" data-i18n="footer_drivers">Drivers</a>
+        <a href="#sponsor" data-i18n="footer_sponsors">Sponsors</a>
+        <a href="#foundation" data-i18n="footer_foundation">Foundation</a>
+        <a href="#program" data-i18n="footer_program">Program</a>
+        <a href="#apply" data-i18n="footer_apply">Apply</a>
+        <a href="#about" data-i18n="footer_about">About us</a>
+        <a href="#members" data-i18n="footer_members">Members</a>
+        <a href="#apply" data-i18n="footer_contact">Contact</a>
+      </nav>
+      <div class="footerCopy" data-i18n="footer_copy">© VEON Motorsport · All rights reserved</div>
+    </div>
+  </footer>
+
+</body>
+</html>
