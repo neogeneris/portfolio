@@ -39,68 +39,61 @@
     body.dark .footerNav a{color:#bdbdbd} /* fixed top bar */
 
     /* TOP BAR */
- Entendido perfectamente. El problema es que el contenedor negro (.brand) y su corte diagonal están invadiendo el espacio del menú de navegación. Además, quieres que el bloque negro se extienda hasta el borde izquierdo de la pantalla.
-
-Aquí tienes el CSS corregido para lograr exactamente eso:
-
-CSS
-/* TOP BAR GENERAL */
-.topbar {
+ .topbar {
     position: fixed;
-    top: 0; 
-    left: 0; 
-    right: 0;
-    background: #ffffff; /* Fondo blanco para la zona de enlaces */
+    top: 0; left: 0; right: 0;
+    background: #ffffff; 
     border-bottom: 4px solid var(--orange);
     z-index: 1000;
-    height: 120px; /* Altura para el logo de 90px */
+    height: 120px; /* Altura para logo de 90px */
     display: flex;
     align-items: center;
+    padding: 0; /* Importante: sin padding para que el negro toque el borde */
 }
 
-/* El bloque negro que nace en la izquierda */
+/* 2. EL LOGO: Este bloque es el único negro */
 .brand {
-    position: absolute; /* Se despega del flujo para nacer en el borde exacto */
-    top: 0;
-    left: 0;
+    position: relative;
     background: #000000;
-    height: 100%;
-    padding: 0 40px 0 30px; /* Espacio para el logo */
+    height: 100%; /* Ocupa toda la altura de la barra */
+    padding: 0 40px 0 20px;
     display: flex;
     align-items: center;
     text-decoration: none;
+    flex-shrink: 0; /* Evita que se encoja */
     z-index: 10;
 }
 
-/* El corte diagonal sutil */
+/* 3. EL CORTE: El triángulo negro que sobra */
 .brand::after {
     content: "";
     position: absolute;
     top: 0;
-    right: -30px; /* Ajusta este valor para mover la punta de la diagonal */
+    right: -30px; /* Ajusta esto para que el triángulo no sea tan largo */
     width: 60px;
     height: 100%;
     background: #000000;
     transform: skewX(-20deg);
-    z-index: -1;
+    z-index: -1; /* Se dibuja detrás del logo pero sobre el fondo blanco */
 }
 
 .brand img {
-    height: 90px;
+    height: 90px; /* Tu tamaño deseado */
     width: auto;
+    position: relative;
+    z-index: 2;
 }
 /* NAV: Alineación de los textos con la nueva altura */
 
     .veon-logo{filter:none}
 
     /* NAV LINKS – restored previous style */
-    .nav {
-    margin-left: auto; /* Empuja el menú a la derecha */
+  .nav {
+    margin-left: auto; /* Esto empuja los links al extremo derecho */
     display: flex;
     align-items: center;
     gap: 25px;
     padding-right: 40px;
-    height: 100%;
 }
     .nav a{
       color:var(--black);
