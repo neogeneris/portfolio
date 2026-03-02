@@ -36,63 +36,32 @@
     body.dark .driverCard,
     body.dark .strip div{background:#121212;border-color:#1f1f1f}
     body.dark .footer{background:#0f0f0f}
-    body.dark .footerNav a{color:#bdbdbd}
+    body.dark .footerNav a{color:#bdbdbd} /* fixed top bar */
 
     /* TOP BAR */
-.topbar{
-  position:fixed;
-  top:0;left:0;right:0;
-  background:#ffffff; /* El fondo general sigue siendo blanco */
-  border-bottom:3px solid var(--orange);
-  z-index:100;
-  box-shadow:none;
-  display: flex; /* Asegura que la topbar sea flex */
-  justify-content: center; /* Centra el contenido interior */
-}
-
-.topbarInner{
-  width:100%; /* Ocupa todo el ancho */
-  max-width:1200px; /* Pero se limita a 1200px */
-  margin:0; /* Quitamos el margin auto para controlar el inicio del logo */
-  padding:0; /* Quitamos el padding para pegarnos a los bordes */
-  display:flex;
-  align-items:center;
-  justify-content:space-between;
-  gap:18px;
-}
+    .topbar{
+      position:fixed;
+      top:0;left:0;right:0;
+      background:#ffffff;
+      border-bottom:3px solid var(--orange);
+      z-index:100;
+      box-shadow:none;
+    }
+    .topbarInner{
+      max-width:1200px;
+      margin:auto;
+      padding:14px 32px;
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:18px;
+    }
     .brand{display:flex;align-items:center;gap:14px}
 
-    .brand img{height:90px;width:auto}
+    .brand img{height:40px;width:auto}
     .veon-logo{filter:none}
 
-    /* Contenedor del logo con fondo oscuro */
-.brand {
-    position: relative;
-    background: black; /* Negro profundo */
-    padding: 10px 40px 10px 32px; /* Espacio extra a la derecha para el corte */
-    margin-left: -32px; /* Compensa el padding de .topbarInner para pegarse al borde izquierdo */
-    display: flex;
-    align-items: center;
-    z-index: 1;
-}
-
-/* El efecto de corte diagonal (Slant) */
-.brand::after {
-    content: "";
-    position: absolute;
-    top: 0;
-    right: -20px; /* El ancho de la inclinación */
-    width: 40px;
-    height: 100%;
-    background: black;
-    transform: skewX(-20deg); /* Inclinación hacia la derecha */
-    z-index: -1; /* Se coloca detrás del contenido del logo */
-}
-
-
-
-
-    /* NAV LINKS */
+    /* NAV LINKS – restored previous style */
     .nav{display:flex;align-items:center;gap:26px}
     .nav a{
       color:var(--black);
@@ -116,7 +85,7 @@
     }
     .nav a:hover::after{transform:scaleX(1)}
 
-    /* APPLY BUTTON */
+    /* APPLY BUTTON – match VIEW DRIVERS style */
     .nav .btnApply{
       margin-left:10px;
       padding:10px 20px;
@@ -136,30 +105,8 @@
       .nav a{font-size:12px}
     }
     @media(max-width:620px){
-      .nav a:nth-child(3){display:none}
+      .nav a:nth-child(3){display:none} /* hide Program on very small screens */
     }
-
-    /* Language Toggle */
-    .langToggle{display:flex;gap:2px;background:#f0f0f0;border-radius:6px;padding:2px}
-    .langBtn{
-      padding:6px 10px;
-      background:transparent;
-      border:none;
-      border-radius:4px;
-      font-size:11px;
-      font-weight:900;
-      cursor:pointer;
-      color:#666;
-      transition: all 0.2s ease;
-    }
-    .langBtn:hover{color:#000}
-    .langBtn.active{
-      background:var(--yellow);
-      color:var(--black);
-    }
-    body.dark .langToggle{background:#1a1a1a}
-    body.dark .langBtn{color:#999}
-    body.dark .langBtn:hover{color:#fff}
 
     /* BUTTONS */
     .btn{
@@ -175,7 +122,7 @@
     }
     .btnPrimary{background:linear-gradient(135deg,var(--yellow),var(--orange));border:none}
 
-    /* Read more toggle */
+    /* Read more toggle (compact sections) */
     .readMore{
       margin-top:10px;
       display:inline-flex;
@@ -283,8 +230,8 @@
       inset:-10px;
       background:repeating-linear-gradient(
         180deg,
-        rgba(255,255,.38) 0 6px,
-        rgba(255,255,0) 6px 14px
+        rgba(255,255,255,.38) 0 6px,
+        rgba(255,255,255,0) 6px 14px
       );
       mix-blend-mode:overlay;
       opacity:.42;
@@ -333,7 +280,7 @@
       z-index:1;
     }
 
-    /* Big translucent P1 overlay for speed feel */
+    /* Big translucent “P1” overlay for speed feel */
     .p1Overlay{
       position:absolute;
       right:14px;
@@ -371,6 +318,7 @@
       grid-template-columns:repeat(3,1fr);
       gap:26px;
       background:#fafafa;
+      /* Neon speed “runway” under the strip */
       background-image:
         linear-gradient(0deg, rgba(234,255,0,.10), rgba(234,255,0,0) 55%),
         repeating-linear-gradient(110deg, rgba(255,122,0,.12) 0 2px, rgba(255,122,0,0) 2px 18px);
@@ -446,7 +394,7 @@
     .partners{border-top:1px solid #ededed;border-bottom:1px solid #ededed;background:#fff}
     .partnersInner{max-width:1200px;margin:auto;padding:28px 32px}
     .partnersLabel{margin:0 0 14px;font-size:12px;letter-spacing:.14em;text-transform:uppercase;color:#777;font-weight:800}
-    .partnersLogos{display:grid;grid-template-columns:repeat(5,1fr);gap:22px;align-items:center}
+    .partnersLogos{display:grid;grid-template-columns:repeat(4,1fr);gap:22px;align-items:center}
     .logoBox{
       height:64px;
       display:flex;
@@ -458,38 +406,10 @@
       letter-spacing:.12em;
       color:#444;
       background:#fafafa;
-      overflow:hidden;
-      padding:8px;
-      transition: all 0.3s ease;
-    }
-    .logoBox:hover{
-      transform: translateY(-2px);
-      box-shadow: 0 4px 12px rgba(0,0,0,0.1);
-    }
-    .logoBox img{
-      max-width:100%;
-      max-height:100%;
-      object-fit:contain;
+      filter:grayscale(1);
     }
 
-    /* Dark mode partners - show/hide based on theme */
-    .partnersLogos-light{display:grid;grid-template-columns:repeat(5,1fr);gap:22px;align-items:center}
-    .partnersLogos-dark{display:none;grid-template-columns:repeat(5,1fr);gap:22px;align-items:center}
-
-    body.dark .partnersLogos-light{display:none}
-    body.dark .partnersLogos-dark{display:grid}
-
-    body.dark .partners{background:#0a0a0a;border-top-color:#242424;border-bottom-color:#242424}
-    body.dark .logoBox-dark{
-      background:#141414;
-      border-color:#2a2a2a;
-    }
-    body.dark .logoBox-dark:hover{
-      box-shadow: 0 4px 12px rgba(255,122,0,0.2);
-      border-color: var(--orange);
-    }
-
-    /* Sponsor logo chips */
+    /* Sponsor logo chips (preview-safe placeholders) */
     .logoRow{display:flex;flex-wrap:wrap;gap:10px;margin-top:12px}
     .logoChip{
       display:inline-flex;align-items:center;justify-content:center;
@@ -822,27 +742,28 @@
 
     /* ==========================
        DARK MODE TARGETED FIXES
+       (requested adjustments)
        ========================== */
 
-    /* Program accordion headers */
+    /* Program accordion headers (Performance / Racecraft / etc.) must be black with high-contrast text */
     body.dark .accordion{border-top-color:#242424}
     body.dark .accItem{border-bottom-color:#242424}
     body.dark .accBtn{background:#0a0a0a !important;color:#f1f1f1 !important}
     body.dark .accBtn b{color:#f1f1f1 !important}
     body.dark .accBtn span{color:#bdbdbd !important}
 
-    /* Application form labels */
+    /* Make ALL application form labels consistently bright in dark mode (including inline-styled labels) */
     body.dark #applyForm .field label,
     body.dark #applyForm .roleFields label,
     body.dark #tab-login .field label,
     body.dark #tab-register .field label,
     body.dark #tab-dashboard .field label{color:#f1f1f1 !important}
 
-    /* Profile mini-cards */
+    /* Profile mini-cards (Age / Category / Focus / Availability) in dark mode */
     body.dark .miniCard b{color:#d7d7d7 !important}
     body.dark .miniCard span{color:#f1f1f1 !important}
 
-    /* Partner visibility paragraph */
+    /* Make the Partner visibility paragraph match its title color in dark mode */
     body.dark .profileBlock p[style*="color:#333"]{color:#f1f1f1 !important}
 
 
@@ -850,194 +771,8 @@
 </head>
 <body id="top">
 
+  <!-- Inline SVG logo (safe for preview, no huge base64) -->
   <script>
-    // Translations
-    const translations = {
-      en: {
-        hero_title: "WE BUILD<br><span>RACE DRIVERS</span>",
-        hero_desc: "VEON Motorsport operates as a professional driver development organization built around structure, accountability, and long-term performance. The project is designed as a complete system for families and motorsport enthusiasts who believe that young drivers are athletes with natural ability that must be identified, refined, and guided over time.",
-        view_drivers: "VIEW DRIVERS",
-        sponsor_driver: "SPONSOR A DRIVER",
-        nav_drivers: "Drivers",
-        nav_sponsors: "Sponsors",
-        nav_foundation: "Foundation",
-        nav_program: "Program",
-        nav_about: "About",
-        nav_members: "Members",
-        nav_apply: "Apply",
-        strip_1_title: "Structured development system",
-        strip_1_text: "VEON follows a clearly defined development framework based on timing, progression gates, and realistic milestones. Drivers are treated as developing athletes.",
-        strip_2_title: "Performance-first mentality",
-        strip_2_text: "All decisions inside VEON are driven by measurable performance indicators such as lap-time trends, consistency, data usage, and execution under pressure.",
-        strip_3_title: "Sponsor-ready drivers",
-        strip_3_text: "Drivers are trained to represent partners professionally, communicate clearly, and deliver consistent visibility.",
-        partners_label: "Tracks & Racing Organizations",
-        sponsors_kicker: "Sponsors",
-        sponsor_title: "Sponsorship structured as a long-term development partnership",
-        sponsor_desc: "VEON sponsorship is designed for families, enthusiasts, and organizations that want to support a young racing athlete with clarity, structure, and measurable accountability.",
-        read_more: "Read more",
-        sponsor_driver_btn: "Sponsor a driver",
-        donate_foundation: "Donate to Foundation",
-        become_partner: "Become a partner",
-        foundation_title: "VEON Foundation",
-        foundation_price: "Charitable contributions",
-        foundation_feat1: "Donations are made directly to the VEON Foundation",
-        foundation_feat2: "Funds support youth driver development",
-        foundation_feat3: "May be tax-deductible",
-        donate_btn: "Donate",
-        learn_more: "Learn more",
-        apply: "Apply",
-        contact: "Contact",
-        program_title: "Program",
-        program_subtitle: "Development pathway",
-        program_desc: "Our structured approach prepares drivers for the highest levels of competitive racing through progressive stages.",
-        youth_dev: "Youth Development",
-        youth_desc: "Foundation skills for young drivers focusing on safety, fundamentals, and love for racing.",
-        elite_racing: "Elite Racing",
-        elite_desc: "Advanced training for serious competitors aiming at professional careers.",
-        ages_8_12: "Ages 8-12",
-        ages_13_15: "Ages 13-15",
-        karting_pro: "Karting Pro",
-        car_transition: "Car Transition",
-        apply_title: "Apply / Contact",
-        role_label: "Role",
-        select_role: "Select role...",
-        name_label: "Name",
-        email_label: "Email",
-        phone_label: "Phone",
-        message_label: "Message",
-        message_placeholder: "Tell us about your goals, timeline, and current racing level.",
-        submit: "Submit application",
-        members_title: "REGISTER / LOGIN",
-        members_subtitle: "Update achievements, race results & profile pictures",
-        login_tab: "Login",
-        register_tab: "Register",
-        drivers_title: "Drivers",
-        drivers_desc: "VEON drivers are developed as performance assets—supported by structure, measurable progression, and sponsor-ready professionalism.",
-        view_profile: "View Profile",
-        sponsor: "Sponsor",
-        about_title: "About",
-        achievements_title: "Achievements",
-        profile_age: "Age",
-        profile_category: "Category",
-        profile_focus: "Focus",
-        profile_availability: "Availability",
-        back_drivers: "← Back to Drivers",
-        footer_home: "Home",
-        footer_drivers: "Drivers",
-        footer_sponsors: "Sponsors",
-        footer_foundation: "Foundation",
-        footer_program: "Program",
-        footer_apply: "Apply",
-        footer_about: "About us",
-        footer_members: "Members",
-        footer_contact: "Contact",
-        footer_copy: "© VEON Motorsport · All rights reserved"
-      },
-      es: {
-        hero_title: "CONSTRUIMOS<br><span>PILOTOS DE CARRERAS</span>",
-        hero_desc: "VEON Motorsport opera como una organización profesional de desarrollo de pilotos estructurada en torno a la responsabilidad y el rendimiento a largo plazo.",
-        view_drivers: "VER PILOTOS",
-        sponsor_driver: "PATROCINAR UN PILOTO",
-        nav_drivers: "Pilotos",
-        nav_sponsors: "Patrocinadores",
-        nav_foundation: "Fundación",
-        nav_program: "Programa",
-        nav_about: "Sobre",
-        nav_members: "Miembros",
-        nav_apply: "Aplicar",
-        strip_1_title: "Sistema de desarrollo estructurado",
-        strip_1_text: "VEON sigue un marco de desarrollo claramente definido basado en tiempos, puertas de progresión y logros realistas.",
-        strip_2_title: "Mentalidad de rendimiento",
-        strip_2_text: "Todas las decisiones dentro de VEON están impulsadas por indicadores de rendimiento medibles.",
-        strip_3_title: "Pilotos listos para patrocinadores",
-        strip_3_text: "Los pilotos están entrenados para representar a los socios profesionalmente.",
-        partners_label: "Pistas y Organizaciones de Carreras",
-        sponsors_kicker: "Patrocinadores",
-        sponsor_title: "Patrocinio estructurado como asociación de desarrollo a largo plazo",
-        sponsor_desc: "El patrocinio de VEON está diseñado para familias, entusiastas y organizaciones que desean apoyar a un piloto joven.",
-        read_more: "Leer más",
-        sponsor_driver_btn: "Patrocinar piloto",
-        donate_foundation: "Donar a Fundación",
-        become_partner: "Ser socio",
-        foundation_title: "Fundación VEON",
-        foundation_price: "Contribuciones caritativas",
-        foundation_feat1: "Las donaciones se hacen directamente a la Fundación VEON",
-        foundation_feat2: "Los fondos apoyan el desarrollo de pilotos jóvenes",
-        foundation_feat3: "Pueden ser deducibles de impuestos",
-        donate_btn: "Donar",
-        learn_more: "Más información",
-        apply: "Aplicar",
-        contact: "Contactar",
-        program_title: "Programa",
-        program_subtitle: "Camino de desarrollo",
-        program_desc: "Nuestro enfoque estructurado prepara a los pilotos para los más altos niveles de competencia.",
-        youth_dev: "Desarrollo Juvenil",
-        youth_desc: "Habilidades fundamentales para pilotos jóvenes enfocadas en seguridad y amor por las carreras.",
-        elite_racing: "Carreras de Élite",
-        elite_desc: "Entrenamiento avanzado para competidores serios que aspiran a carreras profesionales.",
-        ages_8_12: "Edades 8-12",
-        ages_13_15: "Edades 13-15",
-        karting_pro: "Karting Pro",
-        car_transition: "Transición a Autos",
-        apply_title: "Aplicar / Contactar",
-        role_label: "Rol",
-        select_role: "Seleccionar rol...",
-        name_label: "Nombre",
-        email_label: "Email",
-        phone_label: "Teléfono",
-        message_label: "Mensaje",
-        message_placeholder: "Cuéntanos sobre tus metas, cronograma y nivel actual de carreras.",
-        submit: "Enviar aplicación",
-        members_title: "REGISTRAR / INICIAR SESIÓN",
-        members_subtitle: "Actualiza logros, resultados y fotos de perfil",
-        login_tab: "Iniciar sesión",
-        register_tab: "Registrarse",
-        drivers_title: "Pilotos",
-        drivers_desc: "Los pilotos de VEON se desarrollan como activos de rendimiento con estructura y profesionalismo.",
-        view_profile: "Ver Perfil",
-        sponsor: "Patrocinar",
-        about_title: "Sobre",
-        achievements_title: "Logros",
-        profile_age: "Edad",
-        profile_category: "Categoría",
-        profile_focus: "Enfoque",
-        profile_availability: "Disponibilidad",
-        back_drivers: "← Volver a Pilotos",
-        footer_home: "Inicio",
-        footer_drivers: "Pilotos",
-        footer_sponsors: "Patrocinadores",
-        footer_foundation: "Fundación",
-        footer_program: "Programa",
-        footer_apply: "Aplicar",
-        footer_about: "Sobre nosotros",
-        footer_members: "Miembros",
-        footer_contact: "Contacto",
-        footer_copy: "© VEON Motorsport · Todos los derechos reservados"
-      }
-    };
-
-    // Language functions
-    let currentLang = localStorage.getItem('veon_lang') || 'en';
-
-    function setLanguage(lang) {
-      currentLang = lang;
-      localStorage.setItem('veon_lang', lang);
-      
-      // Update all elements with data-i18n
-      document.querySelectorAll('[data-i18n]').forEach(element => {
-        const key = element.getAttribute('data-i18n');
-        if (translations[lang] && translations[lang][key]) {
-          element.innerHTML = translations[lang][key];
-        }
-      });
-
-      // Update language buttons
-      document.querySelectorAll('.langBtn').forEach(btn => {
-        btn.classList.toggle('active', btn.dataset.lang === lang);
-      });
-    }
-
     // Theme toggle (fixed)
     window.addEventListener('DOMContentLoaded', () => {
       const themeBtn = document.getElementById('themeToggle');
@@ -1045,48 +780,110 @@
         themeBtn.addEventListener('click', () => document.body.classList.toggle('dark'));
       }
 
-      // Set initial language
-      setLanguage(currentLang);
-
       // Members shortcut: if URL hash is #members, focus the auth area and default to Login.
       if(window.location.hash === '#members'){
         const membersEl = document.getElementById('members');
         if(membersEl){
           membersEl.scrollIntoView({behavior:'smooth', block:'start'});
+          // default to login tab (preview)
           const loginTab = document.querySelector('[data-tab="login"]');
           if(loginTab) loginTab.click();
         }
       }
     });
   </script>
+<script>
+    // Test harness (simple): verifies required elements exist after load.
+    window.addEventListener('DOMContentLoaded', () => {
+      console.assert(document.querySelector('.topbar') , 'Missing .topbar');
+      console.assert(document.getElementById('sponsorModal'), 'Missing sponsor modal');
+      console.assert(document.getElementById('foundationModal'), 'Missing foundation modal');
+      console.assert(document.querySelector('[data-open-sponsor]'), 'Missing sponsor trigger button');
+      console.assert(document.querySelector('[data-open-foundation]'), 'Missing foundation trigger button');
+    });
+  </script>
+
+  <script>
+    // Image strategy (Option 1): same image used for HERO, Driver Card, and Profile.
+    // NOTE: For preview stability, we keep a tiny transparent placeholder.
+    // In production, replace the three src values with the real podium image URL.
+    window.addEventListener('DOMContentLoaded', () => {
+      const hero = document.getElementById('heroPodium');
+      const card = document.getElementById('jpCardImg');
+      const prof = document.getElementById('jpProfileImg');
+      console.assert(hero && card && prof, 'Missing one or more JP image targets');
+      // Example production swap:
+      // const REAL = 'assets/drivers/john-paul/podium.jpg';
+      // hero.src = card.src = prof.src = REAL;
+    });
+  </script>
 
   <header class="topbar">
     <div class="topbarInner">
       <div class="brand">
-        <img class="veon-logo" alt="VEON Motorsport" src="assets/images/logo_veon.png" />
+        <!-- Original VEON logo (restored) -->
+        <img
+          class="veon-logo"
+          alt="VEON Motorsport"
+          src="data:image/svg+xml;utf8,<?xml version='1.0' encoding='UTF-8'?>
+          <svg xmlns='http://www.w3.org/2000/svg' width='220' height='56' viewBox='0 0 220 56'>
+            <defs>
+              <linearGradient id='g' x1='0' y1='0' x2='1' y2='0'>
+                <stop offset='0' stop-color='%23EAFF00'/>
+                <stop offset='1' stop-color='%23FF7A00'/>
+              </linearGradient>
+              <filter id='glow' x='-30%' y='-30%' width='160%' height='160%'>
+                <feGaussianBlur stdDeviation='3.5' result='b'/>
+                <feMerge>
+                  <feMergeNode in='b'/>
+                  <feMergeNode in='SourceGraphic'/>
+                </feMerge>
+              </filter>
+            </defs>
+            <rect x='0' y='0' width='220' height='56' fill='%230A0A0A'/>
+            <text x='0' y='40' font-family='Inter, Arial' font-weight='900' font-size='40' fill='url(%23g)' filter='url(%23glow)'>VEON</text>
+            <text x='160' y='50' font-family='Inter, Arial' font-weight='800' font-size='10' fill='%23F1F1F1' letter-spacing='2'>MOTORSPORT</text>
+          </svg>" />
       </div>
       <nav class="nav">
         <button class="tab" id="themeToggle" type="button" title="Toggle theme">◐</button>
         
-        <div class="langToggle">
-          <button class="langBtn active" data-lang="en" onclick="setLanguage('en')">EN</button>
-          <button class="langBtn" data-lang="es" onclick="setLanguage('es')">ES</button>
-        </div>
-        
-        <a href="#drivers" data-i18n="nav_drivers">Drivers</a>
-        <a href="#sponsor" data-i18n="nav_sponsors">Sponsors</a>
-        <a href="#foundation" data-i18n="nav_foundation">Foundation</a>
-        <a href="#program" data-i18n="nav_program">Program</a>
-        <a href="#about" data-i18n="nav_about">About</a>
-        <a href="#members" data-i18n="nav_members">Members</a>
-        <a href="#apply" class="btnApply" data-i18n="nav_apply">Apply</a>
+        <a href="#drivers">Drivers</a>
+        <a href="#sponsor">Sponsors</a>
+        <a href="#foundation">Foundation</a>
+        <a href="#program">Program</a>
+        <a href="#about">About</a>
+        <a href="#members">Members</a>
+        <a href="#apply" class="btnApply">Apply</a>
       </nav>
     </div>
   </header>
 
   <section class="hero">
     <div class="heroText">
-      <h1 data-i18n="hero_title">
+      <img
+        alt="VEON Motorsport"
+        style="height:56px;margin-bottom:22px;filter:drop-shadow(0 3px 8px rgba(0,0,0,.25)) drop-shadow(0 0 10px rgba(255,122,0,.45))"
+        src="data:image/svg+xml;utf8,<?xml version='1.0' encoding='UTF-8'?>
+        <svg xmlns='http://www.w3.org/2000/svg' width='240' height='64' viewBox='0 0 240 64'>
+          <defs>
+            <linearGradient id='g2' x1='0' y1='0' x2='1' y2='0'>
+              <stop offset='0' stop-color='%23EAFF00'/>
+              <stop offset='1' stop-color='%23FF7A00'/>
+            </linearGradient>
+            <filter id='glow2' x='-30%' y='-30%' width='160%' height='160%'>
+              <feGaussianBlur stdDeviation='4' result='b'/>
+              <feMerge>
+                <feMergeNode in='b'/>
+                <feMergeNode in='SourceGraphic'/>
+              </feMerge>
+            </filter>
+          </defs>
+          <rect x='0' y='0' width='240' height='64' fill='%230A0A0A'/>
+          <text x='0' y='46' font-family='Inter, Arial' font-weight='900' font-size='44' fill='url(%23g2)' filter='url(%23glow2)'>VEON</text>
+        </svg>" />
+
+      <h1>
         WE BUILD<br>
         <span>RACE DRIVERS</span>
       </h1>
@@ -1095,8 +892,8 @@
       </p>
 
       <div class="heroActions">
-        <a href="#drivers" class="btn btnPrimary" data-i18n="view_drivers">VIEW DRIVERS</a>
-        <a href="#sponsor" class="btn" data-i18n="sponsor_driver">SPONSOR A DRIVER</a>
+        <a href="#drivers" class="btn btnPrimary">VIEW DRIVERS</a>
+        <a href="#sponsor" class="btn">SPONSOR A DRIVER</a>
       </div>
     </div>
 
@@ -1104,7 +901,9 @@
     <div class="heroImage">
       <div class="p1Overlay">P1<span>Podium / Race Weekend</span></div>
       <span class="tag">VEON DRIVER</span>
-      <img id="heroPodium" alt="VEON Driver" src="assets/images/pics/profile_3_car.jpeg" />
+      <!-- NOTE: For preview stability, we use a lightweight placeholder image.
+           Replace this with your real podium photo as an asset file for production. -->
+      <img id="heroPodium" alt="John Paul Melchiorri podium" src="data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/2wCEAAkGBxAQEBUQEA8QDw8QDw8QDw8PDw8PDw8PFREWFhURFRUYHSggGBolHRUVITEhJSkrLi4uFx8zODMtNygtLisBCgoKDg0OGhAQGi0lHyUtLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLf/AABEIAWgB4AMBIgACEQEDEQH/xAAcAAEAAgMBAQEAAAAAAAAAAAAABQYDBAcCAQj/xABCEAACAQIDBAcFBAcAAAAAAAABAgADEQQSIQUxQVEGImFxgZEyobHB0RQjQlLh8CMzU3KCksIVFiRDk6L/xAAaAQADAQEBAQAAAAAAAAAAAAABAgMABAUH/8QALREAAgIBAwMDBAMAAAAAAAAAAAECEQMhEjFBBBMUYXGRFCIyQnHh8P/aAAwDAQACEQMRAD8A+0gAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAP/2Q==" />
     </div>
   </section>
 
@@ -1112,19 +911,19 @@
     <div>
       <b data-i18n="strip_1_title">Structured development system</b>
       <span data-i18n="strip_1_text">
-        VEON follows a clearly defined development framework based on timing, progression gates, and realistic milestones. Drivers are treated as developing athletes, progressing through clearly defined phases designed to refine natural ability into repeatable performance.
+        VEON follows a clearly defined development framework based on timing, progression gates, and realistic milestones. Drivers are treated as developing athletes, progressing through clearly defined phases designed to refine natural ability into repeatable performance. Advancement occurs only after demonstrating mastery of fundamentals, disciplined racecraft, and professional conduct that sponsors and families can trust.
       </span>
     </div>
     <div>
       <b data-i18n="strip_2_title">Performance-first mentality</b>
       <span data-i18n="strip_2_text">
-        All decisions inside VEON are driven by measurable performance indicators such as lap-time trends, consistency, data usage, and execution under pressure. Development decisions are based on objective evaluation over time.
+        All decisions inside VEON are driven by measurable performance indicators such as lap-time trends, consistency, data usage, and execution under pressure. While passion is respected, development decisions are based on objective evaluation over time, ensuring that families and supporters understand how progress is measured and why each step forward is earned.
       </span>
     </div>
     <div>
       <b data-i18n="strip_3_title">Sponsor-ready drivers</b>
       <span data-i18n="strip_3_text">
-        Drivers are trained to represent partners professionally, communicate clearly, and deliver consistent visibility. Sponsorship within VEON is a relationship built on mutual respect.
+        Drivers are trained to represent partners professionally, communicate clearly, and deliver consistent visibility. Sponsorship within VEON is presented as a relationship built on mutual respect, where supporters help fuel a young athlete’s progression and drivers actively acknowledge, represent, and promote those partners as part of a growing long-term relationship rather than a one-time donation.
       </span>
     </div>
   </section>
@@ -1132,25 +931,21 @@
   <!-- PARTNERS / TRACKS -->
   <section class="partners">
     <div class="partnersInner">
-      <p class="partnersLabel" data-i18n="partners_label">Tracks & Racing Organizations</p>
-      
-      <!-- Light mode logos -->
-      <div class="partnersLogos-light">
-        <div class="logoBox"><img src="assets/images/parner_msr.jpeg" alt="MSR" /></div>
-        <div class="logoBox"><img src="assets/images/parner_skusa.png" alt="SKUSA" /></div>
-        <div class="logoBox"><img src="assets/images/parner_crg.png" alt="CRG" /></div>
-        <div class="logoBox"><img src="assets/images/parner_protour.png" alt="ProTour" /></div>
-        <div class="logoBox"><img src="assets/images/parner_scca.jpeg" alt="SCCA" /></div>
+      <p class="partnersLabel">Tracks & Racing Organizations (examples)</p>
+      <div class="partnersLogos">
+        <!-- Using neutral wordmarks as placeholders for preview -->
+        <div class="logoBox">MSR</div>
+        <div class="logoBox">SpeedSportz</div>
+        <div class="logoBox">SKUSA</div>
+        <div class="logoBox">SCCA</div>
       </div>
-      
-      <!-- Dark mode logos -->
-      <div class="partnersLogos-dark">
-        <div class="logoBox logoBox-dark"><img src="assets/images/parner_msr.jpeg" alt="MSR" /></div>
-        <div class="logoBox logoBox-dark"><img src="assets/images/parner_skusa.png" alt="SKUSA" /></div>
-        <div class="logoBox logoBox-dark"><img src="assets/images/parner_crg.png" alt="CRG" /></div>
-        <div class="logoBox logoBox-dark"><img src="assets/images/parner_protour.png" alt="ProTour" /></div>
-        <div class="logoBox logoBox-dark"><img src="assets/images/parner_scca.jpeg" alt="SCCA" /></div>
+      <div class="partnersLogos" style="margin-top:14px">
+        <div class="logoBox">FE2</div>
+        <div class="logoBox">F4</div>
+        <div class="logoBox">USF / Road to Indy</div>
+        <div class="logoBox">Club Racing</div>
       </div>
+      <p class="hint" style="margin:12px 0 0">Shown for context only. VEON operates independently and does not imply affiliation unless formally established.</p>
     </div>
   </section>
 
@@ -1158,56 +953,307 @@
   <section id="sponsor" class="section">
     <div class="sectionHeader">
       <div>
-        <div class="kicker" data-i18n="sponsors_kicker">Sponsors</div>
+        <div class="kicker">Sponsors</div>
         <h2 data-i18n="sponsor_title">Sponsorship structured as a long-term development partnership</h2>
         <p data-i18n="sponsor_desc">
-          VEON sponsorship is designed for families, enthusiasts, and organizations that want to support a young racing athlete with clarity, structure, and measurable accountability.
+          VEON sponsorship is designed for families, enthusiasts, and organizations that want to support a young racing athlete with clarity, structure, and measurable accountability. Sponsors back the driver directly—funding development needs such as training, race operations, equipment, travel, and competition planning—while VEON acts as the guaranteeing entity that verifies allocation, standards, and professional follow-through.
         </p>
 
         <button class="readMore" type="button" data-readmore="sponsorMore">
-          <span data-i18n="read_more">Read more</span>
+          <span>Read more</span>
           <span class="rmIcon">+</span>
         </button>
 
         <div class="readMoreBody" id="sponsorMore" aria-hidden="true">
           <p>
-            Sponsorship inside VEON is not treated as a one-time donation. It is structured as a long-term partnership that grows in value as the driver develops competitively and commercially.
+            Sponsorship inside VEON is not treated as a one-time donation. It is structured as a long-term partnership that grows in value as the driver develops competitively and commercially. Drivers commit to professional acknowledgment, consistent visibility, and sponsor accountability through documented reporting, reliable communication, and approved media output. As performance and exposure expand across events, content, and community reach, the relationship strengthens—creating a durable business connection between the driver and the people or companies that helped build the journey.
           </p>
         </div>
       </div>
       <div>
-        <a class="btn btnPrimary" href="#drivers" data-i18n="sponsor_driver_btn">Sponsor a driver</a>
-        <a class="btn" href="#foundation" data-i18n="donate_foundation">Donate to Foundation</a>
-        <a class="btn" href="#apply" data-i18n="become_partner">Become a partner</a>
+        <a class="btn btnPrimary" href="#drivers">Sponsor a driver</a>
+        <a class="btn" href="#foundation">Donate to Foundation</a>
+        <a class="btn" href="#apply">Become a partner</a>
       </div>
     </div>
 
     <div class="tiers">
+      <!-- Foundation note -->
       <div class="tier">
-        <h3 data-i18n="foundation_title">VEON Foundation</h3>
-        <div class="price" data-i18n="foundation_price">Charitable contributions</div>
+        <h3>VEON Foundation</h3>
+        <div class="price">Charitable contributions · 501(c)(3)</div>
         <ul>
-          <li data-i18n="foundation_feat1">Donations are made directly to the VEON Foundation</li>
-          <li data-i18n="foundation_feat2">Funds support youth driver development</li>
-          <li data-i18n="foundation_feat3">May be tax-deductible</li>
+          <li>Donations are made directly to the VEON Foundation, not to individual drivers</li>
+          <li>Funds are allocated to support the broader mission of youth driver development and access to opportunity</li>
+          <li>Contributions may be tax-deductible in accordance with applicable 501(c)(3) regulations</li>
+          <li>Ideal for individuals or organizations seeking to support the cause without entering a direct sponsorship relationship</li>
+          <li>Foundation activity operates independently while aligned with VEON Motorsport’s values and oversight</li>
         </ul>
         <div class="tierActions">
-          <button class="btn btnPrimary" type="button" data-open-foundation data-i18n="donate_btn">Donate</button>
-          <a class="btn" href="#foundation" data-i18n="learn_more">Learn more</a>
+          <button class="btn btnPrimary" type="button" data-open-foundation>Donate</button>
+          <a class="btn" href="#foundation">Learn more</a>
         </div>
       </div>
       <div class="tier">
         <h3>Program Sponsor</h3>
         <div class="price">Institutional and individual support</div>
         <ul>
-          <li>Open to families, enthusiasts, and businesses</li>
-          <li>Direct association to VEON athletes</li>
-          <li>Professional acknowledgment and visibility</li>
+          <li>Open to families, enthusiasts, private supporters, businesses, and corporate entities</li>
+          <li>Provides sponsors with direct association to the VEON Motorsport development system and its athletes</li>
+          <li>Drivers commit to professional acknowledgment, visibility, and ongoing representation of partners</li>
+          <li>Relationships are designed to mature over time as the driver’s performance, exposure, and credibility grow</li>
+          <li>Support is managed and verified by VEON to ensure consistency, professionalism, and mutual benefit</li>
         </ul>
         <div class="tierActions">
-          <a class="btn btnPrimary" href="#apply" data-i18n="apply">Apply</a>
-          <a class="btn" href="#apply" data-i18n="contact">Contact</a>
+          <a class="btn btnPrimary" href="#apply">Apply</a>
+          <a class="btn" href="#apply">Contact</a>
         </div>
+      </div>
+    </div>
+
+    <div class="hint" style="margin-top:14px">Sponsorship is directed to the driver. VEON guarantees allocation and standards. Foundation donations support the mission separately.</div>
+
+    <div class="sectionHeader" style="margin-top:30px">
+      <div>
+        <div class="kicker">Sponsor confidence</div>
+        <h2 style="font-size:22px;margin:0">How partner recognition looks (examples)</h2>
+        <p style="margin:6px 0 0">For presentation only: sample logo placement illustrating how supporters may be acknowledged across driver content and VEON materials.</p>
+      </div>
+    </div>
+
+    <div class="logoRow" aria-label="Example sponsor logos" style="margin-top:14px">
+      <span class="logoChip">Red Bull*</span>
+      <span class="logoChip">Shell*</span>
+      <span class="logoChip">Mobil 1*</span>
+      <span class="logoChip">Sparco*</span>
+      <span class="logoChip">GoPro*</span>
+      <span class="logoChip">Pirelli*</span>
+      <span class="logoChip">Monster*</span>
+      <span class="logoChip">Castrol*</span>
+    </div>
+    <div class="hint" style="margin-top:10px">*Example logos for presentation only — not an affiliation or endorsement.</div>
+
+    <div class="sectionHeader" style="margin-top:30px">
+      <div>
+        <div class="kicker">Reviews</div>
+        <h2 style="font-size:22px;margin:0">Community feedback</h2>
+        <p style="margin:6px 0 0">Short testimonials that reflect the VEON approach: structured development, professionalism, and sponsor accountability.</p>
+      </div>
+    </div>
+
+    <div class="reviewGrid" aria-label="Reviews">
+      <div class="reviewCard">
+        <div class="stars">★★★★★</div>
+        <p>“Clear structure. Clear expectations. VEON made it easy to understand what progress looks like and how support becomes measurable development.”</p>
+        <div class="reviewBy">Parent / Supporter</div>
+      </div>
+      <div class="reviewCard">
+        <div class="stars">★★★★★</div>
+        <p>“Professional communication and reliable follow-through. It feels like supporting a managed athlete, not a one-off request.”</p>
+        <div class="reviewBy">Local business partner</div>
+      </div>
+      <div class="reviewCard">
+        <div class="stars">★★★★★</div>
+        <p>“The reporting mindset matters. VEON treats sponsorship as a relationship that grows with performance and visibility.”</p>
+        <div class="reviewBy">Motorsport enthusiast</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOUNDATION SECTION -->
+  <section id="foundation" class="section">
+    <div class="sectionHeader">
+      <div>
+        <div class="kicker">Foundation</div>
+        <h2>VEON Foundation · charitable giving that advances the mission</h2>
+        <p>
+          The VEON Foundation exists for individuals and organizations that want to support the broader cause of youth driver development and access to opportunity. Unlike driver sponsorships—which are directed to a specific athlete—foundation contributions support the mission at the program level.
+          Donations are intended for charitable purposes aligned with VEON’s values and oversight. If the Foundation operates as a 501(c)(3) charitable organization, contributions may be tax-deductible to the extent allowed by law. Always consult your tax professional for your specific situation.
+        </p>
+      </div>
+      <div>
+        <button class="btn btnPrimary" type="button" data-open-foundation>Donate to the Foundation</button>
+        <a class="btn" href="#apply">Contact</a>
+      </div>
+    </div>
+
+    <div class="programGrid">
+      <div class="progCard">
+        <h3>How the Foundation is different from sponsorship</h3>
+
+        <!-- Compact view + expandable detail -->
+        <p>
+          Sponsorship within VEON Motorsport is a direct, performance-oriented relationship tied to an individual driver. Sponsorship resources are allocated to specific development needs such as training, equipment, travel, race operations, and competitive progression. VEON Motorsport acts as the guaranteeing entity, ensuring that sponsor funds are used responsibly, transparently, and strictly in alignment with the athlete’s development plan.
+        </p>
+
+        <button class="readMore" type="button" data-readmore="foundationDiff">
+          <span>Read more</span>
+          <span class="rmIcon">+</span>
+        </button>
+
+        <div class="readMoreBody" id="foundationDiff" aria-hidden="true">
+          <p>
+            The VEON Foundation operates at a different level. Foundation contributions do not sponsor a specific driver; instead, they support the broader mission defined in the VEON Master framework: expanding access to driver development, supporting early-stage talent identification, improving education around motorsport pathways, and reinforcing ethical, structured growth for young racing athletes. The Foundation exists to serve the cause, not individual competitive outcomes.
+          </p>
+          <p>
+            When structured as a 501(c)(3) charitable organization, Foundation contributions may be tax-deductible to the extent permitted by law. For companies, this creates a dual benefit: supporting a meaningful youth development mission while gaining qualified charitable deductions and visibility through Foundation communications, events, educational initiatives, and approved media exposure. Donors may also receive recognition through Foundation platforms, events, digital media, and mission-aligned branding—transforming philanthropic support into both social impact and measurable business value.
+          </p>
+
+          <div class="logoRow" aria-label="Example donor logos" style="margin-top:12px">
+            <span class="logoChip">Nike*</span>
+            <span class="logoChip">Amazon*</span>
+            <span class="logoChip">Google*</span>
+            <span class="logoChip">Toyota*</span>
+          </div>
+          <div class="hint" style="margin-top:10px">*Example donor logos for presentation only — not an affiliation or endorsement.</div>
+        </div>
+      </div>
+      <div class="progCard">
+        <h3>What donors can expect</h3>
+        <p>
+          Clear intent, responsible allocation, and program-level impact reporting. Whether you are a parent, a motorsport enthusiast, a family supporter, a local business, or a corporate partner, Foundation giving helps advance the cause without requiring a direct sponsor relationship with a single driver.
+        </p>
+      </div>
+    </div>
+
+    <div class="sectionHeader" style="margin-top:30px">
+      <div>
+        <div class="kicker">Donor trust</div>
+        <h2 style="font-size:22px;margin:0">Donor recognition (examples)</h2>
+        <p style="margin:6px 0 0">For presentation only: sample donor recognition showing how supporters may be acknowledged at the foundation level.</p>
+      </div>
+    </div>
+    <div class="logoRow" aria-label="Example foundation donors" style="margin-top:14px">
+      <span class="logoChip">Nike*</span>
+      <span class="logoChip">Amazon*</span>
+      <span class="logoChip">Google*</span>
+      <span class="logoChip">Toyota*</span>
+      <span class="logoChip">Coca-Cola*</span>
+      <span class="logoChip">Microsoft*</span>
+    </div>
+    <div class="hint" style="margin-top:10px">*Example logos for presentation only — not an affiliation or endorsement.</div>
+
+    <div class="sectionHeader" style="margin-top:30px">
+      <div>
+        <div class="kicker">Testimonials</div>
+        <h2 style="font-size:22px;margin:0">Why donors support the mission</h2>
+        <p style="margin:6px 0 0">Short statements illustrating mission-aligned giving. Replace with real donor quotes once available.</p>
+      </div>
+    </div>
+    <div class="reviewGrid" aria-label="Foundation testimonials">
+      <div class="reviewCard">
+        <div class="stars">★★★★★</div>
+        <p>“We wanted to support the cause broadly. The Foundation gave us a clean way to contribute with accountability and purpose.”</p>
+        <div class="reviewBy">Family donor</div>
+      </div>
+      <div class="reviewCard">
+        <div class="stars">★★★★★</div>
+        <p>“Mission-driven giving with clear communication. The structure makes it easy to trust where support is going.”</p>
+        <div class="reviewBy">Corporate donor</div>
+      </div>
+      <div class="reviewCard">
+        <div class="stars">★★★★★</div>
+        <p>“Access matters. Supporting youth development through a disciplined framework is exactly what we look for.”</p>
+        <div class="reviewBy">Motorsport community</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ABOUT SECTION -->
+  <section id="about" class="section">
+    <div class="sectionHeader">
+      <div>
+        <div class="kicker">About</div>
+        <h2>About VEON Motorsport</h2>
+        <p>
+          VEON Motorsport is a structured driver development organization built for families and supporters who want a professional system—not guesswork. We treat young drivers as athletes with natural ability that must be discovered early, refined through disciplined training, and guided through realistic progression gates. VEON provides the framework, standards, and oversight that make development measurable and sponsor-ready.
+        </p>
+
+        <button class="readMore" type="button" data-readmore="aboutMore">
+          <span>Read more</span>
+          <span class="rmIcon">+</span>
+        </button>
+
+        <div class="readMoreBody" id="aboutMore" aria-hidden="true">
+          <p>
+            Our role is to operate as the guaranteeing entity between drivers and those who support them—parents, family members, enthusiasts, local businesses, and corporate partners. While sponsorship funds are directed to the driver, VEON ensures that resources are applied responsibly and in direct alignment with a defined development plan. Entry into VEON is selective and maintained through professionalism, coachability, and performance progression. This structure protects the athlete’s credibility and helps sponsors participate with confidence as the relationship strengthens over time.
+          </p>
+        </div>
+      </div>
+      <div>
+        <a class="btn btnPrimary" href="#drivers">Meet the drivers</a>
+        <a class="btn" href="#sponsor">Sponsor pathway</a>
+      </div>
+    </div>
+
+    <div class="programGrid">
+      <div class="progCard">
+        <h3>Our role</h3>
+        <p>
+          VEON Motorsport serves as the guaranteeing entity between drivers and sponsors. While sponsorship funds are directed to the drivers, VEON provides structure, standards, and oversight to ensure resources are applied responsibly and in direct alignment with the athlete’s development objectives. This role reduces uncertainty, improves accountability, and allows families and sponsors to engage with confidence.
+        </p>
+      </div>
+      <div class="progCard">
+        <h3>Driver acceptance & standards</h3>
+        <p>
+          Entry into VEON Motorsport is selective. Drivers are evaluated on potential, discipline, coachability, and readiness to operate within a professional development environment. Continued participation is earned through consistent effort, measurable progress, and adherence to VEON’s conduct and performance standards. This ensures that all athletes represent the organization—and its sponsors—with credibility.
+        </p>
+      </div>
+    </div>
+
+    <div class="programGrid" style="margin-top:18px">
+      <div class="progCard">
+        <h3>Why sponsors and drivers grow together</h3>
+        <p>
+          VEON frames sponsorship as a long-term business relationship rather than a one-time contribution. Support accelerates an athlete’s progression, while drivers commit to acknowledging, representing, and promoting their sponsors through professional communication, visibility, and documented reporting. As performance and exposure increase, the value of the relationship strengthens for both parties.
+        </p>
+      </div>
+      <div class="progCard">
+        <h3>Foundation alignment</h3>
+        <p>
+          The VEON Foundation exists for individuals and organizations who wish to support the broader mission of youth driver development without entering a direct sponsorship relationship. Foundation activity operates independently from driver sponsorships and is intended for charitable, mission-aligned initiatives. When applicable, contributions may qualify as tax-deductible under 501(c)(3) guidelines (consult your tax professional).
+        </p>
+      </div>
+    </div>
+
+    <div class="sectionHeader" style="margin-top:28px">
+      <div>
+        <div class="kicker">Principles</div>
+        <h2 style="font-size:22px;margin:0">The VEON operating standard</h2>
+        <p style="margin:6px 0 0">A professional framework designed to protect families, develop athletes, and earn sponsor trust.</p>
+      </div>
+    </div>
+
+    <div class="reviewGrid" aria-label="VEON principles" style="margin-top:14px">
+      <div class="reviewCard">
+        <div class="stars">★★★★★</div>
+        <p><b>Accountability:</b> clearly defined expectations, transparent communication, and measurable development milestones.</p>
+        <div class="reviewBy">VEON Standard</div>
+      </div>
+      <div class="reviewCard">
+        <div class="stars">★★★★★</div>
+        <p><b>Professionalism:</b> sponsor-ready conduct, disciplined representation, and consistent public-facing standards.</p>
+        <div class="reviewBy">VEON Standard</div>
+      </div>
+      <div class="reviewCard">
+        <div class="stars">★★★★★</div>
+        <p><b>Long-term value:</b> relationships that mature as drivers progress competitively and commercially.</p>
+        <div class="reviewBy">VEON Standard</div>
+      </div>
+    </div>
+
+    <div class="hint" style="margin-top:12px">
+      This section defines VEON Motorsport’s institutional role. Individual driver profiles, sponsorship terms, and foundation activity operate within this framework.
+    </div>
+
+    <div class="sectionHeader" style="margin-top:32px">
+      <div>
+        <div class="kicker">Get in touch</div>
+        <h2 style="font-size:22px;margin:0">Contact VEON Motorsport</h2>
+        <p style="margin:6px 0 0">For families, sponsors, partners, or general inquiries. All messages are reviewed by the VEON team.</p>
+      </div>
+      <div>
+        <a class="btn btnPrimary" href="#apply">CONTACT US</a>
       </div>
     </div>
   </section>
@@ -1216,85 +1262,319 @@
   <section id="program" class="section">
     <div class="sectionHeader">
       <div>
-        <div class="kicker" data-i18n="program_title">Program</div>
-        <h2 data-i18n="program_subtitle">Development pathway</h2>
-        <p data-i18n="program_desc">Our structured approach prepares drivers for the highest levels of competitive racing through progressive stages.</p>
+        <div class="kicker">Program</div>
+        <h2 data-i18n="program_title">The VEON Motorsport development pipeline</h2>
+        <p data-i18n="program_desc">
+          The VEON program is a US-based driver development pathway beginning in karting and extending toward professional open-wheel or sports car opportunities. Each phase is designed to help families and supporters clearly understand where a driver stands, what is required to progress, and how financial and competitive decisions align with long-term development rather than short-term expectations.
+        </p>
+      </div>
+      <div>
+        <a class="btn btnPrimary" href="#apply">Apply</a>
+        <a class="btn" href="#drivers">See athletes</a>
       </div>
     </div>
 
     <div class="programGrid">
       <div class="progCard">
-        <h3 data-i18n="youth_dev">Youth Development</h3>
-        <p data-i18n="youth_desc">Foundation skills for young drivers focusing on safety, fundamentals, and love for racing.</p>
-        <div class="accordion">
+        <h3>What VEON measures</h3>
+        <p>Lap-time trends, racecraft quality, starts, tire management, data discipline, and coachability.</p>
+        <div class="accordion" data-accordion>
           <div class="accItem">
-            <button class="accBtn"><b data-i18n="ages_8_12">Ages 8-12</b><span>+</span></button>
-            <div class="accBody">Introduction to karting, basic mechanics, and racing fundamentals.</div>
+            <button class="accBtn" type="button"><b>Performance</b><span>+</span></button>
+            <div class="accBody">At VEON, performance is not defined by a single result but by a driver’s ability to deliver measurable output consistently over time. This includes raw pace, lap-time repeatability, execution under pressure, and performance across full race weekends. The focus is on long-term progression, using data analysis, competitive context, and trend evaluation to determine whether natural talent is being converted into reliable, sustainable results.</div>
           </div>
           <div class="accItem">
-            <button class="accBtn"><b data-i18n="ages_13_15">Ages 13-15</b><span>+</span></button>
-            <div class="accBody">Competitive karting, data analysis, and mental preparation.</div>
+            <button class="accBtn" type="button"><b>Racecraft</b><span>+</span></button>
+            <div class="accBody">Racecraft represents a driver’s competitive intelligence on track. It includes race starts, overtaking, defensive driving, situational awareness, and decision-making under pressure. Within VEON, racecraft is developed as a strategic skill: racing hard but clean, protecting results, managing risk, and maximizing opportunity without compromising consistency, sportsmanship, or long-term reputation.</div>
+          </div>
+          <div class="accItem">
+            <button class="accBtn" type="button"><b>Professionalism</b><span>+</span></button>
+            <div class="accBody">Professionalism is a driver’s ability to operate as an athlete and representative within the motorsport ecosystem. It includes clear communication, public conduct, reliability, and respect for teams, sponsors, and commitments. At VEON, professionalism is a requirement, not an option. It builds trust, protects credibility, and enables long-term relationships that extend beyond results on track.</div>
           </div>
         </div>
       </div>
+
       <div class="progCard">
-        <h3 data-i18n="elite_racing">Elite Racing</h3>
-        <p data-i18n="elite_desc">Advanced training for serious competitors aiming at professional careers.</p>
-        <div class="accordion">
+        <h3>Phases (high-level)</h3>
+        <p>We build drivers in stages so families can follow a clear pattern and make smarter decisions.</p>
+        <div class="accordion" data-accordion>
           <div class="accItem">
-            <button class="accBtn"><b data-i18n="karting_pro">Karting Pro</b><span>+</span></button>
-            <div class="accBody">High-performance karting categories and championship competition.</div>
+            <button class="accBtn" type="button"><b>Foundation</b><span>+</span></button>
+            <div class="accBody">Kart fundamentals, fitness baseline, video review habits, and data literacy.</div>
           </div>
           <div class="accItem">
-            <button class="accBtn"><b data-i18n="car_transition">Car Transition</b><span>+</span></button>
-            <div class="accBody">Move to formula cars and GT racing with comprehensive training.</div>
+            <button class="accBtn" type="button"><b>Competition</b><span>+</span></button>
+            <div class="accBody">Regional → national racing, structured testing, measurable improvements.</div>
+          </div>
+          <div class="accItem">
+            <button class="accBtn" type="button"><b>Transition</b><span>+</span></button>
+            <div class="accBody">Interface to open-wheel opportunities, licensing strategy, and partner packaging.</div>
           </div>
         </div>
       </div>
     </div>
+
+    <!-- PIPELINE REFERENCE (GOLDEN PATH INSIDE PROGRAM) -->
+    <div class="sectionHeader" style="margin-top:28px">
+      <div>
+        <div class="kicker">Pipeline reference</div>
+        <h2 style="font-size:22px;margin:0">The VEON Pipeline · Golden Path framework</h2>
+        <p style="margin:6px 0 0">
+          The Golden Path is embedded inside the VEON Program as a reference framework used to guide progression decisions across US-based karting, club racing, and open-wheel pathways. It is <b>not</b> a guarantee of professional outcomes. It is a disciplined map that helps families and sponsors understand what the next step typically requires, how readiness is evaluated, and why advancement is earned.
+        </p>
+      </div>
+      <div>
+        <a class="btn btnPrimary" href="#apply">Apply</a>
+        <a class="btn" href="#drivers">View athletes</a>
+      </div>
+    </div>
+
+    <div class="goldenWrap" aria-label="VEON Golden Path inside Program">
+      <div class="gpRail" aria-hidden="true"></div>
+
+      <article class="gpStep">
+        <div class="gpBadge">PHASE 1</div>
+        <h3>Karting foundation · discovery and fundamentals</h3>
+        <p>
+          Entry point for most drivers. The objective is to identify natural ability, build disciplined racecraft, and establish training habits. VEON focuses on fundamentals, consistency, data literacy, and professional behavior from day one.
+        </p>
+        <div class="gpTags">
+          <span class="gpTag">Local / Regional karting</span>
+          <span class="gpTag">Fitness baseline</span>
+          <span class="gpTag">Video + data habits</span>
+        </div>
+        <div class="gpExamples">
+          <span class="logoChip">SKUSA (example)</span>
+          <span class="logoChip">Club racing (example)</span>
+        </div>
+      </article>
+
+      <article class="gpStep">
+        <div class="gpBadge">PHASE 2</div>
+        <h3>Advanced competition · validation under pressure</h3>
+        <p>
+          The objective is to validate performance against stronger fields and develop repeatability across tracks, conditions, and weekends. This is where sponsor readiness begins to matter: consistent representation, clean conduct, and documented reporting.
+        </p>
+        <div class="gpTags">
+          <span class="gpTag">Regional → National</span>
+          <span class="gpTag">Race execution</span>
+          <span class="gpTag">Sponsor discipline</span>
+        </div>
+        <div class="gpExamples">
+          <span class="logoChip">SKUSA (example)</span>
+          <span class="logoChip">Major events (example)</span>
+        </div>
+      </article>
+
+      <article class="gpStep">
+        <div class="gpBadge">PHASE 3</div>
+        <h3>Transition to cars · licensing and cost/benefit clarity</h3>
+        <p>
+          The goal is to transfer karting performance into car control, systems thinking, and race management in a controlled environment. VEON treats this phase as a decision gate: budget realism, coaching quality, testing discipline, and competitive fit.
+        </p>
+        <div class="gpTags">
+          <span class="gpTag">Licensing strategy</span>
+          <span class="gpTag">Testing discipline</span>
+          <span class="gpTag">Budget governance</span>
+        </div>
+        <div class="gpExamples">
+          <span class="logoChip">SCCA (example)</span>
+          <span class="logoChip">FE2 (example)</span>
+        </div>
+      </article>
+
+      <article class="gpStep">
+        <div class="gpBadge">PHASE 4</div>
+        <h3>Open-wheel reference routes · structured ladders</h3>
+        <p>
+          For families pursuing open-wheel progression, VEON uses reference ladders such as USF / Road to Indy and US-based FIA F4 programs to map timing, requirements, and realistic benchmarks. Participation depends on readiness, resources, and performance.
+        </p>
+        <div class="gpTags">
+          <span class="gpTag">USF / Road to Indy (reference)</span>
+          <span class="gpTag">F4 (reference)</span>
+          <span class="gpTag">Sponsor packaging</span>
+        </div>
+        <div class="gpExamples">
+          <span class="logoChip">USF / Road to Indy (example)</span>
+          <span class="logoChip">F4 (example)</span>
+        </div>
+      </article>
+
+      <article class="gpStep">
+        <div class="gpBadge">ONGOING</div>
+        <h3>Professional readiness · brand, reporting, and long-term value</h3>
+        <p>
+          At every phase, VEON develops sponsor-ready behavior: communication, acknowledgment, content discipline, and professional conduct. Sponsors are not “donors.” They are partners. As the athlete grows competitively, VEON ensures the relationship becomes more valuable, more visible, and more credible over time.
+        </p>
+        <div class="gpTags">
+          <span class="gpTag">Reporting mindset</span>
+          <span class="gpTag">Visibility delivery</span>
+          <span class="gpTag">Credibility protection</span>
+        </div>
+      </article>
+    </div>
+
+    <div class="hint" style="margin-top:14px">
+      Disclaimer: The Golden Path is a guidance model used inside the VEON Program. VEON does not guarantee professional outcomes. Progression depends on performance, timing, resources, and fit.
+    </div>
   </section>
 
   <!-- APPLY SECTION -->
+  <div id="contact"></div>
   <section id="apply" class="section">
+    <div class="sectionHeader">
+      <div>
+        <div class="kicker">Apply</div>
+        <h2 data-i18n="apply_title">Apply to VEON Motorsport</h2>
+        <p data-i18n="apply_desc">
+          Applications allow VEON to evaluate alignment, readiness, and timing. Drivers, families, and partners are reviewed
+          under the same professional criteria to ensure mutual value, clarity of expectations, and long-term viability.
+        </p>
+      </div>
+    </div>
+
     <div class="applyWrap">
       <div class="panel">
-        <h3 data-i18n="apply_title">Apply / Contact</h3>
+        <h3>Application form</h3>
         <form id="applyForm">
           <div class="formGrid">
-            <div class="field"><label data-i18n="role_label">Role</label>
-              <select name="role">
-                <option value="" data-i18n="select_role">Select role...</option>
+            <div class="field">
+              <label>Applying as</label>
+              <select name="role" required>
                 <option value="Driver">Driver</option>
-                <option value="Parent">Parent</option>
-                <option value="Sponsor">Sponsor</option>
-                <option value="Partner">Partner</option>
                 <option value="Enthusiast">Enthusiast</option>
+                <option value="Individual">Individual</option>
+                <option value="Legal Representative">Legal Representative</option>
+                <option value="Parent">Parent</option>
+                <option value="Partner">Partner</option>
+                <option value="Sponsor">Sponsor</option>
               </select>
             </div>
-            <div class="field"><label data-i18n="name_label">Name</label><input name="name" type="text" placeholder="Your name" /></div>
-            <div class="field"><label data-i18n="email_label">Email</label><input name="email" type="email" placeholder="your@email.com" /></div>
-            <div class="field"><label data-i18n="phone_label">Phone</label><input name="phone" type="tel" placeholder="+1 (555) 000-0000" /></div>
-            <div class="field span2"><label data-i18n="message_label">Message</label><textarea name="message" placeholder="Tell us about your goals, timeline, and current racing level." data-i18n-placeholder="message_placeholder"></textarea></div>
+            <div class="field">
+              <label>Full name</label>
+              <input name="name" type="text" required />
+            </div>
+            <div class="field">
+              <label>Email</label>
+              <input name="email" type="email" required />
+            </div>
+            <div class="field">
+              <label>Phone</label>
+              <input name="phone" type="tel" />
+            </div>
+
+            <!-- Dynamic fields (shown based on “Applying as”) -->
+            <div class="field span2 roleFields" data-role-fields="Driver" style="display:none">
+              <label>Driver details</label>
+              <div class="formGrid" style="grid-template-columns:repeat(2,1fr);gap:12px">
+                <div class="field"><label style="font-size:11px;letter-spacing:.12em;text-transform:uppercase;font-weight:900;color:#666">Age</label><input name="driver_age" type="number" min="4" max="99" placeholder="e.g., 15" /></div>
+                <div class="field"><label style="font-size:11px;letter-spacing:.12em;text-transform:uppercase;font-weight:900;color:#666">Home state</label><input name="driver_state" type="text" placeholder="e.g., Texas" /></div>
+                <div class="field"><label style="font-size:11px;letter-spacing:.12em;text-transform:uppercase;font-weight:900;color:#666">Current category</label><input name="driver_category" type="text" placeholder="e.g., KA100 / KZ / LO206" /></div>
+                <div class="field"><label style="font-size:11px;letter-spacing:.12em;text-transform:uppercase;font-weight:900;color:#666">Top series / events</label><input name="driver_series" type="text" placeholder="e.g., SKUSA / SCCA / Regional" /></div>
+                <div class="field span2"><label style="font-size:11px;letter-spacing:.12em;text-transform:uppercase;font-weight:900;color:#666">Primary goal (12–24 months)</label><input name="driver_goal" type="text" placeholder="e.g., National karting, transition to cars, F4 evaluation" /></div>
+              </div>
+              <p class="hint" style="margin:8px 0 0">VEON uses this to understand your current stage inside the pipeline and what “next step” looks like.</p>
+            </div>
+
+            <div class="field span2 roleFields" data-role-fields="Parent" style="display:none">
+              <label>Parent / family details</label>
+              <div class="formGrid" style="grid-template-columns:repeat(2,1fr);gap:12px">
+                <div class="field"><label style="font-size:11px;letter-spacing:.12em;text-transform:uppercase;font-weight:900;color:#666">Driver name</label><input name="parent_driver_name" type="text" placeholder="Child / driver full name" /></div>
+                <div class="field"><label style="font-size:11px;letter-spacing:.12em;text-transform:uppercase;font-weight:900;color:#666">Driver age</label><input name="parent_driver_age" type="number" min="4" max="99" placeholder="e.g., 12" /></div>
+                <div class="field"><label style="font-size:11px;letter-spacing:.12em;text-transform:uppercase;font-weight:900;color:#666">Current category</label><input name="parent_category" type="text" placeholder="e.g., LO206 / KA100" /></div>
+                <div class="field"><label style="font-size:11px;letter-spacing:.12em;text-transform:uppercase;font-weight:900;color:#666">Home state</label><input name="parent_state" type="text" placeholder="e.g., Texas" /></div>
+                <div class="field span2"><label style="font-size:11px;letter-spacing:.12em;text-transform:uppercase;font-weight:900;color:#666">Support intent</label><input name="parent_intent" type="text" placeholder="Development plan, sponsorship readiness, next-season roadmap" /></div>
+              </div>
+              <p class="hint" style="margin:8px 0 0">Parents typically engage VEON for structure, decision clarity, and a credible path for the driver.</p>
+            </div>
+
+            <div class="field span2 roleFields" data-role-fields="Legal Representative" style="display:none">
+              <label>Legal representative details</label>
+              <div class="formGrid" style="grid-template-columns:repeat(2,1fr);gap:12px">
+                <div class="field"><label style="font-size:11px;letter-spacing:.12em;text-transform:uppercase;font-weight:900;color:#666">Representing</label><input name="legal_representing" type="text" placeholder="Driver / family / organization" /></div>
+                <div class="field"><label style="font-size:11px;letter-spacing:.12em;text-transform:uppercase;font-weight:900;color:#666">Relationship</label><input name="legal_relationship" type="text" placeholder="e.g., guardian, attorney, manager" /></div>
+                <div class="field span2"><label style="font-size:11px;letter-spacing:.12em;text-transform:uppercase;font-weight:900;color:#666">Primary purpose</label><input name="legal_purpose" type="text" placeholder="Contracts, agreements, approvals, sponsorship structure" /></div>
+              </div>
+            </div>
+
+            <div class="field span2 roleFields" data-role-fields="Sponsor" style="display:none">
+              <label>Sponsor details</label>
+              <div class="formGrid" style="grid-template-columns:repeat(2,1fr);gap:12px">
+                <div class="field"><label style="font-size:11px;letter-spacing:.12em;text-transform:uppercase;font-weight:900;color:#666">Sponsor name / company</label><input name="sponsor_company" type="text" placeholder="Individual or company name" /></div>
+                <div class="field"><label style="font-size:11px;letter-spacing:.12em;text-transform:uppercase;font-weight:900;color:#666">Sponsor type</label>
+                  <select name="sponsor_type">
+                    <option value="Individual">Individual</option>
+                    <option value="Family">Family</option>
+                    <option value="Small Business">Small Business</option>
+                    <option value="Corporate">Corporate</option>
+                  </select>
+                </div>
+                <div class="field"><label style="font-size:11px;letter-spacing:.12em;text-transform:uppercase;font-weight:900;color:#666">Support budget</label>
+                  <select name="sponsor_budget">
+                    <option value="Under $500">Under $500</option>
+                    <option value="$500–,500">$500–,500</option>
+                    <option value=",500–0,000">,500–0,000</option>
+                    <option value="0,000+">0,000+</option>
+                    <option value="In-kind only">In-kind only</option>
+                  </select>
+                </div>
+                <div class="field"><label style="font-size:11px;letter-spacing:.12em;text-transform:uppercase;font-weight:900;color:#666">Support focus</label><input name="sponsor_focus" type="text" placeholder="Race entries, tires, travel, training, equipment" /></div>
+                <div class="field span2"><label style="font-size:11px;letter-spacing:.12em;text-transform:uppercase;font-weight:900;color:#666">Visibility expectations</label><input name="sponsor_visibility" type="text" placeholder="Logo placement, mentions, content frequency, reporting" /></div>
+              </div>
+              <p class="hint" style="margin:8px 0 0">VEON ensures sponsor resources are directed to driver development and supported by professional reporting.</p>
+            </div>
+
+            <div class="field span2 roleFields" data-role-fields="Partner" style="display:none">
+              <label>Partner details</label>
+              <div class="formGrid" style="grid-template-columns:repeat(2,1fr);gap:12px">
+                <div class="field"><label style="font-size:11px;letter-spacing:.12em;text-transform:uppercase;font-weight:900;color:#666">Organization</label><input name="partner_org" type="text" placeholder="Company / brand / institution" /></div>
+                <div class="field"><label style="font-size:11px;letter-spacing:.12em;text-transform:uppercase;font-weight:900;color:#666">Partnership type</label><input name="partner_type" type="text" placeholder="Media, equipment, services, event support" /></div>
+                <div class="field span2"><label style="font-size:11px;letter-spacing:.12em;text-transform:uppercase;font-weight:900;color:#666">What you want to build</label><input name="partner_build" type="text" placeholder="Long-term partnership scope and objectives" /></div>
+              </div>
+            </div>
+
+            <div class="field span2 roleFields" data-role-fields="Individual" style="display:none">
+              <label>Individual details</label>
+              <div class="formGrid" style="grid-template-columns:repeat(2,1fr);gap:12px">
+                <div class="field"><label style="font-size:11px;letter-spacing:.12em;text-transform:uppercase;font-weight:900;color:#666">Interest</label><input name="individual_interest" type="text" placeholder="Support a driver, learn the program, volunteer" /></div>
+                <div class="field"><label style="font-size:11px;letter-spacing:.12em;text-transform:uppercase;font-weight:900;color:#666">Location</label><input name="individual_location" type="text" placeholder="City / State" /></div>
+              </div>
+            </div>
+
+            <div class="field span2 roleFields" data-role-fields="Enthusiast" style="display:none">
+              <label>Enthusiast details</label>
+              <div class="formGrid" style="grid-template-columns:repeat(2,1fr);gap:12px">
+                <div class="field"><label style="font-size:11px;letter-spacing:.12em;text-transform:uppercase;font-weight:900;color:#666">Motorsport focus</label><input name="enthusiast_focus" type="text" placeholder="Karting, open-wheel, track days, club racing" /></div>
+                <div class="field"><label style="font-size:11px;letter-spacing:.12em;text-transform:uppercase;font-weight:900;color:#666">Support style</label><input name="enthusiast_support" type="text" placeholder="Small contributions, in-kind, introductions" /></div>
+              </div>
+            </div>
+            <div class="field span2">
+              <label>Message</label>
+              <textarea name="message" placeholder="Tell us what you need, your goals, timeline, and current racing level." required></textarea>
+            </div>
           </div>
+
           <div class="authRow">
-            <button class="btn btnPrimary" type="submit" data-i18n="submit">Submit application</button>
-            <a class="btn" href="#apply" data-i18n="contact">Contact</a>
+            <button class="btn btnPrimary" type="submit">Submit application</button>
+            <a class="btn" href="#apply">Contact</a>
           </div>
+          <p class="hint" style="margin-top:12px">Submitting will open an email draft to VEON (safe for this preview). A real site would submit to a secure backend.</p>
         </form>
       </div>
 
       <div class="panel" id="members">
         <div class="dashTop">
           <div class="dashMeta">
-            <b data-i18n="members_title">REGISTER / LOGIN</b>
-            <span data-i18n="members_subtitle">Update achievements, race results & profile pictures</span>
+            <b>REGISTER / LOGIN</b>
+            <span>Update achievements, race results & profile pictures</span>
           </div>
           <img id="dashAvatar" class="avatar" alt="Profile" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///ywAAAAAAQABAAACAUwAOw==" />
         </div>
 
         <div class="authTabs">
-          <button class="tab active" type="button" data-tab="login" data-i18n="login_tab">Login</button>
-          <button class="tab" type="button" data-tab="register" data-i18n="register_tab">Register</button>
+          <button class="tab active" type="button" data-tab="login">Login</button>
+          <button class="tab" type="button" data-tab="register">Register</button>
+          <button class="tab" type="button" data-tab="dashboard">Dashboard</button>
         </div>
 
         <div id="tab-login">
@@ -1304,7 +1584,9 @@
           </div>
           <div class="authRow">
             <button class="pillBtn" type="button" id="loginBtn">Login</button>
+            <button class="pillBtn gray" type="button" id="logoutBtn" style="display:none">Logout</button>
           </div>
+          <p class="hint" style="margin-top:10px">Preview-only: uses local storage in your browser. Real deployment would use secure authentication.</p>
         </div>
 
         <div id="tab-register" style="display:none">
@@ -1317,6 +1599,36 @@
           <div class="authRow">
             <button class="pillBtn" type="button" id="registerBtn">Create account</button>
           </div>
+          <p class="hint" style="margin-top:10px">This creates a local account for the preview. Your real site would store accounts securely.</p>
+        </div>
+
+        <div id="tab-dashboard" style="display:none">
+          <div class="profileBlock" style="border-top:none;padding-top:0;margin-top:0">
+            <h3 style="margin-bottom:10px">My profile</h3>
+            <div class="formGrid">
+              <div class="field"><label>Display name</label><input id="dashName" type="text" /></div>
+              <div class="field"><label>Category</label><input id="dashCat" type="text" placeholder="e.g., KA100 / KZ / USF Juniors" /></div>
+              <div class="field span2"><label>Upload profile picture</label><input id="dashPic" type="file" accept="image/*" /></div>
+              <div class="field span2"><label>Achievements</label><textarea id="dashAch" placeholder="Championships, podiums, notable results..."></textarea></div>
+              <div class="field span2"><label>Public bio (About)</label><textarea id="dashBio" placeholder="Short professional bio for your public driver page."></textarea></div>
+            </div>
+            <div class="authRow" style="margin-top:10px">
+              <button class="pillBtn" type="button" id="saveProfileBtn">Save</button>
+              <button class="pillBtn gray" type="button" id="addResultBtn">Add race result</button>
+            </div>
+          </div>
+
+          <div class="profileBlock">
+            <h3>Race results</h3>
+            <table class="table" id="resultsTable">
+              <thead>
+                <tr><th>Date</th><th>Event</th><th>Track</th><th>Finish</th><th></th></tr>
+              </thead>
+              <tbody></tbody>
+            </table>
+          </div>
+
+          <p class="hint" style="margin-top:10px">When logged in, you can maintain your profile so your driver page stays current.</p>
         </div>
       </div>
     </div>
@@ -1325,74 +1637,137 @@
   <!-- DRIVERS SECTION -->
   <section id="drivers" class="drivers">
     <div class="driversHeader">
-      <h2 data-i18n="drivers_title">Drivers</h2>
-      <p data-i18n="drivers_desc">
-        VEON drivers are developed as performance assets—supported by structure, measurable progression, and sponsor-ready professionalism.
+      <h2>Drivers</h2>
+      <p>
+        VEON drivers are developed as performance assets—supported by structure, measurable progression, and sponsor-ready professionalism. Each athlete is evaluated within the VEON pipeline for pace, consistency, racecraft, and conduct. Sponsors and families can explore each profile with confidence, knowing VEON applies standards that protect both development quality and partner credibility.
       </p>
+
+      <button class="readMore" type="button" data-readmore="driversMore">
+        <span>Read more</span>
+        <span class="rmIcon">+</span>
+      </button>
+
+      <div class="readMoreBody" id="driversMore" aria-hidden="true">
+        <p>
+          Featured athletes represent current and future drivers inside the VEON ecosystem, including drivers preparing for advanced karting, club racing, and car-transition opportunities. Profiles highlight competitive focus, verified achievements, and example partner visibility to illustrate how support becomes recognition over time. Members can register to update results and media in the preview; production deployment should connect this feature to secure authentication and a controlled approval workflow.
+        </p>
+      </div>
     </div>
 
     <div class="driversGrid" id="driversGrid">
       <article class="driverCard">
-        <img id="jpCardImg" alt="John Paul Melchiorri" src="assets/images/pics/profile_1.jpeg" />
+        <img id="jpCardImg" alt="John Paul Melchiorri" src="data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/2wCEAAkGBxAQEBUQEA8QDw8QDw8QDw8PDw8PDw8PFREWFhURFRUYHSggGBolHRUVITEhJSkrLi4uFx8zODMtNygtLisBCgoKDg0OGhAQGi0lHyUtLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLf/AABEIAWgB4AMBIgACEQEDEQH/xAAcAAEAAgMBAQEAAAAAAAAAAAAABQYDBAcCAQj/xABCEAACAQIDBAcFBAcAAAAAAAABAgADEQQSIQUxQVEGImFxgZEyobHB0RQjQlLh8CMzU3KCksIVFiRDk6L/xAAaAQADAQEBAQAAAAAAAAAAAAABAgMABAUH/8QALREAAgIBAwMDBAMAAAAAAAAAAAECEQMhEjFBBBMUYXGRFCIyQnHh8P/aAAwDAQACEQMRAD8A+0gAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAP/2Q==">
         <div class="driverInfo">
-          <h3>John Paul Melchiorri</h3>
-          <span>KZ Pro Shifter · USA</span>
+          <h3 id="jpNameCard">John Paul Melchiorri</h3>
+          <span id="jpCatCard">KZ Pro Shifter · USA</span>
+          <div class="logoRow" aria-label="Example sponsor logos">
+            <span class="logoChip">Red Bull*</span>
+            <span class="logoChip">Shell*</span>
+            <span class="logoChip">Mobil 1*</span>
+            <span class="logoChip">Sparco*</span>
+          </div>
+          <div class="hint" style="margin-top:8px">*Example logos for presentation only — not an affiliation or endorsement.</div>
           <div class="driverActions">
-            <a href="#johnpaul" class="btn btnPrimary" data-i18n="view_profile">View Profile</a>
-            <button type="button" class="btn" data-open-sponsor="johnpaul" data-i18n="sponsor">Sponsor</button>
+            <a href="#johnpaul" class="btn btnPrimary">View Profile</a>
+            <button type="button" class="btn" data-open-sponsor="johnpaul">Sponsor</button>
           </div>
         </div>
       </article>
+
+      <!-- Dynamic drivers will be injected here -->
+      <div id="driversEmpty" class="driverCard placeholder" style="display:none">
+        <div class="placeholderBox">More drivers coming</div>
+      </div>
     </div>
   </section>
 
   <!-- DRIVER PROFILE: JOHN PAUL -->
   <section id="johnpaul" class="profile">
     <div class="profileInner">
-      <a class="backLink" href="#drivers" data-i18n="back_drivers">← Back to Drivers</a>
+      <a class="backLink" href="#drivers">← Back to Drivers</a>
 
       <div class="profileGrid">
         <div class="profileMedia">
-          <img class="profileImg" alt="John Paul Melchiorri" src="assets/images/pics/podium_1.png" />
+          <img id="jpProfileImg" class="profileImg" alt="John Paul Melchiorri" src="data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/2wCEAAkGBxAQEBUQEA8QDw8QDw8QDw8PDw8PDw8PFREWFhURFRUYHSggGBolHRUVITEhJSkrLi4uFx8zODMtNygtLisBCgoKDg0OGhAQGi0lHyUtLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLf/AABEIAWgB4AMBIgACEQEDEQH/xAAcAAEAAgMBAQEAAAAAAAAAAAAABQYDBAcCAQj/xABCEAACAQIDBAcFBAcAAAAAAAABAgADEQQSIQUxQVEGImFxgZEyobHB0RQjQlLh8CMzU3KCksIVFiRDk6L/xAAaAQADAQEBAQAAAAAAAAAAAAABAgMABAUH/8QALREAAgIBAwMDBAMAAAAAAAAAAAECEQMhEjFBBBMUYXGRFCIyQnHh8P/aAAwDAQACEQMRAD8A+0gAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAP/2Q==">
           <div class="mediaTag">PODIUM / RACE WEEKEND</div>
         </div>
 
         <div class="profileText">
-          <h2 class="profileName">John Paul Melchiorri</h2>
-          <div class="profileMeta">KZ Pro Shifter · Texas, USA</div>
+          <h2 class="profileName" id="jpNameProfile">John Paul Melchiorri</h2>
+          <div class="profileMeta" id="jpMetaProfile">KZ Pro Shifter · Texas, USA</div>
 
           <div class="profileActions">
-            <button class="btn btnPrimary" type="button" data-open-sponsor="johnpaul" data-i18n="sponsor_driver_btn">Sponsor this driver</button>
+            <button class="btn btnPrimary" type="button" data-open-sponsor="johnpaul">Sponsor this driver</button>
+            <a class="btn" href="sandbox:/mnt/data/John_Paul_Melchiorri_Sponsor_Profile_NEON.pdf" target="_blank" rel="noopener">Download Sponsor PDF</a>
             <a class="btn" href="https://instagram.com/johnpaulracing" target="_blank" rel="noopener">Instagram</a>
           </div>
 
           <div class="profileCards">
-            <div class="miniCard"><b data-i18n="profile_age">Age</b><span>15</span></div>
-            <div class="miniCard"><b data-i18n="profile_category">Category</b><span>KZ Pro Shifter</span></div>
-            <div class="miniCard"><b data-i18n="profile_focus">Focus</b><span>Racecraft · Data</span></div>
-            <div class="miniCard"><b data-i18n="profile_availability">Availability</b><span>Open</span></div>
+            <div class="miniCard"><b>Age</b><span>15</span></div>
+            <div class="miniCard"><b>Category</b><span>KZ Pro Shifter</span></div>
+            <div class="miniCard"><b>Focus</b><span>Racecraft · Consistency · Data</span></div>
+            <div class="miniCard"><b>Availability</b><span>Sponsor partners</span></div>
           </div>
 
           <div class="profileBlock">
-            <h3 data-i18n="about_title">About</h3>
+            <h3>About</h3>
             <p>
-              John Paul Melchiorri is developed under the VEON Motorsport performance framework, a structured driver development system designed to transform natural driving ability into measurable, accountable performance.
+              John Paul Melchiorri is developed under the VEON Motorsport performance framework, a structured driver development system designed to transform natural driving ability into measurable, accountable performance. His progression is guided through defined training phases, competitive benchmarks, data-driven analysis, and professional conduct standards. This approach allows partners to support a young athlete with confidence, knowing that performance growth and professional representation are managed consistently over time.
             </p>
           </div>
 
           <div class="profileBlock">
-            <h3 data-i18n="achievements_title">Achievements</h3>
-            <p>Greater Houston Race Series Spring Champion · Dallas Triple Crown Sub-Champion</p>
+            <h3>Achievements</h3>
+            <p>
+              Competitive achievements are evaluated by VEON as performance indicators within a broader development timeline. Results are contextualized based on competition level, consistency, execution quality, and progression rather than isolated outcomes.
+            </p>
+            <p id="jpAchievementsText">Greater Houston Race Series Spring Champion · Dallas Triple Crown Sub-Champion · Pro Shifter transition</p>
+          </div>
+
+          <div class="profileBlock">
+            <h3>Latest race results</h3>
+            <ul class="bullets" id="jpResultsList">
+              <li>Log in to add results (Dashboard → Add race result)</li>
+            </ul>
+          </div>
+
+          <div class="profileBlock">
+            <h3>Partner visibility (examples)</h3>
+            <p style="margin:0 0 10px;color:#333;line-height:1.5;max-width:560px;font-size:14px">
+              Sponsors are represented through professional acknowledgments, consistent visibility, and documented reporting. Below are example placements to illustrate how partner recognition can appear across driver materials.
+            </p>
+            <div class="logoRow" aria-label="Example sponsor logos">
+              <span class="logoChip">Red Bull*</span>
+              <span class="logoChip">Shell*</span>
+              <span class="logoChip">Mobil 1*</span>
+              <span class="logoChip">Sparco*</span>
+              <span class="logoChip">GoPro*</span>
+              <span class="logoChip">Pirelli*</span>
+            </div>
+            <div class="hint" style="margin-top:10px">*Example logos for presentation only — not an affiliation or endorsement.</div>
+          </div>
+
+          <div class="profileBlock">
+            <h3>What partners receive</h3>
+            <ul class="bullets">
+              <li>Structured brand visibility aligned with competitive activity and documented media output</li>
+              <li>Professional acknowledgment and promotion of partners as part of the driver’s public journey</li>
+              <li>Association with a managed driver development system rather than an isolated individual effort</li>
+              <li>A clear performance narrative supported by results, data, and documented progression over time</li>
+            </ul>
           </div>
         </div>
       </div>
 
       <div class="profileFooter">
         <div class="pfLine"></div>
-        <div class="pfText">VEON Motorsport · Driver Factory · info@veonmotorsport.com</div>
+        <div class="pfText">VEON Motorsport · Driver Factory · sponsors@veonmotorsport.com</div>
       </div>
     </div>
   </section>
+
+  <!-- DYNAMIC DRIVER PROFILES (created from Register/Login) -->
+  <div id="dynamicProfiles"></div>
 
   <script>
     // Accordion behavior
@@ -1403,6 +1778,7 @@
         item.classList.toggle('open');
       }
 
+      // Read-more toggles (compact Foundation sections)
       const rm = e.target.closest('[data-readmore]');
       if(rm){
         rm.classList.toggle('open');
@@ -1416,10 +1792,55 @@
       }
     });
 
-    // APPLY form
+    // APPLY form (preview-safe): opens a mailto draft
     (function(){
       const form = document.getElementById('applyForm');
       if(!form) return;
+
+      const roleSelect = form.querySelector('select[name="role"]');
+      const roleBlocks = Array.from(form.querySelectorAll('[data-role-fields]'));
+
+      function setRequired(el, required){
+        if(!el) return;
+        if(required) el.setAttribute('required','required');
+        else el.removeAttribute('required');
+      }
+
+      function updateRoleFields(){
+        const role = (roleSelect && roleSelect.value) ? roleSelect.value : '';
+        // Hide all role blocks and remove required from their inputs by default
+        roleBlocks.forEach(block=>{
+          block.style.display = 'none';
+          block.querySelectorAll('input, select, textarea').forEach(inp=>setRequired(inp,false));
+        });
+
+        // Show the matching block
+        const active = roleBlocks.find(b=>b.getAttribute('data-role-fields')===role);
+        if(active){
+          active.style.display = 'block';
+          // Lightly require a few key fields depending on role
+          const reqMap = {
+            'Driver': ['driver_age','driver_category'],
+            'Parent': ['parent_driver_name','parent_driver_age'],
+            'Legal Representative': ['legal_representing'],
+            'Sponsor': ['sponsor_company','sponsor_budget'],
+            'Partner': ['partner_org','partner_type'],
+            'Individual': ['individual_interest'],
+            'Enthusiast': ['enthusiast_focus']
+          };
+          const requiredNames = reqMap[role] || [];
+          requiredNames.forEach(name=>{
+            const inp = form.querySelector(`[name="${name}"]`);
+            setRequired(inp,true);
+          });
+        }
+      }
+
+      if(roleSelect){
+        roleSelect.addEventListener('change', updateRoleFields);
+      }
+      // Initialize on load
+      updateRoleFields();
 
       form.addEventListener('submit', (e)=>{
         e.preventDefault();
@@ -1433,21 +1854,27 @@
         const subject = encodeURIComponent('VEON Application — ' + role);
         const bodyText = `Hello VEON Motorsport,
 
-Role: ${role}
-Name: ${name}
-Email: ${email}
-Phone: ${phone || ''}
+`+
+          `Role: ${role}
+`+
+          `Name: ${name}
+`+
+          `Email: ${email}
+`+
+          `Phone: ${phone || ''}
 
-Message:
+`+
+          `Message:
 ${message}
 
-Thank you.`;
+`+
+          `Thank you.`;
         const body = encodeURIComponent(bodyText);
         window.location.href = `mailto:info@veonmotorsport.com?subject=${subject}&body=${body}`;
       });
     })();
 
-    // REGISTER / LOGIN
+    // REGISTER / LOGIN / DASHBOARD (preview-only using localStorage)
     (function(){
       const $ = (sel)=>document.querySelector(sel);
       const $$ = (sel)=>Array.from(document.querySelectorAll(sel));
@@ -1455,17 +1882,14 @@ Thank you.`;
       const tabs = $$('[data-tab]');
       const panes = {
         login: $('#tab-login'),
-        register: $('#tab-register')
+        register: $('#tab-register'),
+        dashboard: $('#tab-dashboard')
       };
 
       function setTab(name){
         tabs.forEach(t=>t.classList.toggle('active', t.dataset.tab===name));
         Object.entries(panes).forEach(([k,el])=>{ if(el) el.style.display = (k===name)?'block':'none'; });
       }
-
-      tabs.forEach(t=>t.addEventListener('click', ()=>{
-        setTab(t.dataset.tab);
-      }));
 
       const LS_USERS = 'veon_users_v1';
       const LS_SESSION = 'veon_session_v1';
@@ -1477,6 +1901,201 @@ Thank you.`;
       function setSession(email){ localStorage.setItem(LS_SESSION, email||''); }
       function getSession(){ return (localStorage.getItem(LS_SESSION)||'').trim() || null; }
 
+      function getProfile(email){
+        const users = loadUsers();
+        return users.find(u=>u.email===email) || null;
+      }
+
+      function updateUI(){
+        const email = getSession();
+        const prof = email ? getProfile(email) : null;
+
+        const logoutBtn = $('#logoutBtn');
+        if(logoutBtn) logoutBtn.style.display = email ? 'inline-block' : 'none';
+
+        if(prof){
+          $('#dashName').value = prof.displayName || (prof.first+' '+prof.last).trim();
+          $('#dashCat').value = prof.category || '';
+          $('#dashAch').value = prof.achievements || '';
+          if($('#dashBio')) $('#dashBio').value = prof.bio || '';
+          if(prof.photo){ $('#dashAvatar').src = prof.photo; }
+          renderResults(prof.results || []);
+          syncPublicProfile(prof);
+        }else{
+          if($('#dashAvatar')) $('#dashAvatar').src = 'data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///ywAAAAAAQABAAACAUwAOw==';
+          if($('#resultsTable tbody')) $('#resultsTable tbody').innerHTML = '';
+          syncPublicProfile(null);
+        }
+      }
+
+      // Public site rendering from local accounts (preview-only)
+      const DEFAULT_JP = {
+        driverKey: 'johnpaul',
+        name: 'John Paul Melchiorri',
+        category: 'KZ Pro Shifter',
+        location: 'Texas, USA'
+      };
+
+      function escapeHtml(s){
+        return String(s||'').replace(/[&<>"']/g, (c)=>({"&":"&amp;","<":"&lt;",">":"&gt;","\"":"&quot;","'":"&#39;"}[c]));
+      }
+
+      function driverCardHTML(d){
+        const img = d.photo || 'data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///ywAAAAAAQABAAACAUwAOw==';
+        const name = escapeHtml(d.displayName || d.name || 'VEON Driver');
+        const cat = escapeHtml(d.category || 'Driver');
+        const key = escapeHtml(d.driverKey);
+        const meta = `${cat} · USA`;
+        return `
+          <article class="driverCard" data-driver-card="${key}">
+            <img alt="${name}" src="${img}">
+            <div class="driverInfo">
+              <h3>${name}</h3>
+              <span>${meta}</span>
+              <div class="driverActions">
+                <a href="#${key}" class="btn btnPrimary">View Profile</a>
+                <button type="button" class="btn" data-open-sponsor="${key}">Sponsor</button>
+              </div>
+            </div>
+          </article>
+        `;
+      }
+
+      function driverProfileHTML(d){
+        const img = d.photo || 'data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///ywAAAAAAQABAAACAUwAOw==';
+        const name = escapeHtml(d.displayName || d.name || 'VEON Driver');
+        const cat = escapeHtml(d.category || 'Driver');
+        const bio = escapeHtml(d.bio || '');
+        const ach = escapeHtml(d.achievements || '');
+        const key = escapeHtml(d.driverKey);
+
+        const results = Array.isArray(d.results) ? d.results : [];
+        const resultsHTML = results.length
+          ? results.slice(0,8).map(r=>{
+              const line = [r.date, r.event, r.track].filter(Boolean).join(' · ');
+              const fin = r.finish ? ` — ${r.finish}` : '';
+              return `<li>${escapeHtml(line || 'Race result')}${escapeHtml(fin)}</li>`;
+            }).join('')
+          : '<li>No results yet. Log in to add results.</li>';
+
+        return `
+          <section id="${key}" class="profile">
+            <div class="profileInner">
+              <a class="backLink" href="#drivers">← Back to Drivers</a>
+              <div class="profileGrid">
+                <div class="profileMedia">
+                  <img class="profileImg" alt="${name}" src="${img}">
+                  <div class="mediaTag">VEON ATHLETE</div>
+                </div>
+                <div class="profileText">
+                  <h2 class="profileName">${name}</h2>
+                  <div class="profileMeta">${cat} · USA</div>
+
+                  <div class="profileActions">
+                    <button class="btn btnPrimary" type="button" data-open-sponsor="${key}">Sponsor this driver</button>
+                    <a class="btn" href="#apply">Apply / Contact</a>
+                  </div>
+
+                  <div class="profileBlock">
+                    <h3>About</h3>
+                    <p>${bio || '—'}</p>
+                  </div>
+
+                  <div class="profileBlock">
+                    <h3>Achievements</h3>
+                    <p>${ach || '—'}</p>
+                  </div>
+
+                  <div class="profileBlock">
+                    <h3>Latest race results</h3>
+                    <ul class="bullets">${resultsHTML}</ul>
+                  </div>
+                </div>
+              </div>
+
+              <div class="profileFooter">
+                <div class="pfLine"></div>
+                <div class="pfText">VEON Motorsport · Driver Factory · sponsors@veonmotorsport.com</div>
+              </div>
+            </div>
+          </section>
+        `;
+      }
+
+      function renderPublicFromUsers(users){
+        const grid = document.getElementById('driversGrid');
+        const profiles = document.getElementById('dynamicProfiles');
+        const empty = document.getElementById('driversEmpty');
+        if(!grid || !profiles) return;
+
+        // Keep the first (John Paul) card, then remove any previously injected driver cards
+        const keep = Array.from(grid.querySelectorAll('article.driverCard'))[0];
+        Array.from(grid.querySelectorAll('[data-driver-card]')).forEach(el=>el.remove());
+        profiles.innerHTML = '';
+
+        const dyn = (users||[]).filter(u=>u.driverKey && u.email && u.displayName);
+        if(empty) empty.style.display = dyn.length ? 'none' : 'flex';
+
+        dyn.forEach(u=>{
+          // Insert card after JP card
+          keep.insertAdjacentHTML('afterend', driverCardHTML(u));
+          profiles.insertAdjacentHTML('beforeend', driverProfileHTML(u));
+        });
+      }
+
+      function updateUI(){
+        const email = getSession();
+        const prof = email ? getProfile(email) : null;
+
+        const logoutBtn = $('#logoutBtn');
+        if(logoutBtn) logoutBtn.style.display = email ? 'inline-block' : 'none';
+
+        // Always render public drivers from all users
+        const users = loadUsers();
+        renderPublicFromUsers(users);
+
+        if(prof){
+          $('#dashName').value = prof.displayName || (prof.first+' '+prof.last).trim();
+          $('#dashCat').value = prof.category || '';
+          $('#dashAch').value = prof.achievements || '';
+          if($('#dashBio')) $('#dashBio').value = prof.bio || '';
+          if(prof.photo){ $('#dashAvatar').src = prof.photo; }
+          renderResults(prof.results || []);
+        }else{
+          if($('#dashAvatar')) $('#dashAvatar').src = 'data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///ywAAAAAAQABAAACAUwAOw==';
+          if($('#resultsTable tbody')) $('#resultsTable tbody').innerHTML = '';
+        }
+      }
+
+      function renderResults(rows){
+        const tbody = $('#resultsTable tbody');
+        if(!tbody) return;
+        tbody.innerHTML = '';
+        rows.forEach((r,idx)=>{
+          const tr = document.createElement('tr');
+          tr.className = 'row';
+          tr.innerHTML = `
+            <td>${r.date||''}</td>
+            <td>${r.event||''}</td>
+            <td>${r.track||''}</td>
+            <td><b>${r.finish||''}</b></td>
+            <td><button class="pillBtn gray" data-del="${idx}" type="button">Delete</button></td>
+          `;
+          tbody.appendChild(tr);
+        });
+      }
+
+      // Tabs
+      tabs.forEach(t=>t.addEventListener('click', ()=>{
+        const name = t.dataset.tab;
+        if(name==='dashboard' && !getSession()){
+          setTab('login');
+          return;
+        }
+        setTab(name);
+      }));
+
+      // Register
       const registerBtn = $('#registerBtn');
       if(registerBtn){
         registerBtn.addEventListener('click', ()=>{
@@ -1491,11 +2110,12 @@ Thank you.`;
           users.push({email, pass, first, last, driverKey, displayName:first+' '+last, category:'', achievements:'', bio:'', photo:'', results:[]});
           saveUsers(users);
           setSession(email);
-          setTab('login');
-          alert('Account created! Please login.');
+          updateUI();
+          setTab('dashboard');
         });
       }
 
+      // Login
       const loginBtn = $('#loginBtn');
       if(loginBtn){
         loginBtn.addEventListener('click', ()=>{
@@ -1505,11 +2125,164 @@ Thank you.`;
           const u = users.find(x=>x.email===email && x.pass===pass);
           if(!u){ alert('Invalid credentials.'); return; }
           setSession(email);
-          alert('Logged in!');
+          updateUI();
+          setTab('dashboard');
         });
       }
+
+      // Logout
+      const logoutBtn = $('#logoutBtn');
+      if(logoutBtn){
+        logoutBtn.addEventListener('click', ()=>{
+          setSession('');
+          updateUI();
+          setTab('login');
+        });
+      }
+
+      // Save profile
+      const saveBtn = $('#saveProfileBtn');
+      if(saveBtn){
+        saveBtn.addEventListener('click', ()=>{
+          const email = getSession();
+          if(!email){ alert('Please login.'); return; }
+          const users = loadUsers();
+          const idx = users.findIndex(u=>u.email===email);
+          if(idx<0) return;
+          users[idx].displayName = $('#dashName').value.trim();
+          users[idx].category = $('#dashCat').value.trim();
+          users[idx].achievements = $('#dashAch').value.trim();
+          if($('#dashBio')) users[idx].bio = $('#dashBio').value.trim();
+          saveUsers(users);
+          updateUI();
+          alert('Saved.');
+        });
+      }
+
+      // Upload picture
+      const pic = $('#dashPic');
+      if(pic){
+        pic.addEventListener('change', async ()=>{
+          const file = pic.files && pic.files[0];
+          if(!file) return;
+          const email = getSession();
+          if(!email){ alert('Please login.'); return; }
+          const dataUrl = await new Promise((res,rej)=>{
+            const r = new FileReader();
+            r.onload = ()=>res(r.result);
+            r.onerror = rej;
+            r.readAsDataURL(file);
+          });
+          const users = loadUsers();
+          const idx = users.findIndex(u=>u.email===email);
+          if(idx<0) return;
+          users[idx].photo = dataUrl;
+          saveUsers(users);
+          updateUI();
+        });
+      }
+
+      // Add result
+      const addResultBtn = $('#addResultBtn');
+      if(addResultBtn){
+        addResultBtn.addEventListener('click', ()=>{
+          const email = getSession();
+          if(!email){ alert('Please login.'); return; }
+          const date = prompt('Date (YYYY-MM-DD):') || '';
+          const event = prompt('Event name:') || '';
+          const track = prompt('Track:') || '';
+          const finish = prompt('Finish (e.g., P1, P3, DNF):') || '';
+          const users = loadUsers();
+          const idx = users.findIndex(u=>u.email===email);
+          if(idx<0) return;
+          users[idx].results = users[idx].results || [];
+          users[idx].results.unshift({date,event,track,finish});
+          saveUsers(users);
+          updateUI();
+        });
+      }
+
+      // Delete result
+      document.addEventListener('click', (e)=>{
+        const del = e.target.closest('[data-del]');
+        if(!del) return;
+        const email = getSession();
+        if(!email) return;
+        const idxDel = parseInt(del.getAttribute('data-del'),10);
+        const users = loadUsers();
+        const idx = users.findIndex(u=>u.email===email);
+        if(idx<0) return;
+        users[idx].results = (users[idx].results||[]).filter((_,i)=>i!==idxDel);
+        saveUsers(users);
+        updateUI();
+      });
+
+      // Boot
+      updateUI();
+      // Default tab: dashboard if session exists
+      setTab(getSession() ? 'dashboard' : 'login');
+
+      // Ensure empty placeholder visibility on first load
+      const empty = document.getElementById('driversEmpty');
+      if(empty){
+        const users = loadUsers();
+        const dyn = (users||[]).filter(u=>u.driverKey);
+        empty.style.display = dyn.length ? 'none' : 'flex';
+      }
+
+      // Tests
+      window.addEventListener('DOMContentLoaded', ()=>{
+        console.assert(document.getElementById('applyForm'), 'Missing apply form');
+        console.assert(document.getElementById('dynamicProfiles'), 'Missing dynamic profiles container');
+        console.assert(document.getElementById('driversGrid'), 'Missing drivers grid');
+        console.assert(document.getElementById('loginBtn'), 'Missing login button');
+        console.assert(document.getElementById('registerBtn'), 'Missing register button');
+      });
     })();
   </script>
+
+  <!-- SPONSOR MODAL -->
+  <!-- FOUNDATION DONATION MODAL -->
+  <div class="modal" id="foundationModal" aria-hidden="true" role="dialog" aria-modal="true">
+    <div class="modalBackdrop" data-close-foundation></div>
+    <div class="modalPanel" role="document">
+      <div class="modalHead">
+        <div>
+          <div class="modalKicker">VEON FOUNDATION</div>
+          <div class="modalTitle">Choose your donation amount</div>
+        </div>
+        <button class="modalClose" type="button" aria-label="Close" data-close-foundation>×</button>
+      </div>
+
+      <div class="modalBody">
+        <div class="noteBox" style="margin-bottom:12px">
+          <b>Note:</b> Foundation donations support the broader mission. Driver sponsorships remain separate and are directed to the athletes.
+        </div>
+
+        <div class="choiceGroup">
+          <div class="choiceLabel">Donation options</div>
+          <div class="choiceGrid">
+            <button class="chip" type="button" data-foundation-choice="5">5</button>
+            <button class="chip" type="button" data-foundation-choice="00">00</button>
+            <button class="chip" type="button" data-foundation-choice="$500">$500</button>
+            <button class="chip" type="button" data-foundation-choice="$5,000">$5,000</button>
+            <button class="chip" type="button" data-foundation-choice="Other">Other</button>
+          </div>
+        </div>
+
+        <div class="noteRow">
+          <div class="noteBox">
+            <b>Next:</b> This will open an email to VEON Foundation with your selection pre-filled.
+          </div>
+        </div>
+
+        <div class="modalActions">
+          <button class="btn" type="button" data-close-foundation>Cancel</button>
+          <a class="btn btnPrimary" id="foundationContinue" href="mailto:foundation@veonmotorsport.com" target="_blank" rel="noopener">Continue</a>
+        </div>
+      </div>
+    </div>
+  </div>
 
   <!-- SPONSOR MODAL -->
   <div class="modal" id="sponsorModal" aria-hidden="true" role="dialog" aria-modal="true">
@@ -1517,17 +2290,20 @@ Thank you.`;
     <div class="modalPanel" role="document">
       <div class="modalHead">
         <div>
-          <div class="modalKicker" id="sponsorKicker">SPONSOR</div>
-          <div class="modalTitle">Choose how you want to help</div>
+          <div class="modalKicker" id="sponsorKicker">SPONSOR JOHN PAUL MELCHIORRI</div>
+          <div class="modalTitle" id="sponsorTitle">Choose how you want to help</div>
         </div>
         <button class="modalClose" type="button" aria-label="Close" data-close-modal>×</button>
       </div>
 
-      <div class="modalMini">
-        <img id="sponsorMiniImg" class="miniAvatar" alt="Driver" src="https://images.unsplash.com/photo-1596825208700-49b8e6c5e1ab?w=100&h=100&fit=crop" />
+      <!-- Mini driver card (updates dynamically) -->
+      <div class="modalMini" aria-label="Selected driver">
+        <img id="sponsorMiniImg" class="miniAvatar" alt="Driver" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///ywAAAAAAQABAAACAUwAOw==" />
         <div class="miniMeta">
           <div id="sponsorMiniName" class="miniName">John Paul Melchiorri</div>
           <div id="sponsorMiniLine" class="miniLine">KZ Pro Shifter · USA</div>
+          <div id="sponsorMiniBadge" class="miniBadge">FEATURED</div>
+          <div id="sponsorMiniAch" class="miniAch">Greater Houston Race Series Spring Champion · Dallas Triple Crown Sub-Champion</div>
         </div>
       </div>
 
@@ -1535,10 +2311,10 @@ Thank you.`;
         <div class="choiceGroup">
           <div class="choiceLabel">Quick support</div>
           <div class="choiceGrid">
-            <button class="chip" type="button" data-sponsor-choice="$50">$50</button>
-            <button class="chip" type="button" data-sponsor-choice="$100">$100</button>
+            <button class="chip" type="button" data-sponsor-choice="5">5</button>
+            <button class="chip" type="button" data-sponsor-choice="00">00</button>
             <button class="chip" type="button" data-sponsor-choice="$500">$500</button>
-            <button class="chip" type="button" data-sponsor-choice="$1000">$1,000</button>
+            <button class="chip" type="button" data-sponsor-choice="$5,000">$5,000</button>
           </div>
         </div>
 
@@ -1546,18 +2322,103 @@ Thank you.`;
           <div class="choiceLabel">In-kind support</div>
           <div class="choiceGrid">
             <button class="chip" type="button" data-sponsor-choice="Race Gas">Race Gas</button>
-            <button class="chip" type="button" data-sponsor-choice="Tires">Set of Tires</button>
+            <button class="chip" type="button" data-sponsor-choice="Set Of Tires">Set Of Tires</button>
             <button class="chip" type="button" data-sponsor-choice="Entry Fee">Entry Fee</button>
+          </div>
+        </div>
+
+        <div class="noteRow">
+          <div class="noteBox">
+            <b>Next:</b> This will open an email to VEON with your selection pre-filled.
           </div>
         </div>
 
         <div class="modalActions">
           <button class="btn" type="button" data-close-modal>Cancel</button>
-          <a class="btn btnPrimary" id="sponsorContinue" href="mailto:sponsors@veonmotorsport.com">Continue</a>
+          <a class="btn btnPrimary" id="sponsorContinue" href="mailto:sponsors@veonmotorsport.com" target="_blank" rel="noopener">Continue</a>
         </div>
       </div>
     </div>
   </div>
+
+  <script>
+    // FOUNDATION MODAL (preview-safe): opens a mailto draft
+    (function(){
+      const modal = document.getElementById('foundationModal');
+      const continueLink = document.getElementById('foundationContinue');
+      let selected = null;
+
+      function open(){
+        if(!modal) return;
+        modal.classList.add('open');
+        modal.setAttribute('aria-hidden','false');
+        selected = null;
+        document.querySelectorAll('[data-foundation-choice]').forEach(b=>b.classList.remove('active'));
+        update();
+      }
+      function close(){
+        if(!modal) return;
+        modal.classList.remove('open');
+        modal.setAttribute('aria-hidden','true');
+      }
+      function update(){
+        const subject = encodeURIComponent('VEON Foundation Donation');
+        const bodyText = `Hello VEON Foundation,
+
+I would like to support the VEON Foundation.
+
+My selected donation: ${selected || '[please select]'}
+
+Name:
+Company (optional):
+Phone (optional):
+
+Notes (optional):
+
+Thank you.`;
+        const body = encodeURIComponent(bodyText);
+        if(continueLink){
+          continueLink.href = `mailto:foundation@veonmotorsport.com?subject=${subject}&body=${body}`;
+          continueLink.style.opacity = selected ? '1' : '.55';
+          continueLink.style.pointerEvents = selected ? 'auto' : 'none';
+        }
+      }
+
+      document.addEventListener('click', (e)=>{
+        if(e.target.closest('[data-open-foundation]')){ open(); return; }
+        if(e.target.closest('[data-close-foundation]')){ close(); return; }
+        const chip = e.target.closest('[data-foundation-choice]');
+        if(chip){
+          selected = chip.getAttribute('data-foundation-choice');
+          document.querySelectorAll('[data-foundation-choice]').forEach(b=>b.classList.remove('active'));
+          chip.classList.add('active');
+          update();
+        }
+      });
+
+      document.addEventListener('keydown', (e)=>{
+        if(e.key === 'Escape' && modal && modal.classList.contains('open')) close();
+      });
+
+      // Tests
+      window.addEventListener('DOMContentLoaded', () => {
+        if(continueLink){
+          console.assert(continueLink.style.pointerEvents !== 'auto', 'Foundation Continue should be disabled before selection');
+          const first = document.querySelector('[data-foundation-choice]');
+          if(first){
+            first.click();
+            console.assert(continueLink.style.pointerEvents === 'auto', 'Foundation Continue should be enabled after selection');
+            // Reset
+            document.querySelectorAll('[data-foundation-choice]').forEach(b=>b.classList.remove('active'));
+            selected = null;
+            update();
+          }
+        }
+      });
+
+      update();
+    })();
+  </script>
 
   <script>
     (function(){
@@ -1565,15 +2426,69 @@ Thank you.`;
       const continueLink = document.getElementById('sponsorContinue');
       let selected = null;
       let currentDriver = 'John Paul Melchiorri';
+      let currentDriverKey = 'johnpaul';
 
       const kickerEl = document.getElementById('sponsorKicker');
+      const titleEl = document.getElementById('sponsorTitle');
 
-      function openModal(driverName){
-        currentDriver = driverName || 'John Paul Melchiorri';
-        if(kickerEl) kickerEl.textContent = 'SPONSOR ' + currentDriver.toUpperCase();
-        
+      function loadUsers(){
+        try{ return JSON.parse(localStorage.getItem('veon_users_v1')||'[]'); }catch{ return []; }
+      }
+
+      function driverNameByKey(key){
+        if(key === 'johnpaul') return 'John Paul Melchiorri';
+        const users = loadUsers();
+        const u = users.find(x=>x.driverKey===key);
+        return (u && (u.displayName || ((u.first||'')+' '+(u.last||'')).trim())) || 'VEON Driver';
+      }
+
+      function driverDataByKey(key){
+        // Featured driver (John Paul) from DOM so it's always accurate
+        if(key === 'johnpaul'){
+          const name = 'John Paul Melchiorri';
+          const line = (document.getElementById('jpCatCard')?.textContent || 'KZ Pro Shifter · USA').trim();
+          const ach = (document.getElementById('jpAchievementsText')?.textContent || '').trim();
+          const img = document.getElementById('jpCardImg')?.getAttribute('src') || '';
+          return {name, line, ach, img};
+        }
+
+        // Dynamic drivers from localStorage
+        const users = loadUsers();
+        const u = users.find(x=>x.driverKey===key);
+        const name = (u && (u.displayName || ((u.first||'')+' '+(u.last||'')).trim()))) || 'VEON Driver';
+        const line = `${(u && u.category ? u.category : 'Driver')} · USA`;
+        const ach = (u && u.achievements) ? u.achievements : '';
+        const img = (u && u.photo) ? u.photo : '';
+        return {name, line, ach, img};
+      }
+
+      function openModal(driverKey){
+        currentDriverKey = driverKey || 'johnpaul';
+        const d = driverDataByKey(currentDriverKey);
+        currentDriver = d.name || driverNameByKey(currentDriverKey);
+
+        // Update modal header text
+        if(kickerEl) kickerEl.textContent = ('SPONSOR ' + currentDriver).toUpperCase();
+        if(titleEl) titleEl.textContent = 'Choose how you want to help';
+
+        // Update mini card
+        const miniImg = document.getElementById('sponsorMiniImg');
         const miniName = document.getElementById('sponsorMiniName');
+        const miniLine = document.getElementById('sponsorMiniLine');
+        const miniAch = document.getElementById('sponsorMiniAch');
+        const miniBadge = document.getElementById('sponsorMiniBadge');
+
+        if(miniImg){
+          miniImg.src = d.img || 'data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///ywAAAAAAQABAAACAUwAOw==';
+          miniImg.alt = currentDriver;
+        }
         if(miniName) miniName.textContent = currentDriver;
+        if(miniLine) miniLine.textContent = (d.line || 'Driver · USA');
+        if(miniAch) miniAch.textContent = (d.ach || '—');
+        if(miniBadge){
+          const isFeatured = (currentDriverKey === 'johnpaul');
+          miniBadge.textContent = isFeatured ? 'FEATURED' : 'VEON ATHLETE';
+        }
 
         modal.classList.add('open');
         modal.setAttribute('aria-hidden','false');
@@ -1589,17 +2504,24 @@ Thank you.`;
 
       function updateContinue(){
         const subject = encodeURIComponent('Sponsor ' + currentDriver);
+        const driverLine = currentDriverKey === 'johnpaul'
+          ? `I would like to sponsor ${currentDriver}.`
+          : `I would like to sponsor ${currentDriver} (VEON Driver ID: ${currentDriverKey}).`;
         const bodyText = `Hello VEON Motorsport,
 
-I would like to sponsor ${currentDriver}.
+` +
+          `${driverLine}
+` +
+          `My selected support: ${selected || '[please select]'}
 
-My selected support: ${selected || '[please select]'}
-
-Name: 
+` +
+          `Name: 
 Company (optional): 
 Phone (optional): 
 
-Thank you.`;
+` +
+          `Thank you.`;
+
         const body = encodeURIComponent(bodyText);
         continueLink.href = `mailto:sponsors@veonmotorsport.com?subject=${subject}&body=${body}`;
         continueLink.style.opacity = selected ? '1' : '.55';
@@ -1609,7 +2531,7 @@ Thank you.`;
       document.addEventListener('click', (e)=>{
         const openBtn = e.target.closest('[data-open-sponsor]');
         if(openBtn){
-          openModal('John Paul Melchiorri');
+          openModal(openBtn.getAttribute('data-open-sponsor'));
           return;
         }
         if(e.target.closest('[data-close-modal]')){
@@ -1629,6 +2551,22 @@ Thank you.`;
         if(e.key === 'Escape' && modal.classList.contains('open')) closeModal();
       });
 
+      // Additional test cases
+      window.addEventListener('DOMContentLoaded', () => {
+        // Test 1: Continue disabled before selection
+        console.assert(continueLink.style.pointerEvents !== 'auto', 'Continue should be disabled before selection');
+        // Test 2: Selecting a chip enables continue
+        const firstChip = document.querySelector('.chip');
+        if(firstChip){
+          firstChip.click();
+          console.assert(continueLink.style.pointerEvents === 'auto', 'Continue should be enabled after selection');
+        }
+        // Reset selection state visually (optional)
+        document.querySelectorAll('.chip').forEach(b=>b.classList.remove('active'));
+        selected = null;
+        updateContinue();
+      });
+
       updateContinue();
     })();
   </script>
@@ -1637,17 +2575,17 @@ Thank you.`;
   <footer class="footer">
     <div class="footerInner">
       <nav class="footerNav">
-        <a href="#top" data-i18n="footer_home">Home</a>
-        <a href="#drivers" data-i18n="footer_drivers">Drivers</a>
-        <a href="#sponsor" data-i18n="footer_sponsors">Sponsors</a>
-        <a href="#foundation" data-i18n="footer_foundation">Foundation</a>
-        <a href="#program" data-i18n="footer_program">Program</a>
-        <a href="#apply" data-i18n="footer_apply">Apply</a>
-        <a href="#about" data-i18n="footer_about">About us</a>
-        <a href="#members" data-i18n="footer_members">Members</a>
-        <a href="#apply" data-i18n="footer_contact">Contact</a>
+        <a href="#top">Home</a>
+        <a href="#drivers">Drivers</a>
+        <a href="#sponsor">Sponsors</a>
+        <a href="#foundation">Foundation</a>
+        <a href="#program">Program</a>
+        <a href="#apply">Apply</a>
+        <a href="#about">About us</a>
+        <a href="#members">Members</a>
+        <a href="#apply">Contact</a>
       </nav>
-      <div class="footerCopy" data-i18n="footer_copy">© VEON Motorsport · All rights reserved</div>
+      <div class="footerCopy">© VEON Motorsport · All rights reserved</div>
     </div>
   </footer>
 
