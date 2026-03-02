@@ -39,23 +39,27 @@
     body.dark .footerNav a{color:#bdbdbd}
 
     /* TOP BAR */
-    .topbar{
-      position:fixed;
-      top:0;left:0;right:0;
-      background:#ffffff;
-      border-bottom:3px solid var(--orange);
-      z-index:100;
-      box-shadow:none;
-    }
-    .topbarInner{
-      max-width:1200px;
-      margin:auto;
-      padding:14px 32px;
-      display:flex;
-      align-items:center;
-      justify-content:space-between;
-      gap:18px;
-    }
+.topbar{
+  position:fixed;
+  top:0;left:0;right:0;
+  background:#ffffff; /* El fondo general sigue siendo blanco */
+  border-bottom:3px solid var(--orange);
+  z-index:100;
+  box-shadow:none;
+  display: flex; /* Asegura que la topbar sea flex */
+  justify-content: center; /* Centra el contenido interior */
+}
+
+.topbarInner{
+  width:100%; /* Ocupa todo el ancho */
+  max-width:1200px; /* Pero se limita a 1200px */
+  margin:0; /* Quitamos el margin auto para controlar el inicio del logo */
+  padding:0; /* Quitamos el padding para pegarnos a los bordes */
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:18px;
+}
     .brand{display:flex;align-items:center;gap:14px}
 
     .brand img{height:90px;width:auto}
