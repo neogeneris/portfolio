@@ -39,26 +39,56 @@
     body.dark .footerNav a{color:#bdbdbd} /* fixed top bar */
 
     /* TOP BAR */
-    .topbar{
-      position:fixed;
-      top:0;left:0;right:0;
-      background:#ffffff;
-      border-bottom:3px solid var(--orange);
-      z-index:100;
-      box-shadow:none;
-    }
-    .topbarInner{
-      max-width:1200px;
-      margin:auto;
-      padding:14px 32px;
-      display:flex;
-      align-items:center;
-      justify-content:space-between;
-      gap:18px;
-    }
-    .brand{display:flex;align-items:center;gap:14px}
+    /* TOP BAR GENERAL */
+.topbar {
+  position: fixed;
+  top: 0; left: 0; right: 0;
+  background: #ffffff;
+  border-bottom: 3px solid var(--orange);
+  z-index: 1000;
+  height: 80px;
+  display: flex;
+  justify-content: center;
+}
 
-    .brand img{height:40px;width:auto}
+.topbarInner {
+  width: 100%;
+  max-width: 1200px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+/* BLOQUE DEL LOGO OSCURO (La zona que querías destacar) */
+.brand {
+  position: relative;
+  background: var(--black);
+  height: 100%;
+  padding: 0 40px 0 32px;
+  display: flex;
+  align-items: center;
+  text-decoration: none;
+  z-index: 10;
+}
+
+/* El corte diagonal dinámico */
+.brand::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  right: -30px;
+  width: 60px;
+  height: 100%;
+  background: var(--black);
+  transform: skewX(-20deg);
+  z-index: -1;
+}
+
+.brand img {
+  height: 90px; /* Ajusta según el logo */
+  width: auto;
+  display: block;
+}
     .veon-logo{filter:none}
 
     /* NAV LINKS – restored previous style */
