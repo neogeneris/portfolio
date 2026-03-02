@@ -41,40 +41,35 @@
     /* TOP BAR */
 .topbar {
     position: fixed;
-    top: 0; left: 0; right: 0;
+    top: 0; 
+    left: 0; 
+    right: 0;
     background: #ffffff; 
-    border-bottom: 4px solid var(--orange);
-    z-index: 1000;
     height: 120px;
-    display: flex;
-    padding: 0; 
-}
-
-/* NUEVA CLASE: Para centrar el menú pero dejar el logo a la izquierda */
-.topbar-wrapper {
-    width: 100%;
-    max-width: 1300px; /* Ajusta esto para que el menú no se vaya al fin del mundo */
-    margin: 0 auto;
     display: flex;
     align-items: center;
     justify-content: space-between;
-    height: 100%;
+    padding: 0; /* ¡Cero padding aquí! */
+    border-bottom: 4px solid var(--orange);
+    z-index: 1000;
 }
 
-/* 2. EL LOGO: Bloque negro con truco para extenderse a la izquierda */
 .brand {
     position: relative;
     background: #000000;
-    height: 100%; 
-    padding: 0 40px 0 20px;
+    height: 100%;
     display: flex;
     align-items: center;
+    /*padding: 0 40px 0 20px;*/ /* Ajusta el 20px para separar el logo del borde */
+    padding-left: 30px; 
+    padding-right: 40px;
     text-decoration: none;
     flex-shrink: 0;
     z-index: 10;
 }
 
-/* TRUCO MAESTRO: Esta pseudo-clase extiende el color negro hacia el infinito a la izquierda */
+
+
 .brand::before {
     content: "";
     position: absolute;
