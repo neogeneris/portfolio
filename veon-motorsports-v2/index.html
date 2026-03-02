@@ -53,28 +53,31 @@
 
 /* 2. EL LOGO: Este bloque es el único negro */
 .brand {
+    /* Mantenemos lo que ya tienes, pero añadimos estas 3 líneas clave: */
+    display: inline-flex;    /* Cambia flex por inline-flex para que solo mida lo que mide el logo */
+    width: auto;             /* Asegúrate de que no tenga width: 100% o width: 100vw */
+    flex-grow: 0;            /* Prohíbe que el bloque crezca para llenar el espacio */
+    
     position: relative;
     background: #000000;
-    height: 100%; /* Ocupa toda la altura de la barra */
+    height: 100%;
     padding: 0 40px 0 20px;
-    display: flex;
     align-items: center;
     text-decoration: none;
-    flex-shrink: 0; /* Evita que se encoja */
     z-index: 10;
 }
 
-/* 3. EL CORTE: El triángulo negro que sobra */
+/* El corte diagonal (triángulo) */
 .brand::after {
     content: "";
     position: absolute;
     top: 0;
-    right: -30px; /* Ajusta esto para que el triángulo no sea tan largo */
-    width: 60px;
+    right: -30px; /* Si la franja negra aún se ve muy larga, reduce este número a -20px */
+    width: 60px;  /* Y reduce este a 40px */
     height: 100%;
     background: #000000;
     transform: skewX(-20deg);
-    z-index: -1; /* Se dibuja detrás del logo pero sobre el fondo blanco */
+    z-index: -1;
 }
 
 .brand img {
