@@ -61,6 +61,37 @@
     .brand img{height:40px;width:auto}
     .veon-logo{filter:none}
 
+    /* Contenedor del logo con fondo oscuro */
+.brand {
+    position: relative;
+    background: #111111; /* Negro profundo */
+    padding: 10px 40px 10px 32px; /* Espacio extra a la derecha para el corte */
+    margin-left: -32px; /* Compensa el padding de .topbarInner para pegarse al borde izquierdo */
+    display: flex;
+    align-items: center;
+    z-index: 1;
+}
+
+/* El efecto de corte diagonal (Slant) */
+.brand::after {
+    content: "";
+    position: absolute;
+    top: 0;
+    right: -20px; /* El ancho de la inclinación */
+    width: 40px;
+    height: 100%;
+    background: #111111;
+    transform: skewX(-20deg); /* Inclinación hacia la derecha */
+    z-index: -1; /* Se coloca detrás del contenido del logo */
+}
+
+/* Ajuste del logo para que resalte */
+.brand img {
+    height: 45px; /* Un poco más grande para que se aprecie mejor */
+    width: auto;
+    filter: brightness(0) invert(1); /* OPCIONAL: Si tu logo es negro, esto lo vuelve blanco */
+}
+
     /* NAV LINKS */
     .nav{display:flex;align-items:center;gap:26px}
     .nav a{
