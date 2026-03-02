@@ -48,48 +48,50 @@ CSS
 .topbar {
     position: fixed;
     top: 0; left: 0; right: 0;
-    background: #ffffff; /* Fondo general blanco */
+    background: #ffffff;
     border-bottom: 4px solid var(--orange);
     z-index: 1000;
-    height: 120px; /* Altura para el logo de 90px */
+    height: 120px;
     display: flex;
-    justify-content: flex-start; /* Alinea el contenido a la izquierda */
-    align-items: stretch;
-    padding: 0; /* Sin padding general */
+    align-items: center;
+    justify-content: space-between; /* Separa el logo a la izq y nav a la der */
+    padding: 0; 
 }
 
-/* El bloque negro del logo */
+/* BRAND: Bloque negro limitado */
 .brand {
     position: relative;
-    background: #000000; /* Fondo negro */
+    background: #000000;
     height: 100%;
-    padding: 0 60px 0 40px; /* Padding para el logo */
+    /* El ancho se ajusta al contenido del logo + padding */
+    padding: 0 40px 0 30px; 
     display: flex;
     align-items: center;
     text-decoration: none;
-    flex-shrink: 0; /* Evita que el bloque negro se encoja */
-    margin-right: auto; /* Empuja el menú hacia la derecha */
+    
+    /* ESTO ES CLAVE: evita que crezca de más */
+    flex-grow: 0; 
+    flex-shrink: 0;
 }
 
-/* El corte diagonal ajustado */
+/* El corte diagonal: ahora lo hacemos más corto */
 .brand::after {
     content: "";
     position: absolute;
     top: 0;
-    right: -30px; /* Menor ancho para que la diagonal sea sutil y no invada */
+    right: -30px; /* Sale del borde derecho del bloque negro */
     width: 60px;
     height: 100%;
     background: #000000;
-    transform: skewX(-15deg); /* Inclinación sutil */
-    z-index: 1;
+    transform: skewX(-20deg);
+    z-index: -1; /* Se mete detrás del logo pero queda sobre el fondo blanco de la topbar */
 }
 
 .brand img {
+    height: 90px;
+    width: auto;
     position: relative;
     z-index: 2;
-    height: 90px; /* Tu tamaño deseado */
-    width: auto;
-    object-fit: contain;
 }
 /* NAV: Alineación de los textos con la nueva altura */
 
